@@ -8,6 +8,7 @@ namespace DotNetDynamosV2
 {
     internal class LoginSystem : ILogin
     {
+        //Finns det en anledning till varför vi inte använder loggedInUser som returnerat värde i andra metoder här? /N
         public User Login()
         {
             User loggedInCustomer = null;
