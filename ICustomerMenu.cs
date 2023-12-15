@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
-    internal interface ILogin
+    internal interface ICustomerMenu
     {
-        User Login();
+        void Meny(Customer loggedInCustomer);
     }
 }

@@ -19,10 +19,10 @@ namespace DotNetDynamosV2
         //};
         //customer.TransactionHistory.Add(transaction);
 
-        public static void ShowTransactionHistory(User loggedInUser)
+        public static void ShowTransactionHistory(Customer loggedInCustomer)
         {
             Console.Clear();
-            if (loggedInUser is Customer customer)
+            if (loggedInCustomer is Customer customer)
             {
                 Console.WriteLine("Show history");
                 foreach (Transaction transaction in customer.TransactionHistory)

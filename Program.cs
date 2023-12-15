@@ -15,7 +15,7 @@
             //CustomerManager customerManager = new CustomerManager(loginSystem);
             //customerManager.Meny(loggedInUser); // Skicka med den inloggade användaren
 
-            AccountManagementSystem.Assign();
+            Starting_screen.StartProgram();
         }
     }
 }

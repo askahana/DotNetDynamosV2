@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
-    internal class AdminLogin : ILogin
+    /// <summary>
+    /// Ändrat alla referenser från User till Admin samt ändrat userList till adminList. 
+    /// Även ändrat så att den ärver av interface IAdminLogin istället. /N
+    /// 2023-12-15
+    /// </summary>
+    internal class AdminLogin : IAdminLogin
     {
-        //Finns det en anledning till varför vi inte använder loggedInUser som returnerat värde i andra metoder här? /N
         public Admin Login()
         {
-            User loggedInAdmin = null;
+            Admin loggedInAdmin = null;
             int loginAttempts = 0;
             int maxLoginAttempts = 3; // Assuming a maximum of 3 login attempts
 
@@ -20,17 +24,17 @@ namespace DotNetDynamosV2
                 Console.WriteLine("Username:");
                 string enteredName = Console.ReadLine();
                 // Validate if the entered username exists in CustomerUsers dictionary
-                if (DataManager.userList.ContainsKey(enteredName))
+                if (DataManager.adminList.ContainsKey(enteredName))
                 {
                     Console.WriteLine("Password:");
                     string enteredPassword = Validator.GetValidString();
                     // Perform password validation here
-                    if (ValidateCustomerPassword(enteredName, enteredPassword)) // Example password validation
+                    if (ValidateAdminPassword(enteredName, enteredPassword)) // Example password validation
                     {
                         Console.Clear();
                         Console.WriteLine("Welcome, " + enteredName + "!");
                         // Further actions after successful login can be added here
-                        loggedInAdmin = DataManager.userList[enteredName];
+                        loggedInAdmin = DataManager.adminList[enteredName];
                     }
                     else
                     {
@@ -54,13 +58,13 @@ namespace DotNetDynamosV2
         }
 
         // Method to validate admin password
-        private bool ValidateCustomerPassword(string enteredName, string enteredPassword)
+        private bool ValidateAdminPassword(string enteredName, string enteredPassword)
         {
             // Check if the userID exists in the dictionary
-            if (DataManager.userList.ContainsKey(enteredName))
+            if (DataManager.adminList.ContainsKey(enteredName))
             {
                 // Retrieve the stored password corresponding to the userID
-                Admin storedUser = DataManager.userList[enteredName];
+                Admin storedUser = DataManager.adminList[enteredName];
                 return enteredPassword == storedUser.PassWord;
             }
             else

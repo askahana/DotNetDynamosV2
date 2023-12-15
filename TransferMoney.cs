@@ -11,15 +11,13 @@ namespace DotNetDynamosV2
         /// <summary>
         /// Nathalee:
         /// Metod för att föra över pengar till andra egna konton. 
-        /// Förbättringsförslag från mig själv inkluderar: hitta ett smidigt sätt att läsa in användaren så att det 
-        /// enkelt går att skicka tillbaka hen till menyn. 
         /// Ändra så det inte är accountnumber som används i sökfunktionen, se över om det är smidigast att lägga in en parameter i IAccounts
         /// eller att använda metoder i list för detta.
         /// Utökade failsafes för att säkerställa att det är rätt mängd pengar som förs över.
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
         /// </summary>
         /// <param name="loggedInUser"></param>
-        public static void TransferMoneyBetweenAccount(User loggedInUser) // rename
+        public static void TransferMoneyBetweenAccount(Customer loggedInUser) // Ändrat till Customer.
         {
             Account sourceAccount = null;
             Account targetAccount = null;

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
-    internal class CustomerLogin : ILogin
+    internal class CustomerLogin : ICustomerLogin
     {
         /// <summary>
         /// Ändrat att personen loggas in som Customer (klass) samt att sökfunktionen utgår ifrån den nya dictionaryn customerList /N
+        /// Ändrat så att klassen ärver från ICustomerLogin ist för ILogin. 
         /// 2023-12-15
         /// </summary>
         /// <returns></returns>

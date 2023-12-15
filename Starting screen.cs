@@ -17,12 +17,15 @@ namespace DotNetDynamosV2
             switch (selectRole)
             {
                 case 1:
-                    AdminLogin.
+                    AdminLogin adminLogin = new AdminLogin();
+                    Admin loggedInAdmin = adminLogin.Login();
                     break;
                 case 2:
+                    CustomerLogin customerLogin = new CustomerLogin();
+                    Customer loggedInCustomer = customerLogin.Login();
                     break;
                 default:
-
+                    Console.WriteLine("Invalid choice. Please enter '1' for Admin or '2' for Customer.");
                     break;
 
 
