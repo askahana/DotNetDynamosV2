@@ -19,25 +19,28 @@ namespace DotNetDynamosV2
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
         /// </summary>
         /// <param name="loggedInUser"></param>
-        public void TransferMoneyBetweenAccount(User loggedInUser) // rename
+        public static void TransferMoneyBetweenAccount(User loggedInUser) // rename
         {
             Account sourceAccount = null;
             Account targetAccount = null;
             if (loggedInUser is Customer customer)
             {
+                Console.Clear();
+                Console.WriteLine("Here are your accounts:\n");
                 foreach (Account account in customer.Accounts)
                 {
 
                     Console.WriteLine($"Account name: {account.AccountName}");
                     Console.WriteLine($"Account number:{account.AccountNumber}");
                     Console.WriteLine($"Currency:{account.Currency}");
-                    Console.WriteLine($"Balance:{account.Balance}");
+                    Console.WriteLine($"Balance:{account.Balance}\n");
                 }
-                Console.WriteLine("Which account do you want to transfer from?");
-                Console.WriteLine("Please press \"enter\" to go to meny.");
-                string intChoice = Console.ReadLine();
+
                 while (true)
                 {
+                    Console.WriteLine("Which account do you want to transfer from?");
+                    Console.WriteLine("Please press \"enter\" to go to meny.");
+                    string intChoice = Console.ReadLine();
                     int transferFrom;
                     string chooseTransferFrom = Console.ReadLine();
                     if (string.IsNullOrEmpty(chooseTransferFrom)) //Om användaren trycker på enter återgår hen till menyn./N
@@ -117,10 +120,11 @@ namespace DotNetDynamosV2
         /// Ändra så det inte är accountnumber som används i sökfunktionen, se över om det är smidigast att lägga in en parameter i IAccounts
         /// eller att använda metoder i list för detta.
         /// Utökade failsafes för att säkerställa att det är rätt mängd pengar som tas ut.
+        /// Lösenord när man tar ut?
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
         /// </summary>
         /// <param name="loggedInUser"></param>
-        public void Withdraw(User loggedInUser)
+        public static void Withdraw(User loggedInUser)
         {
             Account sourceAccount = null;
             Account targetAccount = null;
@@ -200,7 +204,7 @@ namespace DotNetDynamosV2
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
         /// </summary>
         /// <param name="loggedInUser"></param>
-        public void Deposit(User loggedInUser)
+        public static  void Deposit(User loggedInUser)
         {
             Account sourceAccount = null;
             Account targetAccount = null;
@@ -276,9 +280,10 @@ namespace DotNetDynamosV2
         /// Skapa logik för koppling till andra användare.
         /// Utökade failsafes för att säkerställa att det är rätt mängd pengar som förs över samt att de förs över till rätt person.
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
+        /// Valuta? 
         /// </summary>
         /// <param name="loggedInUser"></param>
-        public void TransferMoeneyToOthers(User loggedInUser)  // rename
+        public static void TransferMoeneyToOthers(User loggedInUser)  // rename
         {
             Account sourceAccount = null;
             Account targetAccount = null;
