@@ -28,7 +28,7 @@ namespace DotNetDynamosV2
         {
             return money / Euro;
         }
-        public static void ConvertMoney(User loggedInUser)  // Customer will do this action. So the exchange rate should be set
+        public static void ConvertMoney(Customer loggedInUser)  // Customer will do this action. So the exchange rate should be set
         {
             if (loggedInUser is Customer customer)
             {

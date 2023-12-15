@@ -8,9 +8,9 @@ namespace DotNetDynamosV2
 {
     internal class AccountManager
     {
-        public static void AddAccount(User loggedInUser)
+        public static void AddAccount(Customer loggedInUser)
         {
-            if (loggedInUser is Customer customer)
+            if (loggedInUser != null && loggedInUser is Customer customer)
             {
                 Console.WriteLine("Enter account details:");
 
@@ -36,8 +36,19 @@ namespace DotNetDynamosV2
         private static int GenerateNewAccountNumber(Customer customer)
         {
 
-            int maxAccountNumber = customer.Accounts.Count > 0 ? customer.Accounts.Max(acc => acc.AccountNumber) : 0;
-            return maxAccountNumber + 1;
+            //int maxAccountNumber = customer.Accounts.Count > 0 ? customer.Accounts.Max(acc => acc.AccountNumber) : 0;
+            //return maxAccountNumber + 1;
+            if (customer != null && customer.Accounts != null && customer.Accounts.Count > 0)
+            {
+                int maxAccountNumber = customer.Accounts.Max(acc => acc.AccountNumber);
+                return maxAccountNumber + 1;
+            }
+            else
+            {
+                return 1;
+            }
         }
     }
 }
+
+

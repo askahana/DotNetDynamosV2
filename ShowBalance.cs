@@ -8,7 +8,7 @@ namespace DotNetDynamosV2
 {
     internal class ShowBalance
     {
-        public static void ShowAccount(User loggedInUser)  // This is for User.This is almost same as ConvertManagement.ConvertMoney
+        public static void ShowAccount(Customer loggedInUser)  // This is for User.This is almost same as ConvertManagement.ConvertMoney
         {
             if (loggedInUser is Customer customer)  // If the user does not have any account yet?
             {

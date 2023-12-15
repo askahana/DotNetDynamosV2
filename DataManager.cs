@@ -8,14 +8,15 @@ namespace DotNetDynamosV2
 {
     internal class DataManager
     {
-        public static Dictionary<string, User> userList = new Dictionary<string, User>();  // Är det bättre med ID?
+        public static Dictionary<string, Customer> userList = new Dictionary<string, Customer>();
+        public static Dictionary<string, Admin> adminList = new Dictionary<string, Admin>(); // Är det bättre med ID?
         static DataManager()
         {
             Initialize();
         }
         public static void Initialize()
         {
-            User cus1 = new Customer
+            Customer cus1 = new Customer
             {
                 UserName = "User1",
                 IDNumber = 5001,
@@ -29,7 +30,7 @@ namespace DotNetDynamosV2
                         new Account(50011265, "SavingAccount", "EUR", 1234M),
                 }
             };
-            User cus2 = new Customer()
+            Customer cus2 = new Customer()
             {
                 UserName = "User2",
                 IDNumber = 5002,
@@ -43,7 +44,7 @@ namespace DotNetDynamosV2
                     new Account(23455678, "SavingAccount", "EUR", 2345M),
                 }
             };
-            User cus3 = new Customer()
+            Customer cus3 = new Customer()
             {
                 UserName = "User3",
                 IDNumber = 5003,
@@ -56,7 +57,7 @@ namespace DotNetDynamosV2
                 {
                 }
             };
-            User ad1 = new Admin()
+            Admin ad1 = new Admin()
             {
                 UserName = "Admin1",
                 IDNumber = 1001,
@@ -65,7 +66,7 @@ namespace DotNetDynamosV2
                 PassWord = "Admin!1",
             };
             userList.Add("User1", cus1);
-            userList.Add("Admin1", ad1);
+            adminList.Add("Admin1", ad1);
             userList.Add("User2", cus2);
             userList.Add("User3", cus3);
         }
