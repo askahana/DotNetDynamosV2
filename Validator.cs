@@ -54,14 +54,14 @@ namespace DotNetDynamosV2
             return choice;
         }
 
-        public static int GetValidIntOrMenu() // This goes back to meny if the user pressed enter.
+        public static int GetValidIntOrMenu(User user) // This goes back to meny if the user pressed enter.
         {
-            Customer cus = null;
+            CustomerManager cus = new CustomerManager();
             string input = Console.ReadLine();
             if (String.IsNullOrEmpty(input))
             {
-                //AccountManagementSystem.Assign();
-                return 0;
+                cus.Meny(user);
+                return -1;
             }
             else
             {
@@ -70,7 +70,7 @@ namespace DotNetDynamosV2
                 else
                 {
                     Console.WriteLine("Invalid input. Please enter integer.");
-                    return GetValidIntOrMenu();
+                    return GetValidIntOrMenu(user);
                 }
             }
         }

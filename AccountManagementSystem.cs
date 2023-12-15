@@ -12,7 +12,7 @@ namespace DotNetDynamosV2
         {
             LoginSystem log = new LoginSystem();
             User user = log.Login();
-            CustomerManager cus = new CustomerManager(log);
+            CustomerManager cus = new CustomerManager();
             AdminManager ad = new AdminManager(log);
 
             if (user is Customer)
