@@ -13,5 +13,6 @@ namespace DotNetDynamosV2
         public string Birthday { get; set; }
         public List<Account> Accounts { get; set; }
         public Customer() { }
+        public List<Transaction> TransactionHistory { get; set; }
     }
 }

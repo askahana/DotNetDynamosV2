@@ -12,7 +12,7 @@ namespace DotNetDynamosV2
         {
             LoginSystem log = new LoginSystem();
             User user = log.Login();
-            CustomerManager cus = new CustomerManager(log);
+            CustomerManager cus = new CustomerManager();
             AdminManager ad = new AdminManager(log);
 
             if (user is Customer)
@@ -25,11 +25,11 @@ namespace DotNetDynamosV2
             }
             else
             {
-                Console.WriteLine("Who are you?");
+                Environment.Exit(0);
             }
 
             // Efter att användaren har loggat in och du vet dess roll, kan du anropa RegisterCustomer här
-            RegisterNewCustomer.RegisterCustomer(log);
+            //RegisterNewCustomer.RegisterCustomer(log);
         }
         //public static void Assign2()
         //{

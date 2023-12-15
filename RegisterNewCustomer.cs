@@ -11,7 +11,7 @@ namespace DotNetDynamosV2
         public static void RegisterCustomer(LoginSystem loginSystem)
         {
             // Skapa en temporär användare för att lägga till i användarlistan
-            User newUser = new Customer();
+            Customer newUser = new Customer();
             Console.WriteLine("Welcome to User Registration!");
             // Få användarnamn från användaren
             Console.Write("Enter your username: ");
@@ -35,7 +35,8 @@ namespace DotNetDynamosV2
             // Låt användaren välja roll
             Console.Write("Choose user role (Admin or Customer): ");
             newUser.UserRole = Console.ReadLine();
-
+            newUser.Accounts = new List<Account>();
+            newUser.TransactionHistory = new List<Transaction>();
             // Antag att nextAdID är deklarerat någonstans som en statisk variabel i RegisterNewCustomer-klassen
             int nextAdID = 1;
             newUser.IDNumber = nextAdID++;
@@ -45,20 +46,20 @@ namespace DotNetDynamosV2
 
             // Visa användarinformation
 
-            if (newUser.UserRole.Equals("Admin", StringComparison.OrdinalIgnoreCase))
-            {
-                AdminManager adminManager = new AdminManager(loginSystem);
-                adminManager.Meny(newUser);
-            }
-            else if (newUser.UserRole.Equals("Customer", StringComparison.OrdinalIgnoreCase))
-            {
-                CustomerManager customerManager = new CustomerManager(loginSystem);
-                customerManager.Meny(newUser);
-            }
-            else
-            {
-                Console.WriteLine("Invalid user role. Please choose 'Admin' or 'Customer'.");
-            }
+            //if (newUser.UserRole.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    AdminManager adminManager = new AdminManager(loginSystem);
+            //    adminManager.Meny(newUser);
+            //}
+            //else if (newUser.UserRole.Equals("Customer", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    CustomerManager customerManager = new CustomerManager(loginSystem);
+            //    customerManager.Meny(newUser);
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Invalid user role. Please choose 'Admin' or 'Customer'.");
+            //}
         }
     }
 

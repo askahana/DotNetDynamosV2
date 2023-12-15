@@ -27,7 +27,8 @@ namespace DotNetDynamosV2
                 {
                         new Account(50028977, "MainAccount", "SEK", 1234M),
                         new Account(50011265, "SavingAccount", "EUR", 1234M),
-                }
+                },
+                TransactionHistory = new List<Transaction> { },
             };
             User cus2 = new Customer()
             {
@@ -41,7 +42,8 @@ namespace DotNetDynamosV2
                 {
                     new Account(12344556, "MainAccount", "SEK", 2345M),
                     new Account(23455678, "SavingAccount", "EUR", 2345M),
-                }
+                },
+                TransactionHistory = new List<Transaction> { },
             };
             User cus3 = new Customer()
             {
@@ -54,7 +56,8 @@ namespace DotNetDynamosV2
                 Birthday = "1998-01-01",
                 Accounts = new List<Account>
                 {
-                }
+                },
+                TransactionHistory = new List<Transaction> { },
             };
             User ad1 = new Admin()
             {
