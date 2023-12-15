@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//namespace DotNetDynamosV2
-//{
-//    internal interface ILogin
-//    {
-//        Customer Login();
-//    }
-//}
+namespace DotNetDynamosV2
+{
+    internal interface ILogin
+    {
+        User Login();
+    }
+}

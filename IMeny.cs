@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
-    internal class Admin : User
+    internal interface IMeny
     {
+        void Meny(User user);
     }
 }

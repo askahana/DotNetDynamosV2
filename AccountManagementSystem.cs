@@ -11,25 +11,15 @@ namespace DotNetDynamosV2
         public static void Assign()
         {
             LoginSystem log = new LoginSystem();
-            Customer user = log.Login();
+            User user = log.Login();
             CustomerManager cus = new CustomerManager(log);
+            AdminManager ad = new AdminManager(log);
 
             if (user is Customer)
             {
                 cus.Meny(user);
             }
-            else
-            {
-                Console.WriteLine("Who are you?");
-            }
-        }
-        public static void AssignAdmin()
-        {
-            LoginAdmin log = new LoginAdmin();
-            Admin user = log.Login();
-            AdminManager ad = new AdminManager(log);
-
-            if (user is Admin)
+            else if (user is Admin)
             {
                 ad.Meny(user);
             }
@@ -37,6 +27,9 @@ namespace DotNetDynamosV2
             {
                 Console.WriteLine("Who are you?");
             }
+
+            // Efter att användaren har loggat in och du vet dess roll, kan du anropa RegisterCustomer här
+            RegisterNewCustomer.RegisterCustomer(log);
         }
         //public static void Assign2()
         //{

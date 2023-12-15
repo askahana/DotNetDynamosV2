@@ -8,15 +8,15 @@ namespace DotNetDynamosV2
 {
     internal class AdminManager
     {
-        private LoginAdmin loginSystem;
-        private Admin loggedInUser;
+        private LoginSystem loginSystem;
+        private User loggedInUser;
 
-        public AdminManager(LoginAdmin loginSystem)
+        public AdminManager(LoginSystem loginSystem)
         {
             this.loginSystem = loginSystem;
         }
 
-        public void Meny(Admin user)
+        public void Meny(User user)
         {
             loggedInUser = user;
 
@@ -61,37 +61,10 @@ namespace DotNetDynamosV2
             }
         }
 
-        private static void LogOut()
+        private void LogOut()
         {
-            //Console.WriteLine("Logged out.");
-            //AccountManagementSystem.Assign();
-            bool loop = true;
-            while (loop)
-            {
-                Console.WriteLine("Vänligen ange din roll:");
-                Console.WriteLine("1.Customer");
-                Console.WriteLine("2. Admin");
-                Console.WriteLine("3. Exit");
-                int role = Convert.ToInt32(Console.ReadLine());
-
-                switch (role)
-                {
-                    case 1:
-                        Console.WriteLine("Välkommen som kund!");
-                        AccountManagementSystem.Assign();
-                        break;
-                    case 2:
-                        Console.WriteLine("Välkommen som administratör!");
-                        AccountManagementSystem.AssignAdmin();
-                        break;
-                    case 3:
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("Okänd roll. Vänligen ange antingen 'customer' eller 'admin'.");
-                        break;
-                }
-            }
+            Console.WriteLine("Logged out.");
+            AccountManagementSystem.Assign();
         }
     }
 }

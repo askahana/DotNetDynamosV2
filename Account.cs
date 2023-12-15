@@ -8,10 +8,10 @@ namespace DotNetDynamosV2
 {
     internal class Account
     {
-        public int AccountNumber;
-        public string AccountName;
-        public string Currency;
-        public decimal Balance;
+        public int AccountNumber { get; set; }
+        public string AccountName { get; set; }
+        public string Currency { get; set; }
+        public decimal Balance { get; set; }
 
         public Account(int accountnumber, string accountname, string currency, decimal balance)
         {
@@ -20,16 +20,5 @@ namespace DotNetDynamosV2
             Currency = currency;
             Balance = balance;
         }
-        public Account()
-        {
-            // Tilldela standardvärden
-            AccountNumber = 0;
-            AccountName = "Default Account";
-            Currency = "SEK";
-            Balance = 0.0m;
-        }
-
-
-
     }
 }

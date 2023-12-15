@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
-    internal class LoginSystem
+    internal class LoginSystem : ILogin
     {
-        public Customer Login()
+        public User Login()
         {
-            Customer loggedInCustomer = null;
+            User loggedInCustomer = null;
             int loginAttempts = 0;
             int maxLoginAttempts = 3; // Assuming a maximum of 3 login attempts
 
@@ -52,7 +52,6 @@ namespace DotNetDynamosV2
 
         }
 
-
         // Method to validate admin password
         private bool ValidateCustomerPassword(string enteredName, string enteredPassword)
         {
@@ -60,7 +59,7 @@ namespace DotNetDynamosV2
             if (DataManager.userList.ContainsKey(enteredName))
             {
                 // Retrieve the stored password corresponding to the userID
-                Customer storedUser = DataManager.userList[enteredName];
+                User storedUser = DataManager.userList[enteredName];
                 return enteredPassword == storedUser.PassWord;
             }
             else

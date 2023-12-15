@@ -9,14 +9,14 @@ namespace DotNetDynamosV2
     internal class CustomerManager
     {
         private LoginSystem loginSystem;
-        private Customer loggedInUser;
+        private User loggedInUser;
 
         public CustomerManager(LoginSystem loginSystem)
         {
             this.loginSystem = loginSystem;
         }
 
-        public void Meny(Customer user)
+        public void Meny(User user)
         {
             loggedInUser = user;
 
@@ -50,7 +50,6 @@ namespace DotNetDynamosV2
                     case 7:
                         Console.WriteLine("Logging out.");
                         LogOut();
-                  
                         break;
                     default:
                         Console.Clear();
@@ -60,37 +59,10 @@ namespace DotNetDynamosV2
                 }
             }
         }
-        public static void LogOut()
+        private void LogOut()
         {
-            bool loop = true;
-            while (loop)
-            {
-                Console.WriteLine("Vänligen ange din roll:");
-                Console.WriteLine("1.Customer");
-                Console.WriteLine("2. Admin");
-                Console.WriteLine("3. Exit");
-                int role = Convert.ToInt32(Console.ReadLine());
-
-                switch (role)
-                {
-                    case 1:
-                        Console.WriteLine("Välkommen som kund!");
-                        AccountManagementSystem.Assign();
-                        break;
-                    case 2:
-                        Console.WriteLine("Välkommen som administratör!");
-                        AccountManagementSystem.AssignAdmin();
-                        break;
-                    case 3:
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("Okänd roll. Vänligen ange antingen 'customer' eller 'admin'.");
-                        break;
-                }
-            }
-            //Console.WriteLine("Logged out.");
-            //AccountManagementSystem.Assign();
+            Console.WriteLine("Logged out.");
+            AccountManagementSystem.Assign();
         }
         public static int GetMenuChoice()
         {

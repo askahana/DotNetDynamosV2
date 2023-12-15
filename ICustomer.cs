@@ -8,18 +8,8 @@ namespace DotNetDynamosV2
 {
     internal interface ICustomer
     {
-        public string UserName { get; set; }
-        public string PassWord { get; set; }
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int IDNumber { get; set; }
-        public string UserRole { get; set; }
         string Email { get; set; }
         string Birthday { get; set; }
         List<Account> Accounts { get; set; }
     }
 }
-
-
-
