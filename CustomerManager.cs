@@ -15,7 +15,11 @@ namespace DotNetDynamosV2
         {
             this.loginSystem = loginSystem;
         }
-        public void Meny(User user)
+
+
+
+        public void Meny(User user) //Vi skulle kunna hämta information direkt från LoginSystem här kanske? 
+
         {
             loggedInUser = user;
 
