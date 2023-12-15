@@ -122,11 +122,11 @@ namespace DotNetDynamosV2
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
         /// </summary>
         /// <param name="loggedInUser"></param>
-        public static void Withdraw(User loggedInUser)
+        public static void Withdraw(Customer loggedInCustomer)
         {
             Account sourceAccount = null;
             Account targetAccount = null;
-            if (loggedInUser is Customer customer)
+            if (loggedInCustomer is Customer customer)
             {
                 foreach (Account account in customer.Accounts)
                 {
@@ -202,11 +202,11 @@ namespace DotNetDynamosV2
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
         /// </summary>
         /// <param name="loggedInUser"></param>
-        public static  void Deposit(User loggedInUser)
+        public static  void Deposit(Customer loggedInCustomer)
         {
             Account sourceAccount = null;
             Account targetAccount = null;
-            if (loggedInUser is Customer customer)
+            if (loggedInCustomer is Customer customer)
             {
                 foreach (Account account in customer.Accounts)
                 {
@@ -281,11 +281,11 @@ namespace DotNetDynamosV2
         /// Valuta? 
         /// </summary>
         /// <param name="loggedInUser"></param>
-        public static void TransferMoeneyToOthers(User loggedInUser)  // rename
+        public static void TransferMoeneyToOthers(Customer loggedInCustomer)  // rename
         {
             Account sourceAccount = null;
             Account targetAccount = null;
-            if (loggedInUser is Customer customer)
+            if (loggedInCustomer is Customer customer)
             {
                 foreach (Account account in customer.Accounts)
                 {

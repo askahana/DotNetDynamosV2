@@ -32,7 +32,7 @@ namespace DotNetDynamosV2
                         Console.ReadKey();
                         break;
                     case 3:
-                        ShowAllCustomer.ShowAllInfo();
+                        //ShowAllCustomer.ShowAllInfo(loggedInAdmin);
                         break;
                     case 4:
                         Console.WriteLine("Out of order.");

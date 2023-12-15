@@ -10,6 +10,7 @@ namespace DotNetDynamosV2
     {
         /// <summary>
         /// Ändrat parameter till loggedInCustomer.
+        /// Ändrat logoutmetod så den går tillbaka till Start. 
         /// </summary>
         /// <param name="loggedInCustomer"></param>
         public void Menu(Customer loggedInCustomer) //Vi skulle kunna hämta information direkt från LoginSystem här kanske? 
@@ -58,7 +59,7 @@ namespace DotNetDynamosV2
         private void LogOut()
         {
             Console.WriteLine("Logged out.");
-            AccountManagementSystem.Assign();
+            Starting_screen.StartProgram();
         }
         public static int GetMenuChoice()
         {
