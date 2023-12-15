@@ -9,6 +9,15 @@ namespace DotNetDynamosV2
 {
     internal class TestAska
     {
+
+        public static void GetValidAmount(Account account, decimal money)
+        {
+            if(money > account.Balance * 5)
+            {
+                Console.WriteLine("NEJ!!!");
+            }
+        }
+
         public static void TransferMoneyBetweenAccount(User loggedInUser) // rename
         {
             Account sourceAccount = null;
