@@ -8,10 +8,10 @@ namespace DotNetDynamosV2
 {
     internal class AdminManager
     {
-        private LoginSystem loginSystem;
+        private AdminLogin loginSystem;
         private User loggedInUser;
 
-        public AdminManager(LoginSystem loginSystem)
+        public AdminManager(AdminLogin loginSystem)
         {
             this.loginSystem = loginSystem;
         }

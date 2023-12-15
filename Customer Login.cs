@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
-    internal class LoginSystem : ILogin
+    internal class CustomerLogin : ILogin
     {
-        //Finns det en anledning till varför vi inte använder loggedInUser som returnerat värde i andra metoder här? /N
-        public User Login()
+        /// <summary>
+        /// Ändrat att personen loggas in som Customer (klass) samt att sökfunktionen utgår ifrån den nya dictionaryn customerList /N
+        /// 2023-12-15
+        /// </summary>
+        /// <returns></returns>
+        public Customer Login()
         {
-            User loggedInCustomer = null;
+            Customer loggedInCustomer = null;
             int loginAttempts = 0;
             int maxLoginAttempts = 3; // Assuming a maximum of 3 login attempts
 
@@ -20,7 +24,7 @@ namespace DotNetDynamosV2
                 Console.WriteLine("Username:");
                 string enteredName = Console.ReadLine();
                 // Validate if the entered username exists in CustomerUsers dictionary
-                if (DataManager.userList.ContainsKey(enteredName))
+                if (DataManager.customerList.ContainsKey(enteredName))
                 {
                     Console.WriteLine("Password:");
                     string enteredPassword = Validator.GetValidString();
@@ -30,7 +34,7 @@ namespace DotNetDynamosV2
                         Console.Clear();
                         Console.WriteLine("Welcome, " + enteredName + "!");
                         // Further actions after successful login can be added here
-                        loggedInCustomer = DataManager.userList[enteredName];
+                        loggedInCustomer = DataManager.customerList[enteredName];
                     }
                     else
                     {
@@ -53,14 +57,22 @@ namespace DotNetDynamosV2
 
         }
 
-        // Method to validate admin password
+        /// <summary>
+        /// Method to validate customer password.
+        /// Ändrat att sökfunktionen utgår ifrån den nya dictionaryn customerList /N
+        /// 2023-12-15
+        /// </summary>
+        /// <param name="enteredName"></param>
+        /// <param name="enteredPassword"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         private bool ValidateCustomerPassword(string enteredName, string enteredPassword)
         {
             // Check if the userID exists in the dictionary
-            if (DataManager.userList.ContainsKey(enteredName))
+            if (DataManager.customerList.ContainsKey(enteredName))
             {
                 // Retrieve the stored password corresponding to the userID
-                User storedUser = DataManager.userList[enteredName];
+                Customer storedUser = DataManager.customerList[enteredName];
                 return enteredPassword == storedUser.PassWord;
             }
             else

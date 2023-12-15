@@ -10,7 +10,7 @@ namespace DotNetDynamosV2
     {
         public static void Assign()
         {
-            LoginSystem log = new LoginSystem();
+            AdminLogin log = new AdminLogin();
             User user = log.Login();
             CustomerManager cus = new CustomerManager();
             AdminManager ad = new AdminManager(log);
