@@ -15,7 +15,6 @@ namespace DotNetDynamosV2
         {
             this.loginSystem = loginSystem;
         }
-
         public void Meny(User user)
         {
             loggedInUser = user;
@@ -43,8 +42,8 @@ namespace DotNetDynamosV2
                     case 5:
                         Converter.ConvertMoney(loggedInUser);
                         break;
-                    case 6:
-                        Console.WriteLine("Out of order.");
+                    case 6: // Account history
+                        Transaction.ShowTransactionHistory(loggedInUser);
                         Console.ReadKey();
                         break;
                     case 7:
