@@ -29,8 +29,7 @@ namespace DotNetDynamosV2
                         ShowBalance.ShowAccount(loggedInUser);
                         break;
                     case 2:
-                        Console.WriteLine("Out of order.");
-                        Console.ReadKey();
+                        TransferMoney.TransferMoneyBetweenAccount(loggedInUser);
                         break;
                     case 3:
                         Console.WriteLine("Out of order.");
@@ -53,7 +52,7 @@ namespace DotNetDynamosV2
                         break;
                     default:
                         Console.Clear();
-                        Console.WriteLine("Insert mellan 1-7.");
+                        Console.WriteLine("Insert mellan 1-7.");  //Rätta meddelande (låg prio)
                         Console.ReadKey();
                         break;
                 }
