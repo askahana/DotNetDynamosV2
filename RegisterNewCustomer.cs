@@ -35,12 +35,13 @@ namespace DotNetDynamosV2
             // Låt användaren välja roll
             Console.Write("Choose user role (Admin or Customer): ");
             newUser.UserRole = Console.ReadLine();
+            Console.WriteLine("Hej");
             newUser.Accounts = new List<Account>();
             newUser.TransactionHistory = new List<Transaction>();
             // Antag att nextAdID är deklarerat någonstans som en statisk variabel i RegisterNewCustomer-klassen
             int nextAdID = 1;
             newUser.IDNumber = nextAdID++;
-
+           
             // Lägg till den nya användaren i userList (dictionary)
             DataManager.userList.Add(newUser.UserName, newUser);
 
