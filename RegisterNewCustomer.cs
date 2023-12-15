@@ -62,7 +62,7 @@ namespace DotNetDynamosV2
             // Antag att nextAdID är deklarerat någonstans som en statisk variabel i RegisterNewCustomer-klassen
             int nextAdID = 1;
             newUser.IDNumber = nextAdID++;
-
+           
             // Lägg till den nya användaren i userList (dictionary)
             DataManager.userList.Add(newUser.UserName, newUser);
 
