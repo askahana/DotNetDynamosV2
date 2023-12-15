@@ -25,11 +25,11 @@ namespace DotNetDynamosV2
             }
             else
             {
-                Console.WriteLine("Who are you?");
+                Environment.Exit(0);
             }
 
             // Efter att användaren har loggat in och du vet dess roll, kan du anropa RegisterCustomer här
-            RegisterNewCustomer.RegisterCustomer(log);
+            //RegisterNewCustomer.RegisterCustomer(log);
         }
         //public static void Assign2()
         //{
