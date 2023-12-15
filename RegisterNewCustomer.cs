@@ -11,7 +11,7 @@ namespace DotNetDynamosV2
         public static void RegisterCustomer(LoginSystem loginSystem)
         {
             // Skapa en temporär användare för att lägga till i användarlistan
-            User newUser = new Customer();
+            Customer newUser = new Customer();
             Console.WriteLine("Welcome to User Registration!");
             // Få användarnamn från användaren
             Console.Write("Enter your username: ");
@@ -36,7 +36,8 @@ namespace DotNetDynamosV2
             Console.Write("Choose user role:\n");
             Console.Write("1. Admin\n");
             Console.Write("2. Customer\n");
-
+            newUser.Accounts = new List<Account>();
+            newUser.TransactionHistory = new List<Transaction>();
             string roleChoice = Console.ReadLine();
 
             if (int.TryParse(roleChoice, out int roleNumber))
