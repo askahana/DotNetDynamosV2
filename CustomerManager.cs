@@ -8,20 +8,19 @@ namespace DotNetDynamosV2
 {
     internal class CustomerManager
     {
-        private LoginSystem loginSystem;
-        private User loggedInUser;
+        //private LoginSystem loginSystem;
+        //private User loggedInUser;
 
-        public CustomerManager(LoginSystem loginSystem)
-        {
-            this.loginSystem = loginSystem;
-        }
+        //public CustomerManager(LoginSystem loginSystem)
+        //{
+        //    this.loginSystem = loginSystem;
+        //}
 
 
 
         public void Meny(User user) //Vi skulle kunna hämta information direkt från LoginSystem här kanske? 
-
         {
-            loggedInUser = user;
+            //loggedInUser = user;
 
             bool go = true;
             while (go)
@@ -29,10 +28,10 @@ namespace DotNetDynamosV2
                 switch (GetMenuChoice())
                 {
                     case 1:
-                        ShowBalance.ShowAccount(loggedInUser);
+                        ShowBalance.ShowAccount(user);
                         break;
                     case 2:
-                        Console.WriteLine("Out of order.");
+                        //TransferMoney.TransferMoneyBetweenAccount(user);
                         Console.ReadKey();
                         break;
                     case 3:
@@ -40,14 +39,14 @@ namespace DotNetDynamosV2
                         Console.ReadKey();
                         break;
                     case 4:
-                        AccountManager.AddAccount(loggedInUser);
+                        AccountManager.AddAccount(user);
                         Console.ReadKey();
                         break;
                     case 5:
-                        Converter.ConvertMoney(loggedInUser);
+                        Console.WriteLine("Out of order.");
                         break;
                     case 6: // Account history
-                        Transaction.ShowTransactionHistory(loggedInUser);
+                        Transaction.ShowTransactionHistory(user);
                         Console.ReadKey();
                         break;
                     case 7:

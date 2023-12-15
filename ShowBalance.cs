@@ -41,7 +41,7 @@ namespace DotNetDynamosV2
             Console.WriteLine($"Balance for Account {selectedAccount.AccountNumber} ({selectedAccount.AccountName}): {selectedAccount.Balance}");
 
         }
-        private static void ShowAllAccounts(Customer customer)
+        public static void ShowAllAccounts(Customer customer)
         {
             Console.WriteLine("Showing balances for all accounts:");
             foreach (Account account in customer.Accounts)

@@ -11,7 +11,7 @@ namespace DotNetDynamosV2
         public string TransactionType { get; set; }
         public decimal Amount { get; set; }
         public DateTime Timestamp { get; set; }        
-        //Transaction transaction = new Transaction
+        //Transaction transaction = new Transaction   // Lägga till den här där du vill ha transaction.
         //{
         //    TransactionType = "Checked money in different curency",
         //    Amount = 0,

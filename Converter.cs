@@ -37,78 +37,107 @@ namespace DotNetDynamosV2
         }
         public static void ShowCurrencyRate()
         {
-
+            Console.WriteLine($"Today's currency rate againt 1 SEK: Euro {Euro}  ");
         }
-        public static void Show(User loggedInUser)
+        public static decimal ConvertMoney(Account selectedAccount, Account targetAccount, decimal amount)  // Customer will do this action. So the exchange rate should be set
         {
-            if (loggedInUser is Customer customer)
-            {
-                Console.Clear();
-                
-            }
-        }
-        public static void ConvertMoney(User loggedInUser)  // Customer will do this action. So the exchange rate should be set
-        {
-            if (loggedInUser is Customer customer)
-            {
-                Console.Clear();
-                Account selectedAccount = ShowSpecificAccount(customer);
-               string currency = selectedAccount.Currency;
-                switch (GetCurrencyChoice())
-                {
-                    case 1: // SEK
-                        Console.WriteLine("1. SEK");
-                        if (currency == "SEK")
-                            Console.WriteLine("You have balance in SEK already.");
-                        else if (currency == "EUR")
-                            Console.WriteLine("It would be " + FromEurToSek(selectedAccount.Balance) + " in SEK.");
-                        else if (currency == "YEN")
-                            Console.WriteLine("It would be " + Math.Round(FromYenToSek(selectedAccount.Balance), 2) + " in SEK");
-                        break;
-                    case 2: // EUR
-                        Console.WriteLine("2. EUR");
-                        if (currency == "EUR")
-                            Console.WriteLine("You have balance in EUR already.");
-                        else if (currency == "SEK")
-                            Console.WriteLine(FromSekToEur(selectedAccount.Balance) + " in Euro");
-                        else if (currency == "YEN")
-                        {
-                            decimal money = FromYenToSek(selectedAccount.Balance);
-                            Console.WriteLine(money + "SEK");
-                            Console.WriteLine(Math.Round(FromSekToEur(money), 2) + "in Euro");
-                        }
-                        break;
-                    case 3: // YEN
-                        Console.WriteLine("3. YEN");
-                        if (currency == "YEN")
-                            Console.WriteLine("You have balance in YEN already.");
-                        else if (currency == "SEK")
-                            Console.WriteLine(FromSekToYen(selectedAccount.Balance) + " in yen");
-                        else if (currency == "EUR")
-                        {
-                            decimal money = FromEurToSek(selectedAccount.Balance);
-                            Console.WriteLine(Math.Round(FromSekToYen(money), 2) + " in yen");
-                        }
-                            Console.WriteLine();
-                        break;
-                    default:
-                        Console.WriteLine("Sorry, we do not have that choice. You will be directed to the menu.");
-                        return;
-                        break;
-                }
-                Transaction transaction = new Transaction
-                {
-                    TransactionType = "Checked money in different curency",
-                    Amount = 0,
-                    Timestamp = DateTime.Now
-                };
-                customer.TransactionHistory.Add(transaction);
-                
-                Console.WriteLine("Press enter to return to the menu.");
-                Console.ReadKey();
-            }
             Console.Clear();
+            string currency1 = selectedAccount.Currency;
+            string currency2 = targetAccount.Currency; 
+            decimal money;
+            switch (currency1)
+            {
+                case "SEK":
+                    if (currency2 == "SEK")
+                        return amount;
+                    else if (currency2 == "EUR")
+                        return FromSekToEur(amount);
+                    else if (currency2 == "YEN")
+                        return FromSekToYen(amount);
+                    break;
+                case "EUR":
+                    if (currency2 == "EUR")
+                        return amount;
+                    else if (currency2 == "SEK")
+                        return FromEurToSek(amount);
+                    else if (currency2 == "YEN")
+                    {
+                        money = FromEurToSek(amount);
+                        money = Math.Round(FromSekToYen(money), 2);
+                        return money;
+                    }
+                    break;
+                case "YEN":
+                    if (currency2 == "YEN")
+                        return amount;
+                    else if (currency2 == "SEK")
+                        return Math.Round(FromYenToSek(amount), 2);
+                    else if (currency2 == "EUR")
+                    {
+                        money = FromYenToSek(amount);
+                        money = Math.Round(FromSekToEur(money), 2);
+                        return money;
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Sorry, we do not have that choice. You will be directed to the menu.");
+                    return 0;
+                    break;
+            }
+            return 0;
+            Console.ReadKey();
         }
+        //public static void ConvertMoney(User user)  // Customer will do this action. So the exchange rate should be set
+        //{
+        //    if(user is Customer customer) 
+        //    { 
+        //        Account selectedAccount= ShowSpecificAccount(customer);
+        //    string currency = selectedAccount.Currency;
+        //    switch (GetCurrencyChoice())
+        //    {
+        //        case 1: // SEK
+        //            Console.WriteLine("1. SEK");
+        //            if (currency == "SEK")
+        //                Console.WriteLine("You have balance in SEK already.");
+        //            else if (currency == "EUR")
+        //                Console.WriteLine("It would be " + FromEurToSek(selectedAccount.Balance) + " in SEK.");
+        //            else if (currency == "YEN")
+        //                Console.WriteLine("It would be " + Math.Round(FromYenToSek(selectedAccount.Balance), 2) + " in SEK");
+        //            break;
+        //        case 2: // EUR
+        //            Console.WriteLine("2. EUR");
+        //            if (currency == "EUR")
+        //                Console.WriteLine("You have balance in EUR already.");
+        //            else if (currency == "SEK")
+        //                Console.WriteLine("It would be " + FromSekToEur(selectedAccount.Balance) + " in Euro");
+        //            else if (currency == "YEN")
+        //            {
+        //                decimal money = FromYenToSek(selectedAccount.Balance);
+        //                Console.WriteLine(money + "SEK");
+        //                Console.WriteLine("It would be " + Math.Round(FromSekToEur(money), 2) + "in Euro");
+        //            }
+        //            break;
+        //        case 3: // YEN
+        //            Console.WriteLine("3. YEN");
+        //            if (currency == "YEN")
+        //                Console.WriteLine("You have balance in YEN already.");
+        //            else if (currency == "SEK")
+        //                Console.WriteLine("It would be " + FromSekToYen(selectedAccount.Balance) + " in yen");
+        //            else if (currency == "EUR")
+        //            {
+        //                decimal money = FromEurToSek(selectedAccount.Balance);
+        //                Console.WriteLine("It would be " + Math.Round(FromSekToYen(money), 2) + " in yen");
+        //            }
+        //            Console.WriteLine();
+        //            break;
+        //        default:
+        //            Console.WriteLine("Sorry, we do not have that choice. You will be directed to the menu.");
+        //            return;
+        //            break;
+        //    }
+        //    }
+
+        //}
         private static Account ShowSpecificAccount(Customer customer)
         {
             Console.WriteLine("Choose an account to view the balance:");
@@ -128,7 +157,7 @@ namespace DotNetDynamosV2
         }
         private static int GetCurrencyChoice()
         {
-            Console.WriteLine("Choose currency to view the balance: ");
+            Console.WriteLine("Choose currency: ");
             string currency1 = "1. SEK";
             string currency2 = "2. EUR";
             string currency3 = "3. YEN";
@@ -136,6 +165,6 @@ namespace DotNetDynamosV2
             int currencyChoice = Validator.GetValidInt();
             return currencyChoice;
         }
-       
     }
+
 }
