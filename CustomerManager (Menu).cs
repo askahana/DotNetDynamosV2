@@ -11,12 +11,11 @@ namespace DotNetDynamosV2
         /// <summary>
         /// Ändrat parameter till loggedInCustomer.
         /// Ändrat logoutmetod så den går tillbaka till Start. 
+        /// Ändrat metod till static.
         /// </summary>
         /// <param name="loggedInCustomer"></param>
-        public void Menu(Customer loggedInCustomer) //Vi skulle kunna hämta information direkt från LoginSystem här kanske? 
+        public static void Menu(Customer loggedInCustomer) //Vi skulle kunna hämta information direkt från LoginSystem här kanske? 
         {
-            //loggedInUser = user;
-
             bool go = true;
             while (go)
             {
@@ -56,7 +55,7 @@ namespace DotNetDynamosV2
                 }
             }
         }
-        private void LogOut()
+        private static void LogOut()
         {
             Console.WriteLine("Logged out.");
             Starting_screen.StartProgram();

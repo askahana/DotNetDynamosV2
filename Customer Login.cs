@@ -34,8 +34,8 @@ namespace DotNetDynamosV2
                     {
                         Console.Clear();
                         Console.WriteLine("Welcome, " + enteredName + "!");
-                        // Further actions after successful login can be added here
                         loggedInCustomer = DataManager.customerList[enteredName];
+                        CustomerManager.Menu(loggedInCustomer);
                     }
                     else
                     {

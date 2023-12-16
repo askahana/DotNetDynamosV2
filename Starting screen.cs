@@ -12,17 +12,17 @@ namespace DotNetDynamosV2
         public static void StartProgram()
         {
             Console.WriteLine("Welcome to BANK");
-            Console.WriteLine("Select you role:");
+            Console.WriteLine("1. Log in a as Admin.\n2. Log in as Customer.");
             int selectRole = Convert.ToInt32(Console.ReadLine());
             switch (selectRole)
             {
                 case 1:
                     AdminLogin adminLogin = new AdminLogin();
-                    Admin loggedInAdmin = adminLogin.Login();
+                    adminLogin.Login();
                     break;
                 case 2:
                     CustomerLogin customerLogin = new CustomerLogin();
-                    Customer loggedInCustomer = customerLogin.Login();
+                    customerLogin.Login();
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Please enter '1' for Admin or '2' for Customer.");

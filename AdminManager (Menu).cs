@@ -8,8 +8,12 @@ namespace DotNetDynamosV2
 {
     internal class AdminManager
     {
-
-        public void Menu(Admin loggedInAdmin)
+        /// <summary>
+        /// Ändrat menyn till static så att vi kan anropa den i andra klasser utan att skapa en ny instans. /N
+        /// 2021-12-16
+        /// </summary>
+        /// <param name="loggedInAdmin"></param>
+        public static void Menu(Admin loggedInAdmin)
         {
             bool go = true;
             while (go)
@@ -25,7 +29,7 @@ namespace DotNetDynamosV2
                 switch (svar)
                 {
                     case 1:
-                        RegisterNewCustomer.RegisterCustomer(loggedInAdmin);
+                        RegisterUser.Register(loggedInAdmin);
                         break;
                     case 2:
                         Console.WriteLine("Out of order.");
@@ -54,7 +58,7 @@ namespace DotNetDynamosV2
         /// <summary>
         /// Ändrat så att det går tillbaka till Start.
         /// </summary>
-        private void LogOut()
+        private static void LogOut()
         {
             Console.WriteLine("Logged out.");
             Starting_screen.StartProgram();

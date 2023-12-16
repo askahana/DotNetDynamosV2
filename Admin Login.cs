@@ -33,8 +33,8 @@ namespace DotNetDynamosV2
                     {
                         Console.Clear();
                         Console.WriteLine("Welcome, " + enteredName + "!");
-                        // Further actions after successful login can be added here
                         loggedInAdmin = DataManager.adminList[enteredName];
+                        AdminManager.Menu(loggedInAdmin);
                     }
                     else
                     {

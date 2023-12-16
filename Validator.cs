@@ -56,11 +56,10 @@ namespace DotNetDynamosV2
 
         public static int GetValidIntOrMenu(Customer loggedInCustomer) // This goes back to meny if the user pressed enter.
         {
-            CustomerManager cus = new CustomerManager();
             string input = Console.ReadLine();
             if (String.IsNullOrEmpty(input))
             {
-                cus.Menu(loggedInCustomer);
+                CustomerManager.Menu(loggedInCustomer);
                 return -1;
             }
             else
