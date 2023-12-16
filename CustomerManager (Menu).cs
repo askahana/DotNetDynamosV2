@@ -64,7 +64,7 @@ namespace DotNetDynamosV2
         public static int GetMenuChoice()
         {
             int choice;
-            Console.WriteLine("Customer Meny");
+            Console.WriteLine("Customer Menu");
             Console.WriteLine("1. View account and balance");
             Console.WriteLine("2. Transfer money between accounts");
             Console.WriteLine("3. Transfer money to other Customer");
