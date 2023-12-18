@@ -44,7 +44,9 @@ namespace DotNetDynamosV2
                         ShowAllCustomer.ShowAllInfo();
                         break;
                     case 4:
-                        Console.WriteLine("Out of order.");
+                        InterestManager.DisplayInterestRates();
+                        Console.WriteLine("");
+                        InterestManager.AdminSetInterestRates();
                         Console.ReadKey();
                         break;
                     case 5:

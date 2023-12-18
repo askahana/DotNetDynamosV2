@@ -12,6 +12,8 @@ namespace DotNetDynamosV2
         public string Email { get; set; }
         public string Birthday { get; set; }
         public List<Account> Accounts { get; set; }
+        public object Loans { get; internal set; }
+
         public Customer() { }
     }
 }
