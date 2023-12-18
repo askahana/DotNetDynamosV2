@@ -3,7 +3,7 @@
 Bank is a program which simulates a simple banking software for both administrator and bank customer.
 
 Once the user starts the program, they are supposed to choose role first, administrator or customer. Then they are navigated to each login system. There are two log-in systems, one for administrator and one for customer, and the user needs to log in with their username and password.
-If the user logged in succesfully, they are directed to each menu according to their role.
+If the user logged in succesfully, they are directed to each menu according to their role. The user can do the following:
 
 As customer
 1. See their accounts
