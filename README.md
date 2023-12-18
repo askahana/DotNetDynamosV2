@@ -33,7 +33,7 @@ After finishing this part, we started other function parts such as showing all a
 * ResisterUser
 * ShowBalance
 * Converter
-  Converter-class has two fields for currency rate, one method to be able to change its rate. Four methods for converting rate between each other, and one method to use those four methods. ...and more
+  * Converter-class has two fields for currency rate, one method to be able to change its rate. Four methods for converting rate between each other, and one method to use those four methods. ...and more
 
 * Transaction
 
