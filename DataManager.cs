@@ -6,16 +6,25 @@ using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
+    /// <summary>
+    /// Ändrat från en User-dictionary till två separata dictionarys för att lagra informationen separat. /N
+    /// 2023-12-15
+    /// </summary>
     internal class DataManager
     {
-        public static Dictionary<string, User> userList = new Dictionary<string, User>();  // Är det bättre med ID?
+        public static Dictionary<string, Customer> customerList = new Dictionary<string, Customer>();  // Är det bättre med ID?
+        public static Dictionary<string, Admin> adminList = new Dictionary<string, Admin>();
         static DataManager()
         {
             Initialize();
         }
+        /// <summary>
+        /// Ändrat klasserna till Customer respektive Admin istället för User. /N
+        /// 2023-12-15
+        /// </summary>
         public static void Initialize()
         {
-            User cus1 = new Customer
+            Customer cus1 = new Customer
             {
                 UserName = "User1",
                 IDNumber = 5001,
@@ -30,7 +39,7 @@ namespace DotNetDynamosV2
                 },
                 TransactionHistory = new List<Transaction> { },
             };
-            User cus2 = new Customer()
+            Customer cus2 = new Customer()
             {
                 UserName = "User2",
                 IDNumber = 5002,
@@ -45,7 +54,7 @@ namespace DotNetDynamosV2
                 },
                 TransactionHistory = new List<Transaction> { },
             };
-            User cus3 = new Customer()
+            Customer cus3 = new Customer()
             {
                 UserName = "User3",
                 IDNumber = 5003,
@@ -59,7 +68,7 @@ namespace DotNetDynamosV2
                 },
                 TransactionHistory = new List<Transaction> { },
             };
-            User ad1 = new Admin()
+            Admin ad1 = new Admin()
             {
                 UserName = "Admin1",
                 IDNumber = 1001,
@@ -67,10 +76,10 @@ namespace DotNetDynamosV2
                 LastName = "Karssib",
                 PassWord = "Admin!1",
             };
-            userList.Add("User1", cus1);
-            userList.Add("Admin1", ad1);
-            userList.Add("User2", cus2);
-            userList.Add("User3", cus3);
+            customerList.Add("User1", cus1);
+            adminList.Add("Admin1", ad1);
+            customerList.Add("User2", cus2);
+            customerList.Add("User3", cus3);
         }
     }
 }

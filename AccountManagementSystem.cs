@@ -8,29 +8,29 @@ namespace DotNetDynamosV2
 {
     internal class AccountManagementSystem
     {
-        public static void Assign()
-        {
-            LoginSystem log = new LoginSystem();
-            User user = log.Login();
-            CustomerManager cus = new CustomerManager();
-            AdminManager ad = new AdminManager(log);
+        //public static void Assign()
+        //{
+        //    AdminLogin log = new AdminLogin();
+        //    User user = log.Login();
+        //    CustomerManager cus = new CustomerManager();
+        //    AdminManager ad = new AdminManager(log);
 
-            if (user is Customer)
-            {
-                cus.Meny(user);
-            }
-            else if (user is Admin)
-            {
-                ad.Meny(user);
-            }
-            else
-            {
-                Environment.Exit(0);
-            }
+        //    if (user is Customer)
+        //    {
+        //        cus.Meny(user);
+        //    }
+        //    else if (user is Admin)
+        //    {
+        //        ad.Meny(user);
+        //    }
+        //    else
+        //    {
+        //        Environment.Exit(0);
+        //    }
 
             // Efter att användaren har loggat in och du vet dess roll, kan du anropa RegisterCustomer här
             //RegisterNewCustomer.RegisterCustomer(log);
-        }
+        //}
         //public static void Assign2()
         //{
         //    Console.WriteLine("Choose customer or Admin."

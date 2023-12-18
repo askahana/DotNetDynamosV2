@@ -8,29 +8,34 @@ namespace DotNetDynamosV2
 {
     internal class AccountManager
     {
-        public static void AddAccount(User loggedInUser)
+        /// <summary>
+        /// Ändrat till loggedInCustomer /N
+        /// 2023-12-16
+        /// </summary>
+        /// <param name="loggedInCustomer"></param>
+        public static void AddAccount(Customer loggedInCustomer)
         {
-            if (loggedInUser is Customer customer)
-            {
-                Console.WriteLine("Enter account details:");
 
-                Console.Write("Account Name: ");
-                string accountName = Console.ReadLine();
 
-                Console.Write("Currency: ");
-                string currency = Console.ReadLine();
+            Console.WriteLine("Enter account details:");
 
-                Console.Write("Initial Balance: ");
-                decimal initialBalance = Validator.GetValidDecimal();
+            Console.Write("Account Name: ");
+            string accountName = Console.ReadLine();
 
-                int newAccountNumber = GenerateNewAccountNumber(customer);
+            Console.Write("Currency: ");
+            string currency = Console.ReadLine();
 
-                Account newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
+            Console.Write("Initial Balance: ");
+            decimal initialBalance = Validator.GetValidDecimal();
 
-                customer.Accounts.Add(newAccount);
+            int newAccountNumber = GenerateNewAccountNumber(loggedInCustomer);
 
-                Console.WriteLine($"Account '{newAccount.AccountName}' added successfully with Account Number {newAccount.AccountNumber}.");
-            }
+            Account newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
+
+            loggedInCustomer.Accounts.Add(newAccount);
+
+            Console.WriteLine($"Account '{newAccount.AccountName}' added successfully with Account Number {newAccount.AccountNumber}.");
+
         }
 
         private static int GenerateNewAccountNumber(Customer customer)
@@ -40,4 +45,37 @@ namespace DotNetDynamosV2
             return maxAccountNumber + 1;
         }
     }
+
+    //    public static void AddAccount(User loggedInUser)
+    //    {
+    //        if (loggedInUser is Customer customer)
+    //        {
+    //            Console.WriteLine("Enter account details:");
+
+    //            Console.Write("Account Name: ");
+    //            string accountName = Console.ReadLine();
+
+    //            Console.Write("Currency: ");
+    //            string currency = Console.ReadLine();
+
+    //            Console.Write("Initial Balance: ");
+    //            decimal initialBalance = Validator.GetValidDecimal();
+
+    //            int newAccountNumber = GenerateNewAccountNumber(customer);
+
+    //            Account newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
+
+    //            customer.Accounts.Add(newAccount);
+
+    //            Console.WriteLine($"Account '{newAccount.AccountName}' added successfully with Account Number {newAccount.AccountNumber}.");
+    //        }
+    //    }
+
+    //    private static int GenerateNewAccountNumber(Customer customer)
+    //    {
+
+    //        int maxAccountNumber = customer.Accounts.Count > 0 ? customer.Accounts.Max(acc => acc.AccountNumber) : 0;
+    //        return maxAccountNumber + 1;
+    //    }
+    //}
 }
