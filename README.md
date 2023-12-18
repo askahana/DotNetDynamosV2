@@ -2,7 +2,7 @@
 ## About the program
 Bank is a program which simulates a simple banking software for both administrator and bank customer.
 
-Once the user starts the program, they are supposed to choose role first and then they are navigated to each login system. There are two log-in systems, one for administrator and one for customer, and the user needs to log in with their username and password.
+Once the user starts the program, they are supposed to choose role first, administrator or customer. Then they are navigated to each login system. There are two log-in systems, one for administrator and one for customer, and the user needs to log in with their username and password.
 If the user logged in succesfully, they are directed to each menu according to their role.
 
 As customer
@@ -21,15 +21,12 @@ As administrator
 ## planning and implementation (Notion: En ReadMe-fil som innehåller en förklaring av strukturen i källkoden (grov förklaring av alla klasser, objekt m.m))
 
 This program is written in C#, and it consists of x classes and x methods. 
-Dictionary, which takes username as key and User-type, Administrator or Customer as value, was used to store all infomation about users, and it is located in the DataManager class.
+Dictionary, which takes username as key and User-type as value, was used to store all infomation about users, and it is located in the DataManager class.
 
 
 ![login](https://github.com/askahana/DotNetDynamosV2/assets/144675449/18d44490-12c9-404b-bfe3-e267bc3fba52)
 
-We started with the login method. The login method runs in a while loop, if the username and passwords are the same as one of them in the Dictionary, then it returns a value which identify each user. With this value, you can access each users accounts.
-Users have three login attempts. 
-
-
+We started with the login method. Users have three login attempts. The login method runs in a while loop, if the username and passwords are the same as one of them in the Dictionary, then it returns a value which identify each user. With this value, you can access each users accounts.
 
 After finishing this part, we started other function parts such as showing all accounts and transferring money.
 
