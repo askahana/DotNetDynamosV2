@@ -16,6 +16,7 @@ namespace DotNetDynamosV2
         /// <returns></returns>
         public Customer Login()
         {
+            AsciiHeadliner.PrintHeadliner();
             Customer loggedInCustomer = null;
             int loginAttempts = 0;
             int maxLoginAttempts = 3; // Assuming a maximum of 3 login attempts

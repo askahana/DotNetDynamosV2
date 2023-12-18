@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,8 +47,19 @@ namespace DotNetDynamosV2
             int nextAdID = 1;
             newCustomer.IDNumber = nextAdID++;
 
+            Account mainAccount = new Account()
+            {
+                AccountName = "Private Account",
+                AccountNumber = AccountManager.GenerateNewAccountNumber(newCustomer),
+                Balance = 0
+            };
+
+            newCustomer.Accounts.Add(mainAccount);
+
             // Lägg till den nya användaren i userList (dictionary)
             DataManager.customerList.Add(newCustomer.UserName, newCustomer);
+
+
 
             Console.Clear();
             Console.WriteLine($"Successfully created Customer {newCustomer.UserName}\nPress any key to return to menu.");

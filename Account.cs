@@ -19,5 +19,9 @@ namespace DotNetDynamosV2
             Currency = currency;
             Balance = balance;
         }
+        public Account() : this(1, "", "SEK", 0)
+        {
+
+        }
     }
 }

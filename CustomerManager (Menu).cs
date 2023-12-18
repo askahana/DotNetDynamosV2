@@ -22,32 +22,40 @@ namespace DotNetDynamosV2
                 switch (GetMenuChoice())
                 {
                     case 1:
+                        Console.Clear();
                         ShowBalance.ShowAccount(loggedInCustomer);
                         break;
                     case 2:
+                        Console.Clear();
                         TransferMoney.TransferMoneyBetweenAccount(loggedInCustomer);
                         Console.ReadKey();
                         break;
                     case 3:
+                        Console.Clear();
                         Console.WriteLine("Out of order.");
                         Console.ReadKey();
                         break;
                     case 4:
+                        Console.Clear();
                         AccountManager.AddAccount(loggedInCustomer);
                         Console.ReadKey();
                         break;
                     case 5:
+                        Console.Clear();
                         Console.WriteLine("Out of order.");
                         break;
                     case 6: // Account history
+                        Console.Clear();
                         Transaction.ShowTransactionHistory(loggedInCustomer);
                         Console.ReadKey();
                         break;
                     case 7:
+                        Console.Clear();
                         Console.WriteLine("Logging out.");
                         LogOut();
                         break;
                     default:
+                        Console.Clear();
                         Console.Clear();
                         Console.WriteLine("Insert mellan 1-7.");
                         Console.ReadKey();

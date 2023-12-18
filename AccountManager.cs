@@ -38,7 +38,7 @@ namespace DotNetDynamosV2
 
         }
 
-        private static int GenerateNewAccountNumber(Customer customer)
+        public static int GenerateNewAccountNumber(Customer customer)
         {
 
             int maxAccountNumber = customer.Accounts.Count > 0 ? customer.Accounts.Max(acc => acc.AccountNumber) : 0;

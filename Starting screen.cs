@@ -12,9 +12,10 @@ namespace DotNetDynamosV2
         public static void StartProgram()
         {
             AsciiHeadliner.PrintHeadliner();
-            Console.WriteLine("Welcome to BANK");
+            Console.WriteLine("Welcome to DotNetDynamos BANK");
             Console.WriteLine("1. Log in a as Admin.\n2. Log in as Customer.");
             int selectRole = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
             switch (selectRole)
             {
                 case 1:

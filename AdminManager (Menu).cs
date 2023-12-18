@@ -29,27 +29,34 @@ namespace DotNetDynamosV2
                 switch (svar)
                 {
                     case 1:
+                        Console.Clear();
                         RegisterUser.Register(loggedInAdmin);
                         break;
                     case 2:
+                        Console.Clear();
                         Console.WriteLine("Out of order.");
                         Console.ReadKey();
                         break;
                     case 3:
-                        //ShowAllCustomer.ShowAllInfo(loggedInAdmin);
+                        Console.Clear();
+                        ShowAllCustomer.ShowAllInfo(loggedInAdmin);
                         break;
                     case 4:
+                        Console.Clear();
                         Console.WriteLine("Out of order.");
                         Console.ReadKey();
                         break;
                     case 5:
+                        Console.Clear();
                         Converter.InsertRate();
                         break;
                     case 6:
+                        Console.Clear();
                         Console.WriteLine("Logging out.");
                         LogOut();
                         break;
                     default:
+                        Console.Clear();
                         Console.WriteLine("Wrong input, try again.");
                         break;
                 }

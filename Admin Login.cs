@@ -15,6 +15,7 @@ namespace DotNetDynamosV2
     {
         public Admin Login()
         {
+            AsciiHeadliner.PrintHeadliner();
             Admin loggedInAdmin = null;
             int loginAttempts = 0;
             int maxLoginAttempts = 3; // Assuming a maximum of 3 login attempts
@@ -38,12 +39,16 @@ namespace DotNetDynamosV2
                     }
                     else
                     {
+                        Console.Clear();
+                        AsciiHeadliner.PrintHeadliner();
                         loginAttempts++;
                         Console.WriteLine($"Incorrect password. You have {maxLoginAttempts - loginAttempts} attempts remaining.");
                     }
                 }
                 else
                 {
+                    Console.Clear();
+                    AsciiHeadliner.PrintHeadliner();
                     Console.WriteLine("Username not found.");
                 }
             }
