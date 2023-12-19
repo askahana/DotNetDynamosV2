@@ -22,14 +22,17 @@ As administrator
 
 This program is written in C#, and it consists of x classes, x methods and x interfaces. 
 
-intoruction sentences here...
+We initiated the project by defining fields and properties.
+
+
+
 * Customer-class
 
   This class models a customer. Customer-class, which implements ICustomer interface, has 9 propeties: UserName, PassWord, FIrstName, LastName, IDNumber, Email, Birthday, List<Account>Accounts and List <Transaction>.
   
 * Admin-class
 
-  This models a administrator. This class has five properties: UserName, PassWord, FirstName, LastName, IDNumber.
+  This repersents a administrator. This class has five properties: UserName, PassWord, FirstName, LastName, IDNumber.
 
 * Account-class
 
@@ -64,6 +67,15 @@ intoruction sentences here...
   * DisplayUserAccounts(Customer loggedInCustomer): Helper method to display a numbered list of the user's accounts.
 
 * InterestManager
+
+  This class manages interest rates for savings and loans. This contains two fields for rates.
+  
+  * SetSavingsInterestRate(decimal newRate): Sets a new interest rate for savings.
+  * SetLoanInterestRate(decimal newRate): Sets a new interest rate for loans.
+  * DisplayInterestRates(): Displays the current interest rates for savings and loans.
+  * AdminSetInterestRates(): Allows an administrator to set new interest rates for savings or loans based on user input.
+  * SavingsInterestRate(): Retrieves the current savings interest rate.
+  * GetLoanInterestRate(): Retrieves the current loan interest rate.
   
 * AccountManager
   
