@@ -24,7 +24,7 @@ This program is written in C#, and it consists of x classes, x methods and x int
 
 We initiated the project by defining fields and properties.
 
-### Property??????
+### Property
 
 * Customer-class
 
@@ -38,13 +38,13 @@ We initiated the project by defining fields and properties.
 
   This class has four properties: AccountNumber, AccountName, Currency and Balance. 
   
-* DataManager
+* DataManager-class
 
   This class is to store all infomation about users. To store all infomation, Dictionary <string, Admin> adminList and Dictionary<string, Customer> customerList were used, which takes username as key and user-type as value. Both types of users have username, ID, first name etc. For customerList there is also List<Account> Accounts and List<Transaction>TransactionHistory. See Account-class and Transaction-class for more details.
 
 ### Login
   
-* Starting screen
+* Starting screen-class
 
   This class has a StartProgram method that will be called at the very beginning when the program starts. In this method, switch-statment is used so that the user can choose role to log in.
 
@@ -83,21 +83,41 @@ After the user logged in succesfully, they are directed to each menu according t
   * GetLoanInterestRate(): Retrieves the current loan interest rate.
   
 * AccountManager
+
+  This class facilitates the process of adding new accounts for a logged-in customer. 
+  * AddAccount(): For opening new account, asks the user to input details for a new account to insert.
+  * CaluculateEarnedInterest(): Calculates the earned interest based on the provided balance and interest rate.
+  * GenerateNewAccountNumber(): Generates a new account number for the customer based on the existing account numbers.
   
 * LoanManager
+
+  This class handles the process of requesting and approving personal loans, considering the loan amount, interest rate, and account selection.
+
+  * RequestPersonalLoan() : Takes user input for the loan amount, shows the applicable loan interest rate and adds the loan amount to the selected account's balance.
+  * DisplayUserAccounts: Show users account.
+  * CaluculateTOtalBalance(): Calculates the total balance across all customer accounts.
   
 * RegisterUser
 
-  This class is for choosing whether to register an administrator or a customer.
+  This class has a method, Register(), for administrator to choose whether to register an administrator or a customer.
    
 * RegisterNewAdmin
 
-  This class has one method, RegisterAdmin. The user needs to insert username, firstname and lastname etc to register. Infomation will be stored in Dictionary <string, Admin> adminList.
+  * RegisterAdmin(Admin loggedInAdmin) : Guide the admin through the process of registering a new administrator. The user needs to insert username, firstname and lastname etc to register.
+  Infomation will be stored in Dictionary <string, Admin> adminList.
 
  * RegisterNewCustomer
 
    Same as RegisterNewAdmin.
+   
+* ShowAllCustomer
 
+  This class is for administrator to display information about admins and customers.
+  
+  * ShowAllInfo(): Displays a menu with switch-statement for the admin to choose the type of user, Admin or CUstomer or Exit, account to view. Uses a while loop to allow continuous interaction until the admin chooses to exit.
+  * ShowAdminInfo()
+  * ShowCustomerInfo() 
+  
 * Transfer Money
 
   This class includes two methods, that is to transfer money to between account and transfer money to someone else.
