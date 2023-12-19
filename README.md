@@ -40,7 +40,7 @@ We initiated the project by defining fields and properties.
   
 * DataManager-class
 
-  This class is to store all infomation about users. To store all infomation, Dictionary <string, Admin> adminList and Dictionary<string, Customer> customerList were used, which takes username as key and user-type as value. Both types of users have username, ID, first name etc. For customerList there is also List<Account> Accounts and List<Transaction>TransactionHistory.
+  This class is to store all infomation about users. To store all infomation, Dictionary <string, Admin> adminList and Dictionary<string, Customer> customerList were used, which takes username as key and user-type as value. Both types of users have username, ID, first name etc. For customerList there are also List<Account> Accounts and List<Transaction>TransactionHistory.
 
 ### Login
   
@@ -48,26 +48,25 @@ We initiated the project by defining fields and properties.
 
   This class has a StartProgram method that will be called at the very beginning when the program starts. In this method, switch-statment is used so that the user can choose role to log in.
 
-  Users go to each login method and have three login attempts. 
 * Admin Login : IAdminLogin
 * Customer Login : ICustomerLogin
 
   There are two different login systems and they implement IAdminLogin and ICustomerLogin. The login method runs in a while loop, structured to control the login process, and it continues until the user inserts the correct information or exceeds three attempts. The user is asked to insert username and if the username is valid, the user will be asked for password. When both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, including email and accounts and other relevant details.
 
 ### Menu and other functions
-After the user logged in succesfully, they are directed to each menu according to their role. As mentioned above, the value which was returned to LoginSystem allows the program to access the specific user's information. Essentially, the login process establishes a session for the logged-in user, allowing the system to tailor interactions and display information specific to that user.
+After the user logged in succesfully, they are directed to each menu according to their role. As mentioned above, the value which was returned to LoginSystem allows the program to access the specific user's information. Essentially, the login process establishes a session for the logged-in user, allowing the system to tailor interactions and display information specific to that user. 
 
 * CustomerManager(Menu) : ICustomerMenu
 * AdminManager(Menu) : IAdminMenu
 
-  These classes are to display Menus and switch-statement was used to direct to different methods. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method based on their selections.
+  These classes are to display Menus. Switch-statement was used to direct to different methods. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method based on their selections.
 
 * ShowBalance
 
-  This class provides functionality for displaying account information.
+  This class provides functionality for displaying account information and it has the following four methods, all of which take loggedInCustomer as parameter and read the List<Account>Accounts from Dictionary<string, Customer>customerList.
 
   * ShowAccount(): Displays options to the user, allowing them to choose between showing the balance of a specific account or all accounts(switch-statement).
-  * ShowSpecificAccount(): Displays a list of the user's accounts, allowing them to select a specific account and showing its balance.
+  * ShowSpecificAccount(): Displays a list of the user's accounts, allowing them to select a specific account and showing its balance. 
   * ShowAllAccounts(): Displays the balances for all accounts belonging to the logged-in customer(foreach).
   * DisplayUserAccounts(): Helper method to display a numbered list of the user's accounts(for-loop).
 
@@ -85,16 +84,16 @@ After the user logged in succesfully, they are directed to each menu according t
 * AccountManager
 
   This class facilitates the process of adding new accounts for a logged-in customer. 
-  * AddAccount(): For opening new account, asks the user to input details for a new account to insert.
+  * AddAccount(): For opening new account, asks the user to input details for a new account to insert. Takes loggedInCustomer as parameter and reads the List<Account>Accounts from Dictionary<string, Customer>customerList.
   * CaluculateEarnedInterest(): Calculates the earned interest based on the provided balance and interest rate.
-  * GenerateNewAccountNumber(): Generates a new account number for the customer based on the existing account numbers.
+  * GenerateNewAccountNumber(): Generates a new account number for the customer based on the existing account numbers. Takes customer as parameter.
   
 * LoanManager
 
-  This class handles the process of requesting and approving personal loans, considering the loan amount, interest rate, and account selection.
+  This class handles the process of requesting and approving personal loans, considering the loan amount, interest rate, and account selection. All three medhots take loggedInCustomer as parameter and reads the List<Account>Accounts from Dictionary<string, Customer>customerList.
 
   * RequestPersonalLoan() : Takes user input for the loan amount, shows the applicable loan interest rate and adds the loan amount to the selected account's balance.
-  * DisplayUserAccounts: Show users account.
+  * DisplayUserAccounts: Show users account(for-loop).
   * CaluculateTOtalBalance(): Calculates the total balance across all customer accounts.
   
 * RegisterUser
@@ -103,7 +102,7 @@ After the user logged in succesfully, they are directed to each menu according t
    
 * RegisterNewAdmin
 
-  * RegisterAdmin() : Guide the admin through the process of registering a new administrator. The user needs to insert username, firstname and lastname etc to register.
+  * RegisterAdmin() : Guide the admin through the process of registering a new administrator. Takes Admin loggedInAdmin as parameter. The user needs to insert username, firstname and lastname etc to register.
   Infomation will be stored in Dictionary <string, Admin> adminList.
 
  * RegisterNewCustomer
@@ -112,16 +111,16 @@ After the user logged in succesfully, they are directed to each menu according t
    
 * ShowAllCustomer
 
-  This class is for administrator to display information about admins and customers.
+  This class is for administrator to display information about admins and customers. 
   
-  * ShowAllInfo(): Displays a menu with switch-statement for the admin to choose the type of user, Admin or Customer or Exit, account to view. Uses a while loop to allow continuous interaction until the admin chooses to exit.
-  * ShowAdminInfo()
-  * ShowCustomerInfo() 
+  * ShowAllInfo(): Takes Admin loggedInAdmin as parameter and displays a menu with switch-statement for the admin to choose the type of user, Admin or Customer or Exit, account to view. Uses a while loop to allow continuous interaction until the admin chooses to exit.
+  * ShowAdminInfo(): Reads Dictionary<string, Admin> adminList and loops using foreach.
+  * ShowCustomerInfo() : Reads Dictionary <string, Customer> customerList and loops using foreach.
   
 * Transfer Money
   
-  This class includes two methods, that is to transfer money between accounts and transfer money to someone else. Those methods read the List<Account>Accounts from Dictionary<string, Customer>customerList.
-  * TransferMoneyBetweenAccount(): 
+  This class includes two methods, that is to transfer money between accounts and transfer money to someone else. These methods read the List<Account>Accounts from Dictionary<string, Customer>customerList.
+  * TransferMoneyBetweenAccount(): The user is supposed to choose two different accounts to transfer money and to insert an amount of money. The user can insert the amount they want to withdraw and its amount is changed with ConvertMoney-method from Converter-class. And this is set to target account. This method also includes transaction and it will be recorded in the List <Transaction>TransactionHistory, with time and amount etc.
   * TransferMoneyToOthers(): 
 
 * Converter
@@ -132,11 +131,12 @@ After the user logged in succesfully, they are directed to each menu according t
   * FromSekToEur()
   * FromEurToSek()
   * InsertRate():  Administrator can change the exchange rate.
-  * ConvertMoney(): According to account's currency, it converted to another currency. Converts the transferred amount from the currency of the original account into the currency of the target account.
+  * ConvertMoney(): Converts the transferred amount from the currency of the original account into the currency of the target account. This method uses two accounts and an amount of money as parameter, and returns converted money.
 
 * Transaction
 
-  This class includes three properties, TransactionType, Amount and Timestamp, and one method designed to display the transaction history. The method is added in transfermoney-class and invoked whenever a customer initiates a money transfer.
+  This class includes three properties, TransactionType, Amount and Timestamp, and one method designed to display the transaction history.
+  * ShowTransactionHistory(): This reads List <Transaction> TransactionHistory and shows history using foreach.
 
 * Validator
 
