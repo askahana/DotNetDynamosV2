@@ -40,7 +40,7 @@ We initiated the project by defining fields and properties.
   
 * DataManager-class
 
-  This class is to store all infomation about users. To store all infomation, Dictionary <string, Admin> adminList and Dictionary<string, Customer> customerList were used, which takes username as key and user-type as value. Both types of users have username, ID, first name etc. For customerList there is also List<Account> Accounts and List<Transaction>TransactionHistory. See Account-class and Transaction-class for more details.
+  This class is to store all infomation about users. To store all infomation, Dictionary <string, Admin> adminList and Dictionary<string, Customer> customerList were used, which takes username as key and user-type as value. Both types of users have username, ID, first name etc. For customerList there is also List<Account> Accounts and List<Transaction>TransactionHistory.
 
 ### Login
   
@@ -119,12 +119,20 @@ After the user logged in succesfully, they are directed to each menu according t
   * ShowCustomerInfo() 
   
 * Transfer Money
-
-  This class includes two methods, that is to transfer money to between accounts and transfer money to someone else.
+  
+  This class includes two methods, that is to transfer money between accounts and transfer money to someone else. Those methods read the List<Account>Accounts from Dictionary<string, Customer>customerList.
+  * TransferMoneyBetweenAccount(): 
+  * TransferMoneyToOthers(): 
 
 * Converter
 
-  This class is designed for converting currency from one type to another. It includes two fields for currency rates to SEK, which are Euro, and Yen. Additionally, there is a method to change these rates. The class consists of four methods for converting rates between each other, along with an overarching method that utilizes these four conversion methods.
+  This class is designed for converting currency from one type to another. It includes two fields for currency rates to SEK, which are Euro, and Yen. Additionally, there is methods to change these rates. The class consists of four methods for converting rates between each other, along with an overarching method that utilizes these four conversion methods.
+  * FromSekToYen()
+  * FromYenToSek()
+  * FromSekToEur()
+  * FromEurToSek()
+  * InsertRate():  Administrator can change the exchange rate.
+  * ConvertMoney(): According to account's currency, it converted to another currency. Converts the transferred amount from the currency of the original account into the currency of the target account.
 
 * Transaction
 
