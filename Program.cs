@@ -15,6 +15,10 @@
             //CustomerManager customerManager = new CustomerManager(loginSystem);
             //customerManager.Meny(loggedInUser); // Skicka med den inloggade användaren
 
+            /*Console.BackgroundColor = ConsoleColor.Green;     Bakgrundsfärg
+            Console.Clear(); */
+
+
             Starting_screen.StartProgram();
         }
     }
