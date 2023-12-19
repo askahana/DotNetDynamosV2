@@ -46,6 +46,8 @@ namespace DotNetDynamosV2
                 {
                     newAccount = new SavingsAccount(newAccountNumber, accountName, currency, initialBalance, interestRate);
                     Console.WriteLine($"Interest Rate: {interestRate:P}");
+                    decimal earnedInterest = CalculateEarnedInterest(initialBalance, interestRate);
+                    Console.WriteLine($"You will earn {earnedInterest:C} in interest.");
                 }
                 else
                 {
@@ -60,7 +62,11 @@ namespace DotNetDynamosV2
             }
         }
 
-      
+        private static decimal CalculateEarnedInterest(decimal balance, decimal interestRate)
+        {
+            
+            return balance * interestRate;
+        }
 
         public static int GenerateNewAccountNumber(Customer customer)
         {
