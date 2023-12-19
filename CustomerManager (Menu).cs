@@ -27,8 +27,9 @@ namespace DotNetDynamosV2
                     Console.WriteLine("3. Transfer money to other Customer");
                     Console.WriteLine("4. Open new account");
                     Console.WriteLine("5. Another currency");
-                    Console.WriteLine("6. Account history");
-                    Console.WriteLine("7. Logg out");
+                    Console.WriteLine("6. Loan");
+                    Console.WriteLine("7. Account history");
+                    Console.WriteLine("8. Logg out");
                     Console.Write("Choose meny: ");
                     int svar = Convert.ToInt32(Console.ReadLine());
                     switch (svar)
@@ -56,12 +57,16 @@ namespace DotNetDynamosV2
                             Console.Clear();
                             Console.WriteLine("Out of order.");
                             break;
-                        case 6: // Account history
+                        case 6:
+                            Console.Clear();
+                            LoanManager.RequestPersonalLoan(loggedInCustomer);
+                            break;
+                        case 7: // Account history
                             Console.Clear();
                             Transaction.ShowTransactionHistory(loggedInCustomer);
                             Console.ReadKey();
                             break;
-                        case 7:
+                        case 8:
                             Console.Clear();
                             Console.WriteLine("Logging out.");
                             LogOut();
