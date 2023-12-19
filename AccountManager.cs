@@ -15,28 +15,52 @@ namespace DotNetDynamosV2
         /// <param name="loggedInCustomer"></param>
         public static void AddAccount(Customer loggedInCustomer)
         {
+            if (loggedInCustomer is Customer customer)
+            {
+                Console.WriteLine("Enter account details:");
 
+                Console.Write("Account Name: ");
+                string accountName = Console.ReadLine();
 
-            Console.WriteLine("Enter account details:");
+                Console.Write("Currency: ");
+                string currency = Console.ReadLine();
 
-            Console.Write("Account Name: ");
-            string accountName = Console.ReadLine();
+                Console.Write("Initial Balance: ");
+                decimal initialBalance = Validator.GetValidDecimal();
 
-            Console.Write("Currency: ");
-            string currency = Console.ReadLine();
+                Console.WriteLine("Choose the account type:");
+                Console.WriteLine($"1. Savings Account (with interest, {InterestManager.SavingsInterestRate():P})");
+                Console.WriteLine("2. Regular Account (without interest)");
 
-            Console.Write("Initial Balance: ");
-            decimal initialBalance = Validator.GetValidDecimal();
+                int accountTypeChoice = Validator.GetValidInt("Enter your choice: ", 1, 2);
 
-            int newAccountNumber = GenerateNewAccountNumber(loggedInCustomer);
+                
 
-                Account newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
+                decimal interestRate = (accountTypeChoice == 1) ? InterestManager.SavingsInterestRate() : 0.0M;
 
-            loggedInCustomer.Accounts.Add(newAccount);
+                int newAccountNumber = GenerateNewAccountNumber(customer);
+
+                Account newAccount;
+
+                if (accountTypeChoice == 1)
+                {
+                    newAccount = new SavingsAccount(newAccountNumber, accountName, currency, initialBalance, interestRate);
+                    Console.WriteLine($"Interest Rate: {interestRate:P}");
+                }
+                else
+                {
+                    newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
+                }
+
+                customer.Accounts.Add(newAccount);
 
                 Console.WriteLine($"Account '{newAccount.AccountName}' added successfully with Account Number {newAccount.AccountNumber}.");
-            
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
+
+      
 
         public static int GenerateNewAccountNumber(Customer customer)
         {
