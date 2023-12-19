@@ -20,10 +20,9 @@ As administrator
 
 ## Planning and implementation (Notion: En ReadMe-fil som innehåller en förklaring av strukturen i källkoden (grov förklaring av alla klasser, objekt m.m))
 
-This program is written in C#, and it consists of x classes and x methods. 
+This program is written in C#, and it consists of x classes, x methods and x interfaces. 
 
-The first thing we did was to create properties and fields for users.
-
+intoruction sentences here...
 * Customer-class
 
   This class models a customer. Customer-class, which implements ICustomer interface, has 9 propeties: UserName, PassWord, FIrstName, LastName, IDNumber, Email, Birthday, List<Account>Accounts and List <Transaction>.
