@@ -87,7 +87,7 @@ We initiated the project by defining fields and properties.
    
 * RegisterNewAdmin
 
-  This class has one method, RegisterAdmin and is called when an administrator registers administrator. The user needs to insert username, firstname and lastname etc. Infomation will be stored in Dictionary <string, Admin> adminList.
+  This class has one method, RegisterAdmin. The user needs to insert username, firstname and lastname etc to register. Infomation will be stored in Dictionary <string, Admin> adminList.
 
  * RegisterNewCustomer
 
@@ -103,8 +103,7 @@ We initiated the project by defining fields and properties.
 
 * Transaction
 
-  This class includes three properties, TransactionType, Amount and Timestamp, and one method designed to display the transaction history. The method is invoked whenever a customer initiates a money transfer.
-
+  This class includes three properties, TransactionType, Amount and Timestamp, and one method designed to display the transaction history. The method is added in transfermoney-class and invoked whenever a customer initiates a money transfer.
 
 * Validator
 
