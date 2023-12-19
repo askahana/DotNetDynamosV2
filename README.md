@@ -52,7 +52,7 @@ There are two different login systems and they implements IAdminLogin and ICusto
 * CustomerManager(Menu) : ICustomerMenu
 * AdminManager(Menu) : IAdminMenu
 
-For menus, switch-statement was used. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method according to their choice.
+These classed are to display Menus and switch-statement was used to handle different choices made by users. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method based on their selections.
 
 * ShowBalance
 
@@ -60,26 +60,36 @@ For menus, switch-statement was used. There are 6 choices for customer and 5 cho
 
 * InterestManager
   
+* AccountManager
+  
 * LoanManager
   
 * RegisterUser
+
+ This class is for choosing whether to register an administrator or a customer.
+
+ * RegisterNewCustomer
+
+   This method is called when administrator will register customer. The user is supposed to insert username, firstname, lastname etc.
   
 * RegisterNewAdmin
 
   Same as RegisterNewCustomer
   
-* RegisterNewCustomer
 
 * Transfer Money
 
+  This class includes two methods, that is to transfer money to between account and transfer money to someone else.
+
 * Converter
   
-  This calss is to convert currency from one to another. There are two fields for currency rate,
-  one method to be able to change its rate. Four methods for converting rate between each other, and one method to use those four methods. ...and more
+  This class is designed for converting currency from one type to another. It includes two fields for currency rates to SEK, Euro, and Yen. Additionally, there is a method to change these rates. The class consists of four methods for converting rates between each other, along with an overarching method that utilizes these four conversion methods.
 
 * Transaction
 
-  This class is to show
+ This class includes three properties, TransactionType, Amount and Timestamp, and one method designed to display the transaction history. The method is invoked whenever a customer initiates a money transfer.
+
+
 * Validator
 
   This class is to give validated value. 
