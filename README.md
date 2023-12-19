@@ -8,13 +8,13 @@ If the user logged in succesfully, they are directed to each menu according to t
 As customer
 1. See their accounts
 2. Transfer money between their own accounts
-3. Transfer money to other
-4. Open new account
-5. See transaction
+3. Transfer money to others
+4. Open new accounts
+5. See transactions
 
 As administrator
-1. Create new user account
-2. See customers account
+1. Create new user accounts
+2. See customer accounts
 3. Change interest
 4. Change exchange rate
 
@@ -32,7 +32,7 @@ We initiated the project by defining fields and properties.
   
 * Admin-class
 
-  This repersents a administrator. This class has five properties: UserName, PassWord, FirstName, LastName, IDNumber.
+  This repersents an administrator. This class has five properties: UserName, PassWord, FirstName, LastName, IDNumber.
 
 * Account-class
 
@@ -52,10 +52,10 @@ We initiated the project by defining fields and properties.
 * Admin Login : IAdminLogin
 * Customer Login : ICustomerLogin
 
-  There are two different login systems and they implements IAdminLogin and ICustomerLogin. The login method runs in a while loop, structured to control the login process, and it continues until the user inserts the correct information or exceeds three attempts. The user is asked to insert username and password and if username is valid, the user will be asked for password. When both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, such as accounts.
+  There are two different login systems and they implement IAdminLogin and ICustomerLogin. The login method runs in a while loop, structured to control the login process, and it continues until the user inserts the correct information or exceeds three attempts. The user is asked to insert username and if the username is valid, the user will be asked for password. When both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, including email and accounts and other relevant details.
 
 ### Menu and other functions
-After the user logged in succesfully, they are directed to each menu according to their role.
+After the user logged in succesfully, they are directed to each menu according to their role. As mentioned above, the value which was returned to LoginSystem allows the program to access the specific user's information. Essentially, the login process establishes a session for the logged-in user, allowing the system to tailor interactions and display information specific to that user.
 
 * CustomerManager(Menu) : ICustomerMenu
 * AdminManager(Menu) : IAdminMenu
@@ -66,17 +66,17 @@ After the user logged in succesfully, they are directed to each menu according t
 
   This class provides functionality for displaying account information.
 
-  * ShowAccount(Customer loggedInCustomer): Displays options to the user, allowing them to choose between showing the balance of a specific account or all accounts(switch-statement).
-  * ShowSpecificAccount(Customer loggedInCustomer): Displays a list of the user's accounts, allowing them to select a specific account and showing its balance.
-  * ShowAllAccounts(Customer loggedInCustomer): Displays the balances for all accounts belonging to the logged-in customer(foreach).
-  * DisplayUserAccounts(Customer loggedInCustomer): Helper method to display a numbered list of the user's accounts(for-loop).
+  * ShowAccount(): Displays options to the user, allowing them to choose between showing the balance of a specific account or all accounts(switch-statement).
+  * ShowSpecificAccount(): Displays a list of the user's accounts, allowing them to select a specific account and showing its balance.
+  * ShowAllAccounts(): Displays the balances for all accounts belonging to the logged-in customer(foreach).
+  * DisplayUserAccounts(): Helper method to display a numbered list of the user's accounts(for-loop).
 
 * InterestManager
 
   This class manages interest rates for savings and loans. This contains two fields for rates.
   
-  * SetSavingsInterestRate(decimal newRate): Sets a new interest rate for savings.
-  * SetLoanInterestRate(decimal newRate): Sets a new interest rate for loans.
+  * SetSavingsInterestRate(): Sets a new interest rate for savings.
+  * SetLoanInterestRate(): Sets a new interest rate for loans.
   * DisplayInterestRates(): Displays the current interest rates for savings and loans.
   * AdminSetInterestRates(): Allows an administrator to set new interest rates for savings or loans based on user input(switch-statement).
   * SavingsInterestRate(): Retrieves the current savings interest rate.
@@ -103,7 +103,7 @@ After the user logged in succesfully, they are directed to each menu according t
    
 * RegisterNewAdmin
 
-  * RegisterAdmin(Admin loggedInAdmin) : Guide the admin through the process of registering a new administrator. The user needs to insert username, firstname and lastname etc to register.
+  * RegisterAdmin() : Guide the admin through the process of registering a new administrator. The user needs to insert username, firstname and lastname etc to register.
   Infomation will be stored in Dictionary <string, Admin> adminList.
 
  * RegisterNewCustomer
@@ -114,13 +114,13 @@ After the user logged in succesfully, they are directed to each menu according t
 
   This class is for administrator to display information about admins and customers.
   
-  * ShowAllInfo(): Displays a menu with switch-statement for the admin to choose the type of user, Admin or CUstomer or Exit, account to view. Uses a while loop to allow continuous interaction until the admin chooses to exit.
+  * ShowAllInfo(): Displays a menu with switch-statement for the admin to choose the type of user, Admin or Customer or Exit, account to view. Uses a while loop to allow continuous interaction until the admin chooses to exit.
   * ShowAdminInfo()
   * ShowCustomerInfo() 
   
 * Transfer Money
 
-  This class includes two methods, that is to transfer money to between account and transfer money to someone else.
+  This class includes two methods, that is to transfer money to between accounts and transfer money to someone else.
 
 * Converter
 
