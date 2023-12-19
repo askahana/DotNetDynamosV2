@@ -79,11 +79,12 @@ For menus, switch-statement was used. There are 6 choices for customer and 5 cho
 * ShowBalance
 * Converter
   
-  Converter-class has two fields for currency rate, one method to be able to change its rate. Four methods for converting rate between each other, and one method to use those four methods. ...and more
+  This calss is to convert currency from one to another. There are two fields for currency rate,
+  one method to be able to change its rate. Four methods for converting rate between each other, and one method to use those four methods. ...and more
 
 * Transaction
 
-  Transfer!
+  This calss is to show 
 
 
 
