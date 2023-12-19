@@ -18,7 +18,7 @@ As administrator
 3. Change interest
 4. Change exchange rate
 
-## Planning and implementation
+## Implementation
 
 This program is written in C#, and it consists of x classes, x methods and x interfaces. 
 
