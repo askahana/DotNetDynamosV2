@@ -38,8 +38,7 @@ The first thing we did was to create properties and fields for users.
   
 * DataManager
 
-  To store all infomation about users, Dictionary <string, Admin> adminList and Dictionary<string, Customer> customerList were used, which takes username as key and user-type as value. Both types of users have username, ID, first name etc.
-  For customerList there is also List<Account> Accounts and List<Transaction>TransactionHistory. See Account-class and Transaction-class for more details.
+  This class is to store all infomation about users. To store all infomation, Dictionary <string, Admin> adminList and Dictionary<string, Customer> customerList were used, which takes username as key and user-type as value. Both types of users have username, ID, first name etc. For customerList there is also List<Account> Accounts and List<Transaction>TransactionHistory. See Account-class and Transaction-class for more details.
   
 * Starting screen
 
@@ -49,34 +48,31 @@ And then we started with login method. Users go to each login method and have th
 * Admin Login : IAdminLogin
 * Customer Login : ICustomerLogin
 
-The login method runs in a while loop, where the user is asked to insert username and password. If username is valid, the user will be asked for password. And when both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, such as accounts.
+There are two different login systems and they implements IAdminLogin and ICustomerLogin. The login method runs in a while loop, where the user is asked to insert username and password. If username is valid, the user will be asked for password. And when both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, such as accounts.
 
 * CustomerManager(Menu) : ICustomerMenu
 * AdminManager(Menu) : IAdminMenu
 
 For menus, switch-statement was used. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method according to their choice.
 
+* ShowBalance
 
-* ICustomer
-* Account
-
+  This is to show balance on each account. There are four methods.
 
 * InterestManager
+  
 * LoanManager
+  
 * RegisterUser
+  
 * RegisterNewAdmin
+
+  Same as RegisterNewCustomer
+  
 * RegisterNewCustomer
 
-  
-* CustomerManager(Menu)
-* AdminManager(Menu)
-
-
-
-
-* DataManager
 * Transfer Money
-* ShowBalance
+
 * Converter
   
   This calss is to convert currency from one to another. There are two fields for currency rate,
@@ -84,8 +80,10 @@ For menus, switch-statement was used. There are 6 choices for customer and 5 cho
 
 * Transaction
 
-  This calss is to show 
+  This class is to show
+* Validator
 
+  This class is to give validated value. 
 
 
 
