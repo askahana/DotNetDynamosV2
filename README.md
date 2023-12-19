@@ -56,7 +56,12 @@ intoruction sentences here...
 
 * ShowBalance
 
-  This is to show balance on each account. There are four methods.
+  This class provides functionality for displaying account information.
+
+  * ShowAccount(Customer loggedInCustomer): Displays options to the user, allowing them to choose between showing the balance of a specific account or all accounts.
+  * ShowSpecificAccount(Customer loggedInCustomer): Displays a list of the user's accounts, allowing them to select a specific account and showing its balance.
+  * ShowAllAccounts(Customer loggedInCustomer): Displays the balances for all accounts belonging to the logged-in customer.
+  * DisplayUserAccounts(Customer loggedInCustomer): Helper method to display a numbered list of the user's accounts.
 
 * InterestManager
   
@@ -91,7 +96,7 @@ intoruction sentences here...
 
 * Validator
 
-  This class is to give validated value. 
+  Validator class contains several static methods to validate and retrieve user inputs for various data types, int and decimal etc.
 
 
 
