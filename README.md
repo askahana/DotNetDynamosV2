@@ -124,7 +124,7 @@ After the user logged in succesfully, they are directed to each menu according t
 
 * Converter
 
-  This class is designed for converting currency from one type to another. It includes two fields for currency rates to SEK, Euro, and Yen. Additionally, there is a method to change these rates. The class consists of four methods for converting rates between each other, along with an overarching method that utilizes these four conversion methods.
+  This class is designed for converting currency from one type to another. It includes two fields for currency rates to SEK, which are Euro, and Yen. Additionally, there is a method to change these rates. The class consists of four methods for converting rates between each other, along with an overarching method that utilizes these four conversion methods.
 
 * Transaction
 
