@@ -18,50 +18,59 @@ namespace DotNetDynamosV2
             bool go = true;
             while (go)
             {
-                Console.WriteLine("Admin Menu");
-                Console.WriteLine("1. Create new user account.");
-                Console.WriteLine("2. Delete user account.");
-                Console.WriteLine("3. See User accounts.");
-                Console.WriteLine("4. Change interests.");
-                Console.WriteLine("5. Change exchange rate.");
-                Console.WriteLine("6. Log out.");
-                int svar = Convert.ToInt32(Console.ReadLine());
-                switch (svar)
+                try
                 {
-                    case 1:
-                        Console.Clear();
-                        RegisterUser.Register(loggedInAdmin);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        Console.WriteLine("Out of order.");
-                        Console.ReadKey();
-                        break;
-                    case 3:
-                        Console.Clear();
-                        ShowAllCustomer.ShowAllInfo(loggedInAdmin);
-                        break;
-                    case 4:
-                        Console.Clear();
-                        InterestManager.DisplayInterestRates();
-                        InterestManager.AdminSetInterestRates();
-                        Console.ReadKey();
-                        Console.Clear();
-                        break;
-                    case 5:
-                        Console.Clear();
-                        Converter.InsertRate();
-                        break;
-                    case 6:
-                        Console.Clear();
-                        Console.WriteLine("Logging out.");
-                        LogOut();
-                        break;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("Wrong input, try again.");
-                        break;
+                    Console.WriteLine("Admin Menu");
+                    Console.WriteLine("1. Create new user account.");
+                    //Console.WriteLine("2. Delete user account.");
+                    Console.WriteLine("2. See User accounts.");
+                    Console.WriteLine("3. Change interests.");
+                    Console.WriteLine("4. Change exchange rate.");
+                    Console.WriteLine("5. Log out.");
+                    int svar = Convert.ToInt32(Console.ReadLine());
+                    switch (svar)
+                    {
+                        case 1:
+                            Console.Clear();
+                            RegisterUser.Register(loggedInAdmin);
+                            break;
+                        //case 2:
+                        //    Console.Clear();
+                        //    Console.WriteLine("Out of order.");
+                        //    Console.ReadKey();
+                        //    break;
+                        case 2:
+                            Console.Clear();
+                            ShowAllCustomer.ShowAllInfo(loggedInAdmin);
+                            break;
+                        case 3:
+                            Console.Clear();
+                            InterestManager.DisplayInterestRates();
+                            InterestManager.AdminSetInterestRates();
+                            Console.ReadKey();
+                            Console.Clear();
+                            break;
+                        case 4:
+                            Console.Clear();
+                            Converter.InsertRate();
+                            break;
+                        case 5:
+                            Console.Clear();
+                            Console.WriteLine("Logging out.");
+                            LogOut();
+                            break;
+                        default:
+                            Console.Clear();
+                            Console.WriteLine("Enter a number between 1-5.");
+                            break;
+                    }
                 }
+                catch 
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter a Number.");
+                }
+  
             }
         }
         /// <summary>

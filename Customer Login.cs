@@ -29,7 +29,7 @@ namespace DotNetDynamosV2
                 if (DataManager.customerList.ContainsKey(enteredName))
                 {
                     Console.WriteLine("Password:");
-                    string enteredPassword = Validator.GetValidString();
+                    string enteredPassword = Validator.GetHiddenInput();
                     // Perform password validation here
                     if (ValidateCustomerPassword(enteredName, enteredPassword)) // Example password validation
                     {
@@ -84,7 +84,6 @@ namespace DotNetDynamosV2
                 throw new ArgumentException("User ID not found.");
 
             }
-
         }
     }
 }
