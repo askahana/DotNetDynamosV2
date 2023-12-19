@@ -97,8 +97,18 @@ namespace DotNetDynamosV2
                     Console.WriteLine("Invalid transfer amount.");
                     return;
                 }
+                decimal money = Converter.ConvertMoney(sourceAccount, targetAccount, transferAmount);
+                Console.WriteLine($"{transferAmount} {sourceAccount.Currency} blir {money} {targetAccount.Currency}, okidoki?");
                 sourceAccount.Balance -= transferAmount;
-                targetAccount.Balance += transferAmount;
+                targetAccount.Balance += money;   // Ändrade här så att konverterade amount kommer att sättas in
+                Transaction transaction = new Transaction
+                {
+                    TransactionType = "Transfer money",
+                    Amount = transferAmount,
+                    Timestamp = DateTime.Now
+                };
+                loggedInCustomer.TransactionHistory.Add(transaction);
+
                 //Lägg till information till användaren om trasaktionen. /N
                 //Lägg till metod för att lagra informationen i historik. /N
                 Console.WriteLine("Kundmeddelande");
