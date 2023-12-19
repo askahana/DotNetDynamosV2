@@ -67,15 +67,14 @@ intoruction sentences here...
 * RegisterUser
 
   This class is for choosing whether to register an administrator or a customer.
+   
+* RegisterNewAdmin
+
+  This class has one method, RegisterAdmin and is called when an administrator registers administrator. The user needs to insert username, firstname and lastname etc. Infomation will be stored in Dictionary <string, Admin> adminList.
 
  * RegisterNewCustomer
 
-   This method is called when administrator will register customer. The user is supposed to insert username, firstname, lastname etc.
-  
-* RegisterNewAdmin
-
-  Same as RegisterNewCustomer
-  
+   Same as RegisterNewAdmin.
 
 * Transfer Money
 
