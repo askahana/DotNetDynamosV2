@@ -8,55 +8,73 @@ namespace DotNetDynamosV2
 {
     internal class AccountManager
     {
-        public static void AddAccount(User loggedInUser)
+        /// <summary>
+        /// Ändrat till loggedInCustomer /N
+        /// 2023-12-16
+        /// </summary>
+        /// <param name="loggedInCustomer"></param>
+        public static void AddAccount(Customer loggedInCustomer)
         {
-            if (loggedInUser is Customer customer)
-            {
-                Console.WriteLine("Enter account details:");
 
-                Console.Write("Account Name: ");
-                string accountName = Console.ReadLine();
 
-                Console.Write("Currency: ");
-                string currency = Console.ReadLine();
+            Console.WriteLine("Enter account details:");
 
-                Console.Write("Initial Balance: ");
-                decimal initialBalance = Validator.GetValidDecimal();
+            Console.Write("Account Name: ");
+            string accountName = Console.ReadLine();
 
-                Console.WriteLine("Choose the account type:");
-                Console.WriteLine($"1. Savings Account (with interest)");
-                Console.WriteLine("2. Regular Account (without interest)");
+            Console.Write("Currency: ");
+            string currency = Console.ReadLine();
 
-                int accountTypeChoice = Validator.GetValidInt("Enter your choice: ", 1, 2);
+            Console.Write("Initial Balance: ");
+            decimal initialBalance = Validator.GetValidDecimal();
 
-                decimal interestRate = (accountTypeChoice == 1) ? InterestManager.SavingsInterestRate() : 0.0M;
+            int newAccountNumber = GenerateNewAccountNumber(loggedInCustomer);
 
-                int newAccountNumber = GenerateNewAccountNumber(customer);
+                Account newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
 
-                Account newAccount;
-
-                if (accountTypeChoice == 1)
-                {
-                    newAccount = new SavingsAccount(newAccountNumber, accountName, currency, initialBalance, interestRate);
-                    Console.WriteLine($"Interest Rate: {interestRate:P}");
-                }
-                else
-                {
-                    newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
-                }
-
-                customer.Accounts.Add(newAccount);
+            loggedInCustomer.Accounts.Add(newAccount);
 
                 Console.WriteLine($"Account '{newAccount.AccountName}' added successfully with Account Number {newAccount.AccountNumber}.");
-               
-                Console.Clear();
             }
         }
 
-        private static int GenerateNewAccountNumber(Customer customer)
+        public static int GenerateNewAccountNumber(Customer customer)
         {
             int maxAccountNumber = customer.Accounts.Count > 0 ? customer.Accounts.Max(acc => acc.AccountNumber) : 0;
             return maxAccountNumber + 1;
         }
     }
+
+    //    public static void AddAccount(User loggedInUser)
+    //    {
+    //        if (loggedInUser is Customer customer)
+    //        {
+    //            Console.WriteLine("Enter account details:");
+
+    //            Console.Write("Account Name: ");
+    //            string accountName = Console.ReadLine();
+
+    //            Console.Write("Currency: ");
+    //            string currency = Console.ReadLine();
+
+    //            Console.Write("Initial Balance: ");
+    //            decimal initialBalance = Validator.GetValidDecimal();
+
+    //            int newAccountNumber = GenerateNewAccountNumber(customer);
+
+    //            Account newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
+
+    //            customer.Accounts.Add(newAccount);
+
+    //            Console.WriteLine($"Account '{newAccount.AccountName}' added successfully with Account Number {newAccount.AccountNumber}.");
+    //        }
+    //    }
+
+    //    private static int GenerateNewAccountNumber(Customer customer)
+    //    {
+
+    //        int maxAccountNumber = customer.Accounts.Count > 0 ? customer.Accounts.Max(acc => acc.AccountNumber) : 0;
+    //        return maxAccountNumber + 1;
+    //    }
+    //}
 }

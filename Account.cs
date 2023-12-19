@@ -12,13 +12,16 @@ namespace DotNetDynamosV2
         public string AccountName { get; set; }
         public string Currency { get; set; }
         public decimal Balance { get; set; }
-
         public Account(int accountnumber, string accountname, string currency, decimal balance)
         {
             AccountNumber = accountnumber;
             AccountName = accountname;
             Currency = currency;
             Balance = balance;
+        }
+        public Account() : this(1, "", "SEK", 0)
+        {
+
         }
     }
 }

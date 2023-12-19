@@ -1,73 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
-    internal class RegisterNewCustomer
+    internal class RegisterNewAdmin
     {
-
         /// <summary>
-        /// Ändrat parameter att ta emot Admin loggedinAdmin.
-        /// Förbättringsförslag: Lägg till metod för att lägga till ett MainAcc för Customer direkt när hen skapas. 
+        /// Ändrat parameter att ta emot Admin loggedinAdmin
         /// </summary>
         /// <param name="loggedInAdmin"></param>
-        public static void RegisterCustomer(Admin loggedInAdmin)
+        public static void RegisterAdmin(Admin loggedInAdmin)
         {
             // Skapa en temporär användare för att lägga till i användarlistan
-            Customer newCustomer = new Customer();
-            Console.WriteLine("Welcome to Customer Registration!");
+            Admin newAdmin = new Admin();
+            Console.WriteLine("Welcome to Admin Registration!");
             // Få användarnamn från användaren
-            Console.Write("Enter customer username: ");
+            Console.Write("Enter your username: ");
             string enteredUsername = Console.ReadLine();
             // Kontrollera om användarnamnet redan finns
-            if (DataManager.customerList.ContainsKey(enteredUsername))
+            if (DataManager.adminList.ContainsKey(enteredUsername))
             {
                 Console.WriteLine("Username already exists. Please choose a different username.");
                 return; // Avsluta metoden om användarnamnet redan finns
             }
-            newCustomer.UserName = enteredUsername;
+            newAdmin.UserName = enteredUsername;
             // Få förnamn från användaren
-            Console.Write("Enter customer first name: ");
-            newCustomer.FirstName = Console.ReadLine();
+            Console.Write("Enter your first name: ");
+            newAdmin.FirstName = Console.ReadLine();
             // Få efternamn från användaren
-            Console.Write("Enter customer last name: ");
-            newCustomer.LastName = Console.ReadLine();
+            Console.Write("Enter your last name: ");
+            newAdmin.LastName = Console.ReadLine();
             // Få lösenord från användaren
             Console.Write("Password must contain:\n6-12 characters\nAt least one capital letter\nAt least one digit\nAt least one symbol\nEnter password: ");
-            newCustomer.PassWord = Console.ReadLine();
-            newCustomer.Accounts = new List<Account>();
-            newCustomer.TransactionHistory = new List<Transaction>();
-
+            newAdmin.PassWord = Console.ReadLine();
+            // Låt användaren välja roll
+            Console.Write("Choose user role:\n");
+            Console.Write("1. Admin\n");
+            Console.Write("2. Customer\n");
 
             // Antag att nextAdID är deklarerat någonstans som en statisk variabel i RegisterNewCustomer-klassen
             int nextAdID = 1;
-            newCustomer.IDNumber = nextAdID++;
-
-            Account mainAccount = new Account()
-            {
-                AccountName = "Private Account",
-                AccountNumber = AccountManager.GenerateNewAccountNumber(newCustomer),
-                Balance = 0
-            };
-
-            newCustomer.Accounts.Add(mainAccount);
+            newAdmin.IDNumber = nextAdID++;
 
             // Lägg till den nya användaren i userList (dictionary)
-            DataManager.customerList.Add(newCustomer.UserName, newCustomer);
-
-
+            DataManager.adminList.Add(newAdmin.UserName, newAdmin);
 
             Console.Clear();
-            Console.WriteLine($"Successfully created Customer {newCustomer.UserName}\nPress any key to return to menu.");
+
+                Console.WriteLine($"Successfully created Admin {newAdmin.UserName}\nPress any key to return to menu.");
             Console.ReadKey();
             Console.Clear();
             AdminManager.Menu(loggedInAdmin);
 
         }
+
 
             //public static void RegisterCustomer(LoginSystem loginSystem)
             //{
@@ -156,7 +145,6 @@ namespace DotNetDynamosV2
             //{
             //    Console.WriteLine("Invalid user role. Please choose 'Admin' or 'Customer'.");
             //}
-        
 
     }
 
