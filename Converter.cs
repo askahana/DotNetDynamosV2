@@ -9,8 +9,8 @@ namespace DotNetDynamosV2
 {
     internal class Converter
     {
-        public static decimal Yen { get; set; } = 14.0M; // ca 14
-        public static decimal Euro { get; set; } = 0.089M;  // ca 0.9
+        private static decimal Yen { get; set; } = 14.0M; // ca 14
+        private static decimal Euro { get; set; } = 0.089M;  // ca 0.9
         public static void InsertRate() // Here administrater can change the exchange rate.
         {
             Console.WriteLine("Insert todays exchange rate.");
