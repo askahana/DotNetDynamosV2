@@ -30,17 +30,16 @@ namespace DotNetDynamosV2
 
             int newAccountNumber = GenerateNewAccountNumber(loggedInCustomer);
 
-            Account newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
+                Account newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
 
             loggedInCustomer.Accounts.Add(newAccount);
 
-            Console.WriteLine($"Account '{newAccount.AccountName}' added successfully with Account Number {newAccount.AccountNumber}.");
-
+                Console.WriteLine($"Account '{newAccount.AccountName}' added successfully with Account Number {newAccount.AccountNumber}.");
+            }
         }
 
         public static int GenerateNewAccountNumber(Customer customer)
         {
-
             int maxAccountNumber = customer.Accounts.Count > 0 ? customer.Accounts.Max(acc => acc.AccountNumber) : 0;
             return maxAccountNumber + 1;
         }
