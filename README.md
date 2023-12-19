@@ -134,13 +134,8 @@ After the user logged in succesfully, they are directed to each menu according t
 
   Validator class contains several static methods to validate and retrieve user inputs for various data types, int and decimal etc.
 
-
-
-
 ## Reflection
-Here are some points we would like...?
-
-
+Here 
 
 ### Contributors ✨
 * Nathalee Wilund
