@@ -28,7 +28,7 @@ We initiated the project by defining fields and properties.
 
 * Customer-class
 
-  This class models a customer. Customer-class, which implements ICustomer interface, has 9 propeties: UserName, PassWord, FIrstName, LastName, IDNumber, Email, Birthday, List<Account>Accounts and List <Transaction>.
+  This class models a customer. Customer-class, which implements ICustomer interface, has 9 propeties: UserName, PassWord, FirstName, LastName, IDNumber, Email, Birthday, List <Account> Accounts and List <Transaction> TransactionHistory.
   
 * Admin-class
 
@@ -44,9 +44,9 @@ We initiated the project by defining fields and properties.
   
 * Starting screen
 
-  This class has a StartProgram method that will be called at the very beginning when the program starts. This method is used so that the user can choose role to log in.
+  This class has a StartProgram method that will be called at the very beginning when the program starts. In this method, switch-statment is used so that the user can choose role to log in.
 
-  After deciding properties, we started with login method. Users go to each login method and have three login attempts. 
+  Users go to each login method and have three login attempts. 
 * Admin Login : IAdminLogin
 * Customer Login : ICustomerLogin
 
@@ -55,16 +55,16 @@ We initiated the project by defining fields and properties.
 * CustomerManager(Menu) : ICustomerMenu
 * AdminManager(Menu) : IAdminMenu
 
-  These classes are to display Menus and switch-statement was used to handle different choices made by users. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method based on their selections.
+  These classes are to display Menus and switch-statement was used to direct to different methods. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method based on their selections.
 
 * ShowBalance
 
   This class provides functionality for displaying account information.
 
-  * ShowAccount(Customer loggedInCustomer): Displays options to the user, allowing them to choose between showing the balance of a specific account or all accounts.
+  * ShowAccount(Customer loggedInCustomer): Displays options to the user, allowing them to choose between showing the balance of a specific account or all accounts(switch-statement).
   * ShowSpecificAccount(Customer loggedInCustomer): Displays a list of the user's accounts, allowing them to select a specific account and showing its balance.
-  * ShowAllAccounts(Customer loggedInCustomer): Displays the balances for all accounts belonging to the logged-in customer.
-  * DisplayUserAccounts(Customer loggedInCustomer): Helper method to display a numbered list of the user's accounts.
+  * ShowAllAccounts(Customer loggedInCustomer): Displays the balances for all accounts belonging to the logged-in customer(foreach).
+  * DisplayUserAccounts(Customer loggedInCustomer): Helper method to display a numbered list of the user's accounts(for-loop).
 
 * InterestManager
 
@@ -73,7 +73,7 @@ We initiated the project by defining fields and properties.
   * SetSavingsInterestRate(decimal newRate): Sets a new interest rate for savings.
   * SetLoanInterestRate(decimal newRate): Sets a new interest rate for loans.
   * DisplayInterestRates(): Displays the current interest rates for savings and loans.
-  * AdminSetInterestRates(): Allows an administrator to set new interest rates for savings or loans based on user input.
+  * AdminSetInterestRates(): Allows an administrator to set new interest rates for savings or loans based on user input(switch-statement).
   * SavingsInterestRate(): Retrieves the current savings interest rate.
   * GetLoanInterestRate(): Retrieves the current loan interest rate.
   
