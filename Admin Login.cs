@@ -28,7 +28,7 @@ namespace DotNetDynamosV2
                 if (DataManager.adminList.ContainsKey(enteredName))
                 {
                     Console.WriteLine("Password:");
-                    string enteredPassword = Validator.GetValidString();
+                    string enteredPassword = Validator.GetHiddenInput();
                     // Perform password validation here
                     if (ValidateAdminPassword(enteredName, enteredPassword)) // Example password validation
                     {

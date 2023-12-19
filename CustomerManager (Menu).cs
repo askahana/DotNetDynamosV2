@@ -19,48 +19,65 @@ namespace DotNetDynamosV2
             bool go = true;
             while (go)
             {
-                switch (GetMenuChoice())
+                try
                 {
-                    case 1:
-                        Console.Clear();
-                        ShowBalance.ShowAccount(loggedInCustomer);
-                        break;
-                    case 2:
-                        Console.Clear();
-                        TransferMoney.TransferMoneyBetweenAccount(loggedInCustomer);
-                        Console.ReadKey();
-                        break;
-                    case 3:
-                        Console.Clear();
-                        Console.WriteLine("Out of order.");
-                        Console.ReadKey();
-                        break;
-                    case 4:
-                        Console.Clear();
-                        AccountManager.AddAccount(loggedInCustomer);
-                        Console.ReadKey();
-                        break;
-                    case 5:
-                        Console.Clear();
-                        Console.WriteLine("Out of order.");
-                        break;
-                    case 6: // Account history
-                        Console.Clear();
-                        Transaction.ShowTransactionHistory(loggedInCustomer);
-                        Console.ReadKey();
-                        break;
-                    case 7:
-                        Console.Clear();
-                        Console.WriteLine("Logging out.");
-                        LogOut();
-                        break;
-                    default:
-                        Console.Clear();
-                        Console.Clear();
-                        Console.WriteLine("Insert mellan 1-7.");
-                        Console.ReadKey();
-                        break;
+                    Console.WriteLine("Customer Menu");
+                    Console.WriteLine("1. View account and balance");
+                    Console.WriteLine("2. Transfer money between accounts");
+                    Console.WriteLine("3. Transfer money to other Customer");
+                    Console.WriteLine("4. Open new account");
+                    Console.WriteLine("5. Another currency");
+                    Console.WriteLine("6. Account history");
+                    Console.WriteLine("7. Logg out");
+                    Console.Write("Choose meny: ");
+                    int svar = Convert.ToInt32(Console.ReadLine());
+                    switch (svar)
+                    {
+                        case 1:
+                            Console.Clear();
+                            ShowBalance.ShowAccount(loggedInCustomer);
+                            break;
+                        case 2:
+                            Console.Clear();
+                            TransferMoney.TransferMoneyBetweenAccount(loggedInCustomer);
+                            Console.ReadKey();
+                            break;
+                        case 3:
+                            Console.Clear();
+                            Console.WriteLine("Out of order.");
+                            Console.ReadKey();
+                            break;
+                        case 4:
+                            Console.Clear();
+                            AccountManager.AddAccount(loggedInCustomer);
+                            Console.ReadKey();
+                            break;
+                        case 5:
+                            Console.Clear();
+                            Console.WriteLine("Out of order.");
+                            break;
+                        case 6: // Account history
+                            Console.Clear();
+                            Transaction.ShowTransactionHistory(loggedInCustomer);
+                            Console.ReadKey();
+                            break;
+                        case 7:
+                            Console.Clear();
+                            Console.WriteLine("Logging out.");
+                            LogOut();
+                            break;
+                        default:
+                            Console.Clear();
+                            Console.WriteLine("Insert number between 1-7.");
+                            break;
+                    }
                 }
+                catch
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter a Number.");
+                }
+
             }
         }
         private static void LogOut()
@@ -68,24 +85,24 @@ namespace DotNetDynamosV2
             Console.WriteLine("Logged out.");
             Starting_screen.StartProgram();
         }
-        public static int GetMenuChoice()
-        {
-            int choice;
-            Console.WriteLine("Customer Menu");
-            Console.WriteLine("1. View account and balance");
-            Console.WriteLine("2. Transfer money between accounts");
-            Console.WriteLine("3. Transfer money to other Customer");
-            Console.WriteLine("4. Open new account");
-            Console.WriteLine("5. Another currency");
-            Console.WriteLine("6. Account history");
-            Console.WriteLine("7. Logg out");
-            Console.Write("Choose meny: ");
-            if (!int.TryParse(Console.ReadLine(), out choice))
-            {
-                Console.WriteLine("The number is not valid");
-            }
-            return choice;
-        }
+        //public static int GetMenuChoice()
+        //{
+        //    int choice;
+        //    Console.WriteLine("Customer Menu");
+        //    Console.WriteLine("1. View account and balance");
+        //    Console.WriteLine("2. Transfer money between accounts");
+        //    Console.WriteLine("3. Transfer money to other Customer");
+        //    Console.WriteLine("4. Open new account");
+        //    Console.WriteLine("5. Another currency");
+        //    Console.WriteLine("6. Account history");
+        //    Console.WriteLine("7. Logg out");
+        //    Console.Write("Choose meny: ");
+        //    if (!int.TryParse(Console.ReadLine(), out choice))
+        //    {
+        //        Console.WriteLine("The number is not valid");
+        //    }
+        //    return choice;
+        //}
     }
 
     ////private LoginSystem loginSystem;

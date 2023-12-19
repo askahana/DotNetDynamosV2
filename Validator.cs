@@ -53,6 +53,31 @@ namespace DotNetDynamosV2
             }
             return choice;
         }
+        public static string GetHiddenInput()
+        {
+            StringBuilder input = new StringBuilder();
+            ConsoleKeyInfo key;
+
+            do
+            {
+                key = Console.ReadKey(true);
+
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    input.Append(key.KeyChar);
+                    Console.Write("*");
+                }
+                else if (key.Key == ConsoleKey.Backspace && input.Length > 0)
+                {
+                    input.Remove(input.Length - 1, 1);
+                    Console.Write("\b \b");
+                }
+            } while (key.Key != ConsoleKey.Enter);
+
+            Console.WriteLine(); // Move to the next line after hiding the password
+
+            return input.ToString();
+        }
 
         public static int GetValidIntOrMenu(Customer loggedInCustomer) // This goes back to meny if the user pressed enter.
         {
