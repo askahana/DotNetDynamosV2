@@ -47,12 +47,12 @@ And then we started with login method. Users go to each login method and have th
 * Admin Login : IAdminLogin
 * Customer Login : ICustomerLogin
 
-There are two different login systems and they implements IAdminLogin and ICustomerLogin. The login method runs in a while loop, where the user is asked to insert username and password. If username is valid, the user will be asked for password. And when both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, such as accounts.
+  There are two different login systems and they implements IAdminLogin and ICustomerLogin. The login method runs in a while loop, where the user is asked to insert username and password. If username is valid, the user will be asked for password. And when both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, such as accounts.
 
 * CustomerManager(Menu) : ICustomerMenu
 * AdminManager(Menu) : IAdminMenu
 
-These classed are to display Menus and switch-statement was used to handle different choices made by users. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method based on their selections.
+  These classed are to display Menus and switch-statement was used to handle different choices made by users. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method based on their selections.
 
 * ShowBalance
 
@@ -66,7 +66,7 @@ These classed are to display Menus and switch-statement was used to handle diffe
   
 * RegisterUser
 
- This class is for choosing whether to register an administrator or a customer.
+  This class is for choosing whether to register an administrator or a customer.
 
  * RegisterNewCustomer
 
@@ -82,12 +82,12 @@ These classed are to display Menus and switch-statement was used to handle diffe
   This class includes two methods, that is to transfer money to between account and transfer money to someone else.
 
 * Converter
-  
+
   This class is designed for converting currency from one type to another. It includes two fields for currency rates to SEK, Euro, and Yen. Additionally, there is a method to change these rates. The class consists of four methods for converting rates between each other, along with an overarching method that utilizes these four conversion methods.
 
 * Transaction
 
- This class includes three properties, TransactionType, Amount and Timestamp, and one method designed to display the transaction history. The method is invoked whenever a customer initiates a money transfer.
+  This class includes three properties, TransactionType, Amount and Timestamp, and one method designed to display the transaction history. The method is invoked whenever a customer initiates a money transfer.
 
 
 * Validator
