@@ -29,7 +29,7 @@ intoruction sentences here...
   
 * Admin-class
 
-  This class has 5 properties: UserName, PassWord, FirstName, LastName, IDNumber.
+  This models a administrator. This class has five properties: UserName, PassWord, FirstName, LastName, IDNumber.
 
 * Account-class
 
@@ -43,7 +43,7 @@ intoruction sentences here...
 
   This class has a StartProgram method that will be called at the very beginning when the program starts. This method is used so that the user can choose role to log in.
 
-And then we started with login method. Users go to each login method and have three login attempts. 
+  After deciding properties, we started with login method. Users go to each login method and have three login attempts. 
 * Admin Login : IAdminLogin
 * Customer Login : ICustomerLogin
 
@@ -52,7 +52,7 @@ And then we started with login method. Users go to each login method and have th
 * CustomerManager(Menu) : ICustomerMenu
 * AdminManager(Menu) : IAdminMenu
 
-  These classed are to display Menus and switch-statement was used to handle different choices made by users. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method based on their selections.
+  These classes are to display Menus and switch-statement was used to handle different choices made by users. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method based on their selections.
 
 * ShowBalance
 
