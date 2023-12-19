@@ -22,7 +22,7 @@ namespace DotNetDynamosV2
                 Console.WriteLine("1. Create new user account.");
                 Console.WriteLine("2. Delete user account.");
                 Console.WriteLine("3. See User accounts.");
-                Console.WriteLine("4. Change interest.");
+                Console.WriteLine("4. Change interests.");
                 Console.WriteLine("5. Change exchange rate.");
                 Console.WriteLine("6. Log out.");
                 int svar = Convert.ToInt32(Console.ReadLine());
@@ -43,8 +43,10 @@ namespace DotNetDynamosV2
                         break;
                     case 4:
                         Console.Clear();
-                        Console.WriteLine("Out of order.");
+                        InterestManager.DisplayInterestRates();
+                        InterestManager.AdminSetInterestRates();
                         Console.ReadKey();
+                        Console.Clear();
                         break;
                     case 5:
                         Console.Clear();

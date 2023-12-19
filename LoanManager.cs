@@ -36,7 +36,8 @@ namespace DotNetDynamosV2
 
             Console.WriteLine($"Personal loan request approved. The loan amount has been added to account {selectedAccount.AccountNumber}. You will need to repay: {loanAmount:C}");
             Console.WriteLine("Press enter to return to the menu");
-           
+            Console.Clear();
+
         }
 
         private static void DisplayUserAccounts(Customer customer)

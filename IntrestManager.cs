@@ -37,6 +37,7 @@ namespace DotNetDynamosV2
       
 
             int option = Validator.GetValidInt("Enter your choice: ", 1, 2);
+            Console.Clear();
 
             switch (option)
             {
