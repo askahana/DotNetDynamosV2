@@ -24,7 +24,8 @@ This program is written in C#, and it consists of x classes, x methods and x int
 
 We initiated the project by defining fields and properties.
 
-### Property???
+### Property??????
+
 * Customer-class
 
   This class models a customer. Customer-class, which implements ICustomer interface, has 9 propeties: UserName, PassWord, FirstName, LastName, IDNumber, Email, Birthday, List <Account> Accounts and List <Transaction> TransactionHistory.
@@ -51,7 +52,7 @@ We initiated the project by defining fields and properties.
 * Admin Login : IAdminLogin
 * Customer Login : ICustomerLogin
 
-  There are two different login systems and they implements IAdminLogin and ICustomerLogin. The login method runs in a while loop, which is structed to control the login process until either the user sucessfully logs in or three attemps are reached. The user is asked to insert username and password and if username is valid, the user will be asked for password. When both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, such as accounts.
+  There are two different login systems and they implements IAdminLogin and ICustomerLogin. The login method runs in a while loop, structured to control the login process, and it continues until the user inserts the correct information or exceeds three attempts. The user is asked to insert username and password and if username is valid, the user will be asked for password. When both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, such as accounts.
 
 ### Menu and other functions
 
@@ -111,6 +112,7 @@ We initiated the project by defining fields and properties.
 * Validator
 
   Validator class contains several static methods to validate and retrieve user inputs for various data types, int and decimal etc.
+
 
 
 
