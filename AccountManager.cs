@@ -35,7 +35,7 @@ namespace DotNetDynamosV2
             loggedInCustomer.Accounts.Add(newAccount);
 
                 Console.WriteLine($"Account '{newAccount.AccountName}' added successfully with Account Number {newAccount.AccountNumber}.");
-            }
+            
         }
 
         public static int GenerateNewAccountNumber(Customer customer)
@@ -44,6 +44,7 @@ namespace DotNetDynamosV2
             return maxAccountNumber + 1;
         }
     }
+}
 
     //    public static void AddAccount(User loggedInUser)
     //    {
@@ -77,4 +78,4 @@ namespace DotNetDynamosV2
     //        return maxAccountNumber + 1;
     //    }
     //}
-}
+
