@@ -18,19 +18,60 @@ As administrator
 3. Change interest
 4. Change exchange rate
 
-## planning and implementation (Notion: En ReadMe-fil som innehåller en förklaring av strukturen i källkoden (grov förklaring av alla klasser, objekt m.m))
+## Planning and implementation (Notion: En ReadMe-fil som innehåller en förklaring av strukturen i källkoden (grov förklaring av alla klasser, objekt m.m))
 
 This program is written in C#, and it consists of x classes and x methods. 
-Dictionary, which takes username as key and User-type as value, was used to store all infomation about users, and it is located in the DataManager class.
+
+We started with propeties and fields for users.
+
+* Customer
+
+  This class models a customer. Customer-class, which implements ICustomer interface, has 9 propeties: UserName, PassWord, FIrstName, LastName, IDNumber, Email, Birthday, List<Account>Accounts and List <Transaction>.
+  
+* Admin
+
+  Admin-class has 5 properties: UserName, PassWord, FirstName, LastName, IDNumber.
 
 
-![login](https://github.com/askahana/DotNetDynamosV2/assets/144675449/18d44490-12c9-404b-bfe3-e267bc3fba52)
 
-We started with the login method. Users have three login attempts. The login method runs in a while loop, if the username and passwords are the same as one of them in the Dictionary, then it returns a value which identify each user. With this value, you can access each users accounts.
+* DataManager
 
-After finishing this part, we started other function parts such as showing all accounts and transferring money.
+  To store all infomation about users, Dictionary <string, Admin> adminList and Dictionary<string, Customer> customerList were used, which takes username as key and user-type as value. Both types of users have username, ID, first name etc.
+  For customerList there is also List<Account> Accounts and List<Transaction>TransactionHistory. See Account-class and Transaction-class for more details.
 
-* ResisterUser
+And then we started with the login method. Users go to each login method and have three login attempts. 
+* Admin Login
+* Customer Login
+
+The login method runs in a while loop, where the user is asked to insert username and password. If username is valid, the user will be asked for password. And when both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, such as accounts.
+
+* CustomerManager(Menu)
+* AdminManager(Menu)
+
+After the user logged in succesfully, they are directed to each menu. For menus, switch-statement was used. There are 6 choices for customer and 5 choices for administrator. The user is then directed to the method according to their choice.
+
+
+
+* IAdmin
+* IAdminMenu
+* ICustomer
+* Account
+* ICustomerLogin
+* ICusomterMenu
+* InterestManager
+* LoanManager
+* RegisterUser
+* RegisterNewAdmin
+* RegisterNewCustomer
+
+  
+* CustomerManager(Menu)
+* AdminManager(Menu)
+
+
+
+
+* DataManager
 * Transfer Money
 * ShowBalance
 * Converter
