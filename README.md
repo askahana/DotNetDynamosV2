@@ -41,6 +41,8 @@ We initiated the project by defining fields and properties.
 * DataManager
 
   This class is to store all infomation about users. To store all infomation, Dictionary <string, Admin> adminList and Dictionary<string, Customer> customerList were used, which takes username as key and user-type as value. Both types of users have username, ID, first name etc. For customerList there is also List<Account> Accounts and List<Transaction>TransactionHistory. See Account-class and Transaction-class for more details.
+
+### Login
   
 * Starting screen
 
@@ -51,6 +53,8 @@ We initiated the project by defining fields and properties.
 * Customer Login : ICustomerLogin
 
   There are two different login systems and they implements IAdminLogin and ICustomerLogin. The login method runs in a while loop, where the user is asked to insert username and password. If username is valid, the user will be asked for password. And when both username and password are the same as one of those in Dictionary, then it returns a value which identifies each user. With this value, you can access each users information, such as accounts.
+
+### Menu and other functions
 
 * CustomerManager(Menu) : ICustomerMenu
 * AdminManager(Menu) : IAdminMenu
