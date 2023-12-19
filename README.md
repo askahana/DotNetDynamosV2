@@ -18,7 +18,7 @@ As administrator
 3. Change interest
 4. Change exchange rate
 
-## Planning and implementation (Notion: En ReadMe-fil som innehåller en förklaring av strukturen i källkoden (grov förklaring av alla klasser, objekt m.m))
+## Planning and implementation
 
 This program is written in C#, and it consists of x classes, x methods and x interfaces. 
 
