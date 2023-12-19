@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
@@ -137,6 +138,47 @@ namespace DotNetDynamosV2
                     Console.WriteLine("Invalid input. Please enter a valid number.");
                 }
             }
+
+        }
+        public static string GetValidName(string prompt)
+        {
+            string name;
+            while (true)
+            {
+                Console.Write(prompt);
+                name = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(name) && Regex.IsMatch(name, @"^[a-zA-Z]+$"))
+                {
+                    return name;
+                }
+
+                Console.WriteLine("Invalid input. Please enter a valid name with only letters.");
+            }
+        }
+        public static string GetValidPassword()
+        {
+            while (true)
+            {
+                Console.Write("Enter password: ");
+                string password = Console.ReadLine();
+
+                if (IsPasswordValid(password))
+                {
+                    return password;
+                }
+
+                Console.WriteLine("Invalid password. Please enter a valid password.");
+            }
+        }
+
+        public static bool IsPasswordValid(string password)
+        {
+            // Krav: Mellan 6-12 tecken, minst en stor bokstav, minst en siffra, minst en symbol
+            return password.Length >= 6 && password.Length <= 12
+                && password.Any(char.IsUpper)
+                && password.Any(char.IsDigit)
+                && password.Any(ch => !char.IsLetterOrDigit(ch));
         }
     }
     //internal class Validator
