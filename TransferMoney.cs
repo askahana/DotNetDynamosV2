@@ -21,12 +21,13 @@ namespace DotNetDynamosV2
         {
             Account sourceAccount = null;
             Account targetAccount = null;
+            int AccNr = 1;
 
             Console.Clear();
             Console.WriteLine("Here are your accounts:\n");
             foreach (Account account in loggedInCustomer.Accounts)
             {
-
+                Console.WriteLine($"{AccNr}.");
                 Console.WriteLine($"Account name: {account.AccountName}");
                 Console.WriteLine($"Account number:{account.AccountNumber}");
                 Console.WriteLine($"Currency:{account.Currency}");
@@ -37,10 +38,20 @@ namespace DotNetDynamosV2
             {
                 Console.WriteLine("Which account do you want to transfer from?");
                 Console.WriteLine("Please press \"enter\" to go to meny.");
-                string intChoice = Console.ReadLine();
-                int transferFrom;
-                string chooseTransferFrom = Console.ReadLine();
-                if (string.IsNullOrEmpty(chooseTransferFrom)) //Om användaren trycker på enter återgår hen till menyn./N
+                int intChoice = Convert.ToInt32(Console.ReadLine());
+                foreach (Account account in loggedInCustomer.Accounts)
+                {
+                    if (intChoice == 0) { }
+                    while (intChoice == AccNr) 
+                    {
+                        Console.Clear();
+                        Console.WriteLine($"You have chosen to transfer from {account.AccountName}.\n");
+                        Console.WriteLine("Which account would you like to transfer from?");
+                        Console.WriteLine("Press Enter to return ");
+                    }
+                }
+                //string chooseTransferFrom = Console.ReadLine();
+                if (int.IsNullOrEmpty(chooseTransferFrom)) //Om användaren trycker på enter återgår hen till menyn./N
                 {
                     Console.Clear();
                     //Meny(LoggedIn); 
@@ -52,7 +63,7 @@ namespace DotNetDynamosV2
 
                 try
                 {
-                    transferFrom = Convert.ToInt32(chooseTransferFrom);
+                    AccNr = Convert.ToInt32(chooseTransferFrom);
                 }
                 catch (FormatException)
                 {

@@ -138,21 +138,21 @@ namespace DotNetDynamosV2
         //    }
 
         //}
-        private static Account ShowSpecificAccount(Customer customer)
+        private static Account ShowSpecificAccount(Customer loggedInCustomer)
         {
             Console.WriteLine("Choose an account to view the balance:");
-            DisplayUserAccounts(customer);
-            int selectedAccountIndex = Validator.GetValidInt("Enter the account number: ", 1, customer.Accounts.Count) - 1;
-            Account selectedAccount = customer.Accounts[selectedAccountIndex];
+            DisplayUserAccounts(loggedInCustomer);
+            int selectedAccountIndex = Validator.GetValidInt("Enter the account number: ", 1, loggedInCustomer.Accounts.Count) - 1;
+            Account selectedAccount = loggedInCustomer.Accounts[selectedAccountIndex];
             Console.Clear();
             Console.WriteLine($"Balance for Account {selectedAccount.AccountNumber} ({selectedAccount.AccountName}): {selectedAccount.Balance}({selectedAccount.Currency})");
             return selectedAccount;
         }
-        private static void DisplayUserAccounts(Customer customer)
+        private static void DisplayUserAccounts(Customer loggedInCustomer)
         {
-            for (int i = 0; i < customer.Accounts.Count; i++)
+            for (int i = 0; i < loggedInCustomer.Accounts.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. Account {customer.Accounts[i].AccountNumber}: {customer.Accounts[i].AccountName} - {customer.Accounts[i].Currency}");
+                Console.WriteLine($"{i + 1}. Account {loggedInCustomer.Accounts[i].AccountNumber}: {loggedInCustomer.Accounts[i].AccountName} - {loggedInCustomer.Accounts[i].Currency}");
             }
         }
         private static int GetCurrencyChoice()

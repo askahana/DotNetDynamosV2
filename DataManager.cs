@@ -34,8 +34,8 @@ namespace DotNetDynamosV2
                 Birthday = "1978-01-01",
                 Accounts = new List<Account>
                 {
-                        new Account(50028977, "MainAccount", "SEK", 1234M),
-                        new Account(50011265, "SavingAccount", "EUR", 1234M),
+                        new Account(50028977, "MainAccount", "SEK", 1234M, 1),
+                        new Account(50011265, "SavingAccount", "EUR", 1234M, 2),
                 },
                 TransactionHistory = new List<Transaction> { },
             };
@@ -49,8 +49,8 @@ namespace DotNetDynamosV2
                 Birthday = "1988-01-01",
                 Accounts = new List<Account>
                 {
-                    new Account(12344556, "MainAccount", "SEK", 2345M),
-                    new Account(23455678, "SavingAccount", "EUR", 2345M),
+                    new Account(12344556, "MainAccount", "SEK", 2345M, 1),
+                    new Account(23455678, "SavingAccount", "EUR", 2345M, 2),
                 },
                 TransactionHistory = new List<Transaction> { },
             };

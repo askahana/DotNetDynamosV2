@@ -51,7 +51,7 @@ namespace DotNetDynamosV2
                 }
                 else
                 {
-                    newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
+                    newAccount = new Account(newAccountNumber, accountName, currency, initialBalance, );
                 }
 
                 customer.Accounts.Add(newAccount);

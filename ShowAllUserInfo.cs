@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
-    internal class ShowAllCustomer
+    internal class ShowAllUserInfo
     {
         public static void ShowAllInfo(Admin loggedInAdmin)
         {
@@ -95,7 +95,7 @@ namespace DotNetDynamosV2
                             foreach (Account account in customer.Accounts)
                             {
                                 Console.WriteLine($"Account Number: {account.AccountNumber}");
-                                Console.WriteLine($"Account Name: {account.AccountName}");
+                                Console.WriteLine($"Account Name: {account.AccountName}"); //Förlag - byt plats på name och number så att accname står överst /N
                                 Console.WriteLine($"Balance: {account.Balance}");
                                 Console.WriteLine($"Currency: {account.Currency}");
                             }
