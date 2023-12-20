@@ -17,6 +17,15 @@ namespace DotNetDynamosV2
         {
             if (loggedInCustomer is Customer customer)
             {
+
+                if (customer.Accounts.Count >= 4)
+                {
+                    Console.WriteLine("You have reached the max limit of accounts (4). You cannot create more accounts.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
+                }
+
                 Console.WriteLine("Enter account details:");
 
                 Console.Write("Account Name: ");
