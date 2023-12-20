@@ -4,8 +4,8 @@
     {
         private decimal interestRate;
 
-        public SavingsAccount(int newAccountNumber, string accountName, string currency, decimal initialBalance, decimal interestRate)
-            : base(newAccountNumber, accountName, currency, initialBalance)
+        public SavingsAccount(int newAccountNumber, string accountName, string currency, decimal initialBalance, decimal interestRate, int sortOrder)
+            : base(newAccountNumber, accountName, currency, initialBalance, sortOrder)
         {
             this.interestRate = interestRate;
         }

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
@@ -21,13 +24,12 @@ namespace DotNetDynamosV2
         {
             Account sourceAccount = null;
             Account targetAccount = null;
-            int AccNr = 1;
 
             Console.Clear();
             Console.WriteLine("Here are your accounts:\n");
             foreach (Account account in loggedInCustomer.Accounts)
             {
-                Console.WriteLine($"{AccNr}.");
+                Console.WriteLine($"{account.SortOrder}.");
                 Console.WriteLine($"Account name: {account.AccountName}");
                 Console.WriteLine($"Account number:{account.AccountNumber}");
                 Console.WriteLine($"Currency:{account.Currency}");
@@ -38,103 +40,90 @@ namespace DotNetDynamosV2
             {
                 Console.WriteLine("Which account do you want to transfer from?");
                 Console.WriteLine("Please press \"enter\" to go to meny.");
-                int intChoice = Convert.ToInt32(Console.ReadLine());
+                int transferFromAcc;
+
+                var backkey = Console.ReadKey(intercept: true); // intercept = true prevents the entered key from being displayed
+
+                if (backkey.Key == ConsoleKey.Enter)
+                {
+                    Console.Clear();
+                    CustomerManager.Menu(loggedInCustomer);
+                    return;
+                }
+                // If the entered key is not Enter, proceed to check for integer input
+                else if (!int.TryParse(backkey.KeyChar.ToString(), out transferFromAcc))
+                {
+                    Console.WriteLine("Invalid input. Please enter a number corresponding to the account you wish to transfer from or press 'Enter' to return to the Menu.");
+                    continue;
+                }
+
                 foreach (Account account in loggedInCustomer.Accounts)
                 {
-                    if (intChoice == 0) { }
-                    while (intChoice == AccNr) 
+                    while (transferFromAcc == account.SortOrder)
                     {
                         Console.Clear();
                         Console.WriteLine($"You have chosen to transfer from {account.AccountName}.\n");
                         Console.WriteLine("Which account would you like to transfer from?");
-                        Console.WriteLine("Press Enter to return ");
+                        Console.WriteLine("Press Enter return to Account view.");
+                        int transferToAcc;
+                        if (backkey.Key == ConsoleKey.Enter)
+                        {
+                            Console.Clear();
+                            break;
+                        }
+                        else if (!int.TryParse(backkey.KeyChar.ToString(), out transferToAcc))
+                        {
+                            Console.WriteLine("Invalid input. Please enter a number corresponding to the account you wish to transfer from or press 'Enter' to return to Account view.");
+                            continue;
+                        }
+
+                        targetAccount = loggedInCustomer.Accounts.Find(a => a.AccountNumber == transferToAcc); //Ändra till att söka efter nummer på acc i listan, ändra i Acc eller utgår från List-metod? /N
+
+                        sourceAccount = loggedInCustomer.Accounts.Find(a => a.AccountNumber == transferFromAcc); //Ändra till att söka efter nummer på acc i listan
+                        Console.WriteLine("How much money do you want to transfer?");
+                        decimal transferAmount; // Ensure valid input
+                        try
+                        {
+                            transferAmount = Convert.ToDecimal(Console.ReadLine());
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Incorrect input, please enter a numeric value.");
+                            continue;
+                        }
+                        if (transferAmount < 0 || transferAmount > sourceAccount.Balance)
+                        {
+                            Console.WriteLine("Invalid transfer amount.");
+                            return;
+                        }
+                        decimal money = Converter.ConvertMoney(sourceAccount, targetAccount, transferAmount);
+                        Console.WriteLine($"{transferAmount} {sourceAccount.Currency} blir {money} {targetAccount.Currency}, okidoki?");
+                        sourceAccount.Balance -= transferAmount;
+                        targetAccount.Balance += money;   // Ändrade här så att konverterade amount kommer att sättas in
+                        Transaction transaction = new Transaction
+                        {
+                            TransactionType = "Transfer money",
+                            Amount = transferAmount,
+                            Timestamp = DateTime.Now
+                        };
+                        loggedInCustomer.TransactionHistory.Add(transaction);
+
+                        //Lägg till information till användaren om trasaktionen. /N
+                        //Lägg till metod för att lagra informationen i historik. /N
+                        Console.WriteLine("Kundmeddelande");
+                        Console.ReadKey();
+                        Console.Clear();
+                        CustomerManager.Menu(loggedInCustomer);
                     }
-                }
-                //string chooseTransferFrom = Console.ReadLine();
-                if (int.IsNullOrEmpty(chooseTransferFrom)) //Om användaren trycker på enter återgår hen till menyn./N
-                {
-                    Console.Clear();
-                    //Meny(LoggedIn); 
-                    //Koppling från användaren krävs för att kunna återgå till menyn. I nuläget hämtar vi information från användaren som lagrats
-                    //i LoginSystem, men den kopplingen bryts sedan, för att komma åt menyn här skulle vi behöva skapa ett objekt CustomerManager klassen, och det 
-                    //finns risk att programmet blir förvirrat om vi gör på det sättet. /N
-                    return;
-                }
 
-                try
-                {
-                    AccNr = Convert.ToInt32(chooseTransferFrom);
                 }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Incorrect input, please enter a number or press ENTER to return to Menu.");
-                    continue;
-                }
-                Console.WriteLine("Which account do you want to transfer to? Enter account number:");
-                int transferTo;
-                string chooseTransferTo = Console.ReadLine();
-                if (string.IsNullOrEmpty(chooseTransferTo)) //Om användaren trycker på enter återgår hen till menyn./N
-                {
-                    Console.Clear();
-                    //Meny(LoggedIn); //Koppling från användaren krävs för att kunna återgå till menyn./N
-                    return;
-                }
-
-                try
-                {
-                    transferTo = Convert.ToInt32(chooseTransferTo);
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Incorrect input, please enter a number or press ENTER to return to Menu.");
-                    continue;
-                }
-                targetAccount = loggedInCustomer.Accounts.Find(a => a.AccountNumber == transferTo); //Ändra till att söka efter nummer på acc i listan, ändra i Acc eller utgår från List-metod? /N
-
-                sourceAccount = loggedInCustomer.Accounts.Find(a => a.AccountNumber == transferFrom); //Ändra till att söka efter nummer på acc i listan
-                Console.WriteLine("How much money do you want to transfer?");
-                decimal transferAmount; // Ensure valid input
-                try
-                {
-                    transferAmount = Convert.ToDecimal(Console.ReadLine());
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Incorrect input, please enter a numeric value.");
-                    continue;
-                }
-                if (transferAmount < 0 || transferAmount > sourceAccount.Balance)
-                {
-                    Console.WriteLine("Invalid transfer amount.");
-                    return;
-                }
-                decimal money = Converter.ConvertMoney(sourceAccount, targetAccount, transferAmount);
-                Console.WriteLine($"{transferAmount} {sourceAccount.Currency} blir {money} {targetAccount.Currency}, okidoki?");
-                sourceAccount.Balance -= transferAmount;
-                targetAccount.Balance += money;   // Ändrade här så att konverterade amount kommer att sättas in
-                Transaction transaction = new Transaction
-                {
-                    TransactionType = "Transfer money",
-                    Amount = transferAmount,
-                    Timestamp = DateTime.Now
-                };
-                loggedInCustomer.TransactionHistory.Add(transaction);
-
-                //Lägg till information till användaren om trasaktionen. /N
-                //Lägg till metod för att lagra informationen i historik. /N
-                Console.WriteLine("Kundmeddelande");
-                Console.ReadKey();
-                Console.Clear();
-                CustomerManager.Menu(loggedInCustomer);
-
-
-                //Console.Clear följt av logik för att returnera användaren till menyn.  /N
-
 
             }
 
-
         }
+
+
+    }
         /// <summary>
         /// Nathalee:
         /// Metod för att ta ut pengar från egna konton. 
