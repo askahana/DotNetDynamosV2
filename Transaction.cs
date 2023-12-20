@@ -27,14 +27,11 @@ namespace DotNetDynamosV2
         public static void ShowTransactionHistory(Customer loggedInCustomer)
         {
             Console.Clear();
-
-
             Console.WriteLine("Show history");
             foreach (Transaction transaction in loggedInCustomer.TransactionHistory)
             {
                 Console.WriteLine($"Time: {transaction.Timestamp}   Type: {transaction.TransactionType}   Transaction: {transaction.Amount} ");
             }
-
             Console.WriteLine("Press enter to return to the menu.");
             Console.ReadKey();
         }
