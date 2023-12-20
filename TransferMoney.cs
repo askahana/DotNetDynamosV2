@@ -77,7 +77,7 @@ namespace DotNetDynamosV2
                             continue;
                         }
 
-                        targetAccount = loggedInCustomer.Accounts.Find(a => a.AccountNumber == transferToAcc); //Ändra till att söka efter nummer på acc i listan, ändra i Acc eller utgår från List-metod? /N
+                        targetAccount = loggedInCustomer.Accounts.Find(a => a.AccountNumber == transferToAcc); //Ändra till att söka efter nummer på Acc i listan, ändra i Acc eller utgår från List-metod? /N
 
                         sourceAccount = loggedInCustomer.Accounts.Find(a => a.AccountNumber == transferFromAcc); //Ändra till att söka efter nummer på acc i listan
                         Console.WriteLine("How much money do you want to transfer?");
