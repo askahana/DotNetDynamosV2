@@ -26,10 +26,9 @@ namespace DotNetDynamosV2
                     Console.WriteLine("2. Transfer money between accounts");
                     Console.WriteLine("3. Transfer money to other Customer");
                     Console.WriteLine("4. Open new account");
-                    Console.WriteLine("5. Another currency");
-                    Console.WriteLine("6. Loan");
-                    Console.WriteLine("7. Account history");
-                    Console.WriteLine("8. Logg out");
+                    Console.WriteLine("5. Loan");
+                    Console.WriteLine("6. Account history");
+                    Console.WriteLine("7. Logg out");
                     Console.Write("Choose meny: ");
                     int svar = Convert.ToInt32(Console.ReadLine());
                     switch (svar)
@@ -55,21 +54,16 @@ namespace DotNetDynamosV2
                             break;
                         case 5:
                             Console.Clear();
-                            Console.WriteLine("Out of order.");
+                            LoanManager.RequestPersonalLoan(loggedInCustomer);
                             break;
                         case 6:
                             Console.Clear();
-                            LoanManager.RequestPersonalLoan(loggedInCustomer);
+                            Transaction.ShowTransactionHistory(loggedInCustomer);
                             break;
                         case 7: // Account history
                             Console.Clear();
-                            Transaction.ShowTransactionHistory(loggedInCustomer);
-                            Console.ReadKey();
-                            break;
-                        case 8:
-                            Console.Clear();
-                            Console.WriteLine("Logging out.");
                             LogOut();
+                            Console.ReadKey();
                             break;
                         default:
                             Console.Clear();
@@ -90,24 +84,7 @@ namespace DotNetDynamosV2
             Console.WriteLine("Logged out.");
             Starting_screen.StartProgram();
         }
-        //public static int GetMenuChoice()
-        //{
-        //    int choice;
-        //    Console.WriteLine("Customer Menu");
-        //    Console.WriteLine("1. View account and balance");
-        //    Console.WriteLine("2. Transfer money between accounts");
-        //    Console.WriteLine("3. Transfer money to other Customer");
-        //    Console.WriteLine("4. Open new account");
-        //    Console.WriteLine("5. Another currency");
-        //    Console.WriteLine("6. Account history");
-        //    Console.WriteLine("7. Logg out");
-        //    Console.Write("Choose meny: ");
-        //    if (!int.TryParse(Console.ReadLine(), out choice))
-        //    {
-        //        Console.WriteLine("The number is not valid");
-        //    }
-        //    return choice;
-        //}
+       
     }
 
     ////private LoginSystem loginSystem;
