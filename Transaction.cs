@@ -30,7 +30,7 @@ namespace DotNetDynamosV2
             Console.WriteLine("Show history");
             foreach (Transaction transaction in loggedInCustomer.TransactionHistory)
             {
-                Console.WriteLine($"Time: {transaction.Timestamp}   Type: {transaction.TransactionType}   Transaction: {transaction.Amount} ");
+                Console.WriteLine($"Time: {transaction.Timestamp}   Type: {transaction.TransactionType}   Transaction: {transaction.Amount} "); //Lägga till info om från vilket konto + currency > till vilket konto + currency?
             }
             Console.WriteLine("Press enter to return to the menu.");
             Console.ReadKey();
