@@ -68,7 +68,7 @@ namespace DotNetDynamosV2
         /// <param name="enteredPassword"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        private bool ValidateCustomerPassword(string enteredName, string enteredPassword)
+        public static bool ValidateCustomerPassword(string enteredName, string enteredPassword)
         {
             // Check if the userID exists in the dictionary
             if (DataManager.customerList.ContainsKey(enteredName))

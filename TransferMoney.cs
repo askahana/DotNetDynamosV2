@@ -25,7 +25,6 @@ namespace DotNetDynamosV2
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Here are your accounts:\n");
                 ShowAllAcc(loggedInCustomer);
 
                 Console.WriteLine("Enter the number of the account you want to transfer from:");
@@ -240,7 +239,9 @@ namespace DotNetDynamosV2
         /// <param name="loggedInUser"></param>
         public static void Withdraw(Customer loggedInCustomer)
         {
-            while (true)
+            int passwordAttempts = 0;
+            int maxPasswordAttempts = 3;
+            while (passwordAttempts < maxPasswordAttempts)
             {
                 Console.Clear();
                 ShowAllAcc(loggedInCustomer);
@@ -270,22 +271,35 @@ namespace DotNetDynamosV2
 
                 if (int.TryParse(Console.ReadLine(), out int confirm) && confirm == 1)
                 {
-                    sourceAccount.Balance -= withdrawAmount;
 
-                    Transaction transaction = new Transaction
+                    Console.WriteLine("Enter Password to confirm withdrawal:");
+                    string enteredPassword = Validator.GetHiddenInput();
+                    if (CustomerLogin.ValidateCustomerPassword(loggedInCustomer.UserName, enteredPassword))
                     {
-                        TransactionType = "Withdraw money",
-                        Amount = withdrawAmount,
-                        Timestamp = DateTime.Now
-                    };
-                    loggedInCustomer.TransactionHistory.Add(transaction);
+                        sourceAccount.Balance -= withdrawAmount;
 
-                    Console.WriteLine("Transaction successful.");
+                        Transaction transaction = new Transaction
+                        {
+                            TransactionType = "Withdraw money",
+                            Amount = withdrawAmount,
+                            Timestamp = DateTime.Now
+                        };
+                        loggedInCustomer.TransactionHistory.Add(transaction);
+
+                        Console.WriteLine("Transaction successful.");
+                    }
+                    else
+                    {
+                        passwordAttempts++;
+                        Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - passwordAttempts} attempts remaining.");
+                    }
+
                 }
                 else
                 {
                     Console.WriteLine("Transaction cancelled.");
                 }
+
 
                 Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
                 if (Console.ReadKey().Key != ConsoleKey.Enter)
