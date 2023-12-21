@@ -43,7 +43,9 @@ namespace DotNetDynamosV2
             DisplayUserAccounts(loggedInCustomer);
             int selectedAccountIndex = Validator.GetValidInt("Enter the account number: ", 1, loggedInCustomer.Accounts.Count) - 1;
             Account selectedAccount = loggedInCustomer.Accounts[selectedAccountIndex];
-            Console.WriteLine($"Balance for Account {selectedAccount.AccountNumber} ({selectedAccount.AccountName}): {selectedAccount.Balance}");
+
+            // Uppdatering för att inkludera lånebelopp
+            Console.WriteLine($"Balance for Account {selectedAccount.AccountNumber} ({selectedAccount.AccountName}): {selectedAccount.Balance} - Loan: {selectedAccount.LoanAmount}");
 
         }
         public static void ShowAllAccounts(Customer loggedInCustomer)
@@ -51,7 +53,8 @@ namespace DotNetDynamosV2
             Console.WriteLine("Showing balances for all accounts:");
             foreach (Account account in loggedInCustomer.Accounts)
             {
-                Console.WriteLine($"Account {account.AccountNumber}: {account.AccountName} - {account.Currency} - Balance: {account.Balance}");
+                // Uppdatering för att inkludera lånebelopp
+                Console.WriteLine($"Account {account.AccountNumber}: {account.AccountName} - {account.Currency} - Balance: {account.Balance} - Loan: {account.LoanAmount}");
             }
         }
 

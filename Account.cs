@@ -12,6 +12,7 @@ namespace DotNetDynamosV2
         public string AccountName { get; set; }
         public string Currency { get; set; }
         public decimal Balance { get; set; }
+        public decimal LoanAmount { get; set; }
         public Account(int accountnumber, string accountname, string currency, decimal balance)
         {
             AccountNumber = accountnumber;
