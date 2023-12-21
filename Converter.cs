@@ -13,11 +13,27 @@ namespace DotNetDynamosV2
         private static decimal Euro { get; set; } = 0.089M;  // ca 0.9
         public static void InsertRate() // Here administrater can change the exchange rate.
         {
-            Console.WriteLine("Insert todays exchange rate.");
-            Console.Write("Yen: ");
-            Yen = Validator.GetValidDecimal();
-            Console.Write("Euro: ");
-            Euro = Validator.GetValidDecimal();
+            Console.WriteLine("Update the exchange rate.");
+            Console.WriteLine("1. Euro\n2. Yen");
+            int option = Validator.GetValidInt("Enter your choice: ", 1, 2);
+            Console.Clear();
+            Console.Write("Set exchange rate for ");
+            switch (option)
+            {
+                case 1:
+                    Console.Write("Euro: ");
+                    Euro = Validator.GetValidDecimal();
+                    Console.WriteLine($"1 SEK = {Euro} EUR");
+                    break;
+                case 2:
+                    Console.Write("Yen: ");
+                    Yen = Validator.GetValidDecimal();
+                    Console.WriteLine($"1 SEK = {Yen} Yen");
+                    break;
+            }
+            Console.WriteLine("Press enter to return to the menu.");
+            Console.ReadKey();
+            Console.Clear();
         }
         private static decimal FromSekToYen(decimal money) // Administrator must add the rate first.
         {
