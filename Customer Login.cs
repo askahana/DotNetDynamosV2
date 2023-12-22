@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DotNetDynamosV2
 {
-    internal class CustomerLogin : ICustomerLogin
+    internal class CustomerLogin 
     {
         /// <summary>
         /// Ändrat att personen loggas in som Customer (klass) samt att sökfunktionen utgår ifrån den nya dictionaryn customerList /N
@@ -17,7 +17,7 @@ namespace DotNetDynamosV2
         /// 
         public static Dictionary<string, int> loginAttemptsCount = new Dictionary<string, int>();
 
-        public Customer Login()
+        public static Customer Login()
         {
             AsciiHeadliner.PrintHeadliner();
             Customer loggedInCustomer = null;
@@ -63,7 +63,9 @@ namespace DotNetDynamosV2
                 }
             }
 
-            return loggedInCustomer;
+            CustomerManager.Menu(loggedInCustomer);
+            return loggedInCustomer; //Överflödigt? 
+            
         }
 
 
@@ -90,7 +92,7 @@ namespace DotNetDynamosV2
             }
         }
 
-        private void IncrementLoginAttempts(string username)
+        private static void IncrementLoginAttempts(string username)
         {
             if (!loginAttemptsCount.ContainsKey(username))
             {
@@ -107,12 +109,12 @@ namespace DotNetDynamosV2
             }
         }
 
-        private bool IsUserLockedOut(string username)
+        private static bool IsUserLockedOut(string username)
         {
             return loginAttemptsCount.ContainsKey(username) && loginAttemptsCount[username] >= 3;
         }
 
-        private void LockOutUser(string username)
+        private static void LockOutUser(string username)
         {
             Console.WriteLine($"User {username} is locked out. Please contact support.");
         }
