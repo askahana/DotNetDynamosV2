@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,27 +14,44 @@ namespace DotNetDynamosV2
         private static decimal Euro { get; set; } = 0.089M;  // ca 0.9
         public static void InsertRate() // Here administrater can change the exchange rate.
         {
-            Console.WriteLine("Update the exchange rate.");
-            Console.WriteLine("1. Euro\n2. Yen");
-            int option = Validator.GetValidInt("Enter your choice: ", 1, 2);
-            Console.Clear();
-            Console.Write("Set exchange rate for ");
-            switch (option)
+            bool go = true;
+            while (go)
             {
-                case 1:
-                    Console.Write("Euro: ");
-                    Euro = Validator.GetValidDecimal();
-                    Console.WriteLine($"1 SEK = {Euro} EUR");
-                    break;
-                case 2:
-                    Console.Write("Yen: ");
-                    Yen = Validator.GetValidDecimal();
-                    Console.WriteLine($"1 SEK = {Yen} Yen");
-                    break;
+                try
+                {
+                    Console.WriteLine("Update the exchange rate.");
+                    Console.WriteLine("1. Euro\n2. Yen\n3. Back to Menu.");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
+                    Console.Write("Set exchange rate for ");
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.Write("Euro: ");
+                            Euro = Validator.GetValidDecimal();
+                            Console.WriteLine($"1 SEK = {Euro} EUR");
+                            break;
+                        case 2:
+                            Console.Write("Yen: ");
+                            Yen = Validator.GetValidDecimal();
+                            Console.WriteLine($"1 SEK = {Yen} Yen");
+                            break;
+                        case 3:
+                            Console.Clear();
+                            go = false; // Exit the inner loop
+                            break;
+                        default:
+                            Console.Clear();
+                            Console.WriteLine("Insert number between 1-3.");
+                            break;
+                    }
+                }
+                catch
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter a Number.");
+                }
             }
-            Console.WriteLine("Press enter to return to the menu.");
-            Console.ReadKey();
-            Console.Clear();
         }
         private static decimal FromSekToYen(decimal money) // Administrator must add the rate first.
         {

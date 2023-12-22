@@ -31,30 +31,47 @@ namespace DotNetDynamosV2
 
         public static void AdminSetInterestRates()
         {
-            Console.WriteLine("Admin, choose an option:");
-            Console.WriteLine("1. Set Savings Interest Rate");
-            Console.WriteLine("2. Set Loan Interest Rate");
-      
-
-            int option = Validator.GetValidInt("Enter your choice: ", 1, 2);
-            Console.Clear();
-
-            switch (option)
+            bool go = true;
+            while (go)
             {
-                case 1:
-                    Console.Write("Enter new Savings Interest Rate: ");
-                    decimal newSavingsRate = Validator.GetValidDecimal();
-                    SetSavingsInterestRate(newSavingsRate);
-                    break;
-                case 2:
-                    Console.Write("Enter new Loan Interest Rate: ");
-                    decimal newLoanRate = Validator.GetValidDecimal();
-                    SetLoanInterestRate(newLoanRate);
-                    break;
+                try
+                {
+                    Console.WriteLine("Admin, choose an option:");
+                    Console.WriteLine("1. Set Savings Interest Rate");
+                    Console.WriteLine("2. Set Loan Interest Rate");
+                    Console.WriteLine("3. Back to Menu.");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
 
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.Write("Enter new Savings Interest Rate: ");
+                            decimal newSavingsRate = Validator.GetValidDecimal();
+                            InterestManager.SetSavingsInterestRate(newSavingsRate);
+                            break;
+                        case 2:
+                            Console.Write("Enter new Loan Interest Rate: ");
+                            decimal newLoanRate = Validator.GetValidDecimal();
+                            InterestManager.SetLoanInterestRate(newLoanRate);
+                            break;
+                        case 3:
+                            Console.Clear();
+                            go = false; // Exit the inner loop
+                            break;
+                        default:
+                            Console.Clear();
+                            Console.WriteLine("Insert number between 1-3.");
+                            break;
+                    }
+                }
+                catch
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter a Number.");
+                }
             }
         }
-
 
 
         internal static decimal SavingsInterestRate()
