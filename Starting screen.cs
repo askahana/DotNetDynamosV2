@@ -29,8 +29,9 @@ namespace DotNetDynamosV2
                             adminLogin.Login();
                             break;
                         case 2:
-                            CustomerLogin customerLogin = new CustomerLogin();
-                            customerLogin.Login();
+                            
+                            CustomerLogin.Login();
+                            
                             break;
                         default:
                             Console.WriteLine("Invalid choice. Please enter '1' for Admin or '2' for Customer.");
