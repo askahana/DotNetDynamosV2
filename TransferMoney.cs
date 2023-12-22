@@ -247,22 +247,7 @@ namespace DotNetDynamosV2
                 Console.WriteLine($"Balance: {account.Balance}\n");
             }
         }
-        private void IncrementPasswordAttempts(Customer loggedInCustomer)
-        {
-            if (loggedInCustomer.PasswordAttempts <= 2)
-            {
-                loggedInCustomer.PasswordAttempts ++;
-            }
-            else if (loggedInCustomer.PasswordAttempts >= 3)
-            {
-                LockOutUser(loggedInCustomer);
-            }
-        }
-        private void LockOutUser(Customer loggedInCustomer)
-        {
-            CustomerLogin.loginAttemptsCount[loggedInCustomer.UserName] = 3;
-            Console.WriteLine($"User {loggedInCustomer.UserName} is locked out. Please contact support.");
-        }
+       
 
         //Account targetAccount = null;
 

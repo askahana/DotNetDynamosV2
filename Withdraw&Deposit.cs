@@ -55,8 +55,12 @@ namespace DotNetDynamosV2
                 }
 
 
-                if (int.TryParse(Console.ReadLine(), out int confirm) && confirm == 1)
+                Console.WriteLine("Are you sure you want to withdraw? Press 1 to confirm or any other key to cancel.");
+                if (Console.ReadLine() != "1")
                 {
+                    Console.WriteLine("Transaction cancelled.");
+                    continue;
+                }
 
                     Console.WriteLine("Enter Password to confirm withdrawal:");
                     string enteredPassword = Validator.GetHiddenInput();
@@ -78,13 +82,6 @@ namespace DotNetDynamosV2
                     {
                         Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - loggedInCustomer.PasswordAttempts} attempts remaining."); //Inte klart
                     }
-
-                }
-                else
-                {
-                    Console.WriteLine("Transaction cancelled.");
-                }
-
 
                 Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
                 if (Console.ReadKey().Key != ConsoleKey.Enter)
@@ -179,7 +176,23 @@ namespace DotNetDynamosV2
                 
             
         }
-       
+        private void IncrementPasswordAttempts(Customer loggedInCustomer)
+        {
+            if (loggedInCustomer.PasswordAttempts <= 2)
+            {
+                loggedInCustomer.PasswordAttempts++;
+            }
+            else if (loggedInCustomer.PasswordAttempts >= 3)
+            {
+                LockOutUser(loggedInCustomer);
+            }
+        }
+        private void LockOutUser(Customer loggedInCustomer)
+        {
+            CustomerLogin.loginAttemptsCount[loggedInCustomer.UserName] = 3;
+            Console.WriteLine($"User {loggedInCustomer.UserName} is locked out. Please contact support.");
+        }
+
     }
 
 }
