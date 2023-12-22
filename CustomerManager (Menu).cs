@@ -58,7 +58,7 @@ namespace DotNetDynamosV2
                                 default:
                                     Console.Clear();
                                     Console.WriteLine("Insert number between 1-2.");
-                                    break;
+                                    continue;
                             }
                             break;
                         case 2:
@@ -67,7 +67,8 @@ namespace DotNetDynamosV2
                                 ("Account services:\n" +
                                 "1. View accounts and balance.\n" +
                                 "2. Open new account. \n" +
-                                "3. Account history.\n\n" +
+                                "3. Account history.\n" +
+                                "4. Personal loan.\n\n" +
                                 "Press enter to return to menu."
                                 );
                             int choice3 = Convert.ToInt32(Console.ReadLine());
@@ -93,13 +94,9 @@ namespace DotNetDynamosV2
                                     LoanManager.RequestPersonalLoan(loggedInCustomer);
                                     Console.ReadKey();
                                     break;
-                                case 5:
-                                    Console.Clear();
-                                    Console.ReadKey();
-                                    break;
                                 default:
                                     Console.Clear();
-                                    Console.WriteLine("Insert number between 1-3.");
+                                    Console.WriteLine("Insert number between 1-4.");
                                     break;
                             }
                             break;
