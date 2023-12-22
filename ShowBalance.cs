@@ -45,7 +45,7 @@ namespace DotNetDynamosV2
             Account selectedAccount = loggedInCustomer.Accounts[selectedAccountIndex];
 
             // Uppdatering för att inkludera lånebelopp
-            Console.WriteLine($"Balance for Account {selectedAccount.AccountNumber} ({selectedAccount.AccountName}): {selectedAccount.Balance} - Loan: {selectedAccount.LoanAmount}");
+            Console.WriteLine($"Balance for Account {selectedAccount.AccountNumber} ({selectedAccount.AccountName}): {selectedAccount.Balance} - Loanamount: {selectedAccount.LoanAmount}");
 
         }
         public static void ShowAllAccounts(Customer loggedInCustomer)
@@ -54,7 +54,7 @@ namespace DotNetDynamosV2
             foreach (Account account in loggedInCustomer.Accounts)
             {
                 // Uppdatering för att inkludera lånebelopp
-                Console.WriteLine($"Account {account.AccountNumber}: {account.AccountName} - {account.Currency} - Balance: {account.Balance} - Loan: {account.LoanAmount}");
+                Console.WriteLine($"Account {account.AccountNumber}: {account.AccountName} - {account.Currency} - Balance: {account.Balance} - Loanamount: {account.LoanAmount}");
             }
         }
 
