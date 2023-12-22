@@ -11,33 +11,39 @@ namespace DotNetDynamosV2
         public static void ShowAllInfo(Admin loggedInAdmin)
         {
             bool go = true;
-
             while (go)
             {
-                Console.WriteLine("Type of user account:");
-                Console.WriteLine("1. Admin.");
-                Console.WriteLine("2. Customer.");
-                Console.WriteLine("3. Exit to main menu.");
-                int choice = Convert.ToInt32(Console.ReadLine());
-                Console.Clear();
-
-                switch (choice)
+                try
                 {
-                    case 1:
-                        ShowAdminInfo();
-                        break;
-
-                    case 2:
-                        ShowCustomerInfo();
-                        break;
-
-                    case 3:
-                        go = false;
-                        break;
-
-                    default:
-                        Console.WriteLine("Invalid choice. Please enter '1', '2' or '3'.");
-                        break;
+                    Console.WriteLine("Type of user account:");
+                    Console.WriteLine("1. Admin.");
+                    Console.WriteLine("2. Customer.");
+                    Console.Write("3. Back to Menu.");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.Clear();
+                            ShowAllUserInfo.ShowAdminInfo();
+                            break;
+                        case 2:
+                            Console.Clear();
+                            ShowAllUserInfo.ShowCustomerInfo();
+                            break;
+                        case 3:
+                            Console.Clear();
+                            go = false; // Exit the inner loop
+                            break;
+                        default:
+                            Console.Clear();
+                            Console.WriteLine("Insert number between 1-3.");
+                            break;
+                    }
+                }
+                catch
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter a Number.");
                 }
             }
         }
