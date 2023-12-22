@@ -239,9 +239,9 @@ namespace DotNetDynamosV2
         /// <param name="loggedInUser"></param>
         public static void Withdraw(Customer loggedInCustomer)
         {
-            int passwordAttempts = 0;
+            loggedInCustomer.PasswordAttempts = 1;
             int maxPasswordAttempts = 3;
-            while (passwordAttempts < maxPasswordAttempts)
+            while (loggedInCustomer.PasswordAttempts < maxPasswordAttempts)
             {
                 Console.Clear();
                 ShowAllAcc(loggedInCustomer);
@@ -290,8 +290,7 @@ namespace DotNetDynamosV2
                     }
                     else
                     {
-                        passwordAttempts++;
-                        Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - passwordAttempts} attempts remaining."); //Inte klart
+                        Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - loggedInCustomer.PasswordAttempts} attempts remaining."); //Inte klart
                     }
 
                 }
@@ -326,113 +325,106 @@ namespace DotNetDynamosV2
                 Console.WriteLine($"Balance: {account.Balance}\n");
             }
         }
-        //private void IncrementPasswordAttempts(Customer loggedInCustomer)
-        //{
-        //    if (!passwordAttempts.ContainsKey(loggedInCustomer.UserName))
-        //    {
-        //        passwordAttempts[loggedInCustomer] = 1;
-        //    }
-        //    else
-        //    {
-        //        passwordAttempts[loggedInCustomer]++;
-        //    }
+        private void IncrementPasswordAttempts(Customer loggedInCustomer)
+        {
+            if (loggedInCustomer.PasswordAttempts <= 2)
+            {
+                loggedInCustomer.PasswordAttempts ++;
+            }
+            else if (loggedInCustomer.PasswordAttempts >= 3)
+            {
+                LockOutUser(loggedInCustomer);
+            }
+        }
 
-        //    if (passwordAttempts[loggedInCustomer] >= 3)
-        //    {
-        //        LockOutUser(loggedInCustomer.UserName);
-        //    }
-        //}
-
-        //private bool IsUserLockedOut(Customer loggedInCustomer)
-        //{
-        //    return passwordAttempts.ContainsKey(loggedInCustomer.UserName) && passwordAttempts[loggedInCustomer.UserName] >= 3;
-        //}
-
-        //private void LockOutUser(string username)
-        //{
-        //    Console.WriteLine($"User {username} is locked out. Please contact support.");
-        //}
-        //    /// <summary>
-        //    /// Nathalee:
-        //    /// Metod för att sätta in pengar på egna konton. 
-        //    /// Förbättringsförslag från mig själv inkluderar: 
-        //    /// !Hitta ett smidigt sätt att läsa in användaren så att det 
-        //    /// enkelt går att skicka tillbaka hen till menyn. 
-        //    /// Ändra så det inte är accountnumber som används i sökfunktionen, se över om det är smidigast att lägga in en parameter i IAccounts
-        //    /// eller att använda metoder i list för detta.
-        //    /// Utökade failsafes för att säkerställa att det är rätt mängd pengar som förs ut, kanske sätta fasta summor? (Tänker tex om man ska utgå från sedlar).
-        //    /// Tror det går att göra intressanta saker framöver där. 
-        //    /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
-        //    /// </summary>
-        //    /// <param name="loggedInUser"></param>
-        //    public static void Deposit(Customer loggedInCustomer)
-        //    {
-        //        Account sourceAccount = null;
-        //        Account targetAccount = null;
-        //        if (loggedInCustomer is Customer customer)
-        //        {
-        //            foreach (Account account in customer.Accounts)
-        //            {
-
-        //                Console.WriteLine($"Account name: {account.AccountName}");
-        //                Console.WriteLine($"Account number:{account.AccountNumber}");
-        //                Console.WriteLine($"Currency:{account.Currency}");
-        //                Console.WriteLine($"Balance:{account.Balance}");
-        //            }
-        //            Console.WriteLine("Which account do you want to deposit to?");
-        //            Console.WriteLine("Please press \"enter\" to go to meny.");
-        //            string intChoice = Console.ReadLine();
-        //            while (true)
-        //            {
-        //                int depositTo;
-        //                string chooseDepositTo = Console.ReadLine();
-        //                if (string.IsNullOrEmpty(chooseDepositTo)) //Om användaren trycker på enter återgår hen till menyn./N
-        //                {
-        //                    Console.Clear();
-        //                    //Meny(LoggedIn); 
-        //                    //Koppling från användaren krävs för att kunna återgå till menyn. /N
-        //                    return;
-        //                }
-
-        //                try
-        //                {
-        //                    depositTo = Convert.ToInt32(chooseDepositTo);
-        //                }
-        //                catch (FormatException)
-        //                {
-        //                    Console.WriteLine("Incorrect input, please enter a number or press ENTER to return to Menu.");
-        //                    continue;
-        //                }
-
-        //                sourceAccount = customer.Accounts.Find(a => a.AccountNumber == depositTo); //Ändra senare till att söka efter nummer på acc i listan
-        //                Console.WriteLine("What amount would you like to deposit?");
-        //                decimal depositAmount; // Ensure valid input
-        //                try
-        //                {
-        //                    depositAmount = Convert.ToDecimal(Console.ReadLine());
-        //                }
-        //                catch (FormatException)
-        //                {
-        //                    Console.WriteLine("Incorrect input, please enter a numeric value.");
-        //                    continue;
-        //                }
-        //                if (depositAmount < 0 || depositAmount > sourceAccount.Balance)
-        //                {
-        //                    Console.WriteLine("Invalid transfer amount.");
-        //                    return;
-        //                }
-        //                sourceAccount.Balance += depositAmount;
-
-        //                //Lägg till info om vad som har tagits ut. 
-        //                //Lägg till metod för att lagra informationen i historik. 
-
-        //                //Console.Clear följt av logik för att returnera användaren till menyn.  /N
-        //            }
-        //        }
-        //    }
+        private void LockOutUser(Customer loggedInCustomer)
+        {
+            CustomerLogin.loginAttemptsCount[loggedInCustomer.UserName] = 3;
+            Console.WriteLine($"User {loggedInCustomer.UserName} is locked out. Please contact support.");
+        }
         /// <summary>
         /// Nathalee:
-        /// Metod för att föra över pengar till andra egna konton. 
+        /// Metod för att sätta in pengar på egna konton. 
+        /// Förbättringsförslag från mig själv inkluderar: 
+        /// !Hitta ett smidigt sätt att läsa in användaren så att det 
+        /// enkelt går att skicka tillbaka hen till menyn. 
+        /// Ändra så det inte är accountnumber som används i sökfunktionen, se över om det är smidigast att lägga in en parameter i IAccounts
+        /// eller att använda metoder i list för detta.
+        /// Utökade failsafes för att säkerställa att det är rätt mängd pengar som förs ut, kanske sätta fasta summor? (Tänker tex om man ska utgå från sedlar).
+        /// Tror det går att göra intressanta saker framöver där. 
+        /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
+        /// </summary>
+        /// <param name="loggedInUser"></param>
+        public static void Deposit(Customer loggedInCustomer)
+        {
+            while (true)
+            {
+                Console.Clear();
+                ShowAllAcc(loggedInCustomer);
+
+                Console.WriteLine("Enter the number of the account you want to deposit to:");
+                if (!int.TryParse(Console.ReadLine(), out int transferFromOrder))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid account number.");
+                    continue;
+                }
+
+                Account depositTo = loggedInCustomer.Accounts.Find(a => a.SortOrder == transferFromOrder);
+
+                if (depositTo == null)
+                {
+                    Console.WriteLine("Source account not found.");
+                    continue;
+                }
+
+                Console.WriteLine("Enter the amount to deposit:");
+                if (!decimal.TryParse(Console.ReadLine(), out decimal transferAmount) || transferAmount <= 0 || transferAmount > depositTo.Balance)
+                {
+                    Console.WriteLine("Invalid transfer amount.");
+                    continue;
+                }
+
+                //decimal money = Converter.ConvertMoney(depositTo, targetAccount, transferAmount); //Behöver ny metod i convert
+
+                //Console.WriteLine($"{transferAmount} {depositTo.Currency} will become {money} {targetAccount.Currency}, proceed?\n\n Press Enter to return to account choice.");
+                //Console.WriteLine("[1]. Yes");
+                //Console.WriteLine("[2]. No");
+
+                if (int.TryParse(Console.ReadLine(), out int confirm) && confirm == 1)
+                {
+                    depositTo.Balance += transferAmount;
+
+                    Transaction transaction = new Transaction
+                    {
+                        TransactionType = "Deposit money",
+                        Amount = transferAmount,
+                        Timestamp = DateTime.Now
+                    };
+                    loggedInCustomer.TransactionHistory.Add(transaction);
+
+                    Console.WriteLine("Transaction successful."); //Mer info=
+                }
+                else
+                {
+                    Console.WriteLine("Transaction cancelled.");
+                }
+
+                Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
+                if (Console.ReadKey().Key != ConsoleKey.Enter)
+                {
+                    break; // Exit the loop if any key other than Enter is pressed
+                }
+            }
+
+            Console.Clear();
+            CustomerManager.Menu(loggedInCustomer);
+
+                
+            
+        }
+        /// <summary>
+        /// Nathalee:
+        /// Metod för att föra över pengar till andra egna konton.
         /// Förbättringsförslag från mig själv inkluderar: hitta ett smidigt sätt att läsa in användaren så att det 
         /// enkelt går att skicka tillbaka hen till menyn. 
         /// Ändra så det inte är accountnumber som används i sökfunktionen för egna konton, se över om det är smidigast att lägga in en parameter i IAccounts
@@ -441,121 +433,105 @@ namespace DotNetDynamosV2
         /// Skapa logik för koppling till andra användare.
         /// Utökade failsafes för att säkerställa att det är rätt mängd pengar som förs över samt att de förs över till rätt person.
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
-        /// Valuta? 
+        /// Valuta?
         /// </summary>
-        /// <param name="loggedInUser"></param>
-        //public static void TransferMoeneyToOthers(Customer loggedInCustomer)  // rename
-        //{
-        //        while (true)
-        //        {
-        //            Console.Clear();
-        //            ShowAllAcc(loggedInCustomer);
+        /// <param name = "loggedInUser" ></ param >
+        public static void TransferMoeneyToOthers(Customer loggedInCustomer)  // rename
+        {
+            while (true)
+            {
+                Console.Clear();
+                ShowAllAcc(loggedInCustomer);
 
-        //            Console.WriteLine("Enter the number of the account you want to transfer from:");
-        //            if (!int.TryParse(Console.ReadLine(), out int transferFromOrder))
-        //            {
-        //                Console.WriteLine("Invalid input. Please enter a valid account number.");
-        //                continue;
-        //            }
+                Console.WriteLine("Enter the number of the account you want to transfer from:");
+                if (!int.TryParse(Console.ReadLine(), out int transferFromOrder))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid account number.");
+                    continue;
+                }
 
-        //            Account sourceAccount = loggedInCustomer.Accounts.Find(a => a.SortOrder == transferFromOrder);
+                Account sourceAccount = loggedInCustomer.Accounts.Find(a => a.SortOrder == transferFromOrder);
 
-        //            if (sourceAccount == null)
-        //            {
-        //                Console.WriteLine("Source account not found.");
-        //                continue;
-        //            }
+                if (sourceAccount == null)
+                {
+                    Console.WriteLine("Source account not found.");
+                    continue;
+                }
 
-        //            Console.WriteLine("Enter the amount to transfer:");
-        //            if (!decimal.TryParse(Console.ReadLine(), out decimal transferAmount) || transferAmount <= 0 || transferAmount > sourceAccount.Balance)
-        //            {
-        //                Console.WriteLine("Invalid transfer amount.");
-        //                continue;
-        //            }
+                Console.WriteLine("Enter the amount to transfer:");
+                if (!decimal.TryParse(Console.ReadLine(), out decimal transferAmount) || transferAmount <= 0 || transferAmount > sourceAccount.Balance)
+                {
+                    Console.WriteLine("Invalid transfer amount.");
+                    continue;
+                }
+                Account targetAccount;
 
-        //            Console.WriteLine("Enter the account number of the person you would like to transfer to:");
-        //            if (!int.TryParse(Console.ReadLine(), out int transferToAccountNr))
-        //            {
-        //                Console.WriteLine("Invalid input. Please enter a valid account number.");
-        //                continue;
-        //            }
-
-               
-        //                Account targetAccount;
-
-        //            if (targetAccount == null)
-        //            {
-        //                Console.WriteLine("Target account not found.");
-        //                continue;
-        //            }
-
-        //            decimal money = Converter.ConvertMoney(sourceAccount, targetAccount, transferAmount);
-
-        //            Console.WriteLine($"{transferAmount} {sourceAccount.Currency} will become {money} {targetAccount.Currency}, proceed?\n\n Press Enter to return to account choice.");
-        //            Console.WriteLine("[1]. Yes");
-        //            Console.WriteLine("[2]. No");
-
-        //            if (int.TryParse(Console.ReadLine(), out int confirm) && confirm == 1)
-        //            {
-        //                sourceAccount.Balance -= transferAmount;
-        //                targetAccount.Balance += money;
-
-        //                Transaction transaction = new Transaction
-        //                {
-        //                    TransactionType = "Transfer money",
-        //                    Amount = transferAmount,
-        //                    Timestamp = DateTime.Now
-        //                };
-        //                loggedInCustomer.TransactionHistory.Add(transaction);
-
-        //                Console.WriteLine("Transaction successful."); //Mer info=
-        //            }
-        //            else
-        //            {
-        //                Console.WriteLine("Transaction cancelled.");
-        //            }
-
-        //            Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
-        //            if (Console.ReadKey().Key != ConsoleKey.Enter)
-        //            {
-        //                break; // Exit the loop if any key other than Enter is pressed
-        //            }
-        //        }
-
-        //        Console.Clear();
-        //        CustomerManager.Menu(loggedInCustomer);
+                Console.WriteLine("Enter the account number of the person you would like to transfer to:");
 
 
-        //}
-        //public string FindAccountNumber()
-        //{
-        //    bool found = false;
+                if (!int.TryParse(Console.ReadLine(), out int transferToAccountNr))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid account number.");
+                    continue;
+                }
 
-        //    foreach (KeyValuePair<string, Customer> user in DataManager.customerList)
-        //    {
-        //        if (user.Value.Accounts.Any(acc => acc.AccountNumber == transferToAccountNr))
-        //        {
-        //            // Found the target account in this customer's accounts
-        //            Customer targetCustomer = user.Value;
-        //            Account targetAccount = targetCustomer.Accounts.Find(a => a.AccountNumber == transferToAccountNr);
+                bool targetAccountFound = FindAndTransfer(loggedInCustomer, transferFromOrder, transferAmount, transferToAccountNr);
 
-        //            if (targetAccount != null)
-        //            {
-        //                // Perform the transfer
-        //                // Your transfer logic here
-        //                found = true;
-        //                break; // Exit the loop as the transfer has been completed
-        //            }
-        //        }
-        //    }
+                if (!targetAccountFound)
+                {
+                    Console.WriteLine("Target account not found.");
+                    continue;
+                }
 
-        //    if (!found)
-        //    {
-        //        Console.WriteLine("Target account not found.");
-        //        continue;
-        //    }
+                Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
+                if (Console.ReadKey().Key != ConsoleKey.Enter)
+                {
+                    break; // Exit the loop if any key other than Enter is pressed
+                }
+            }
 
-        //}
+            Console.Clear();
+            CustomerManager.Menu(loggedInCustomer);
+
+
+        }
+        public static bool FindAndTransfer(Customer loggedInCustomer, int transferFromOrder, decimal transferAmount, int transferToAccountNr)
+        {
+            foreach (KeyValuePair<string, Customer> user in DataManager.customerList)
+            {
+                if (user.Value.Accounts.Any(acc => acc.AccountNumber == transferToAccountNr))
+                {
+                    Customer targetCustomer = user.Value;
+                    Account targetAccount = targetCustomer.Accounts.Find(a => a.AccountNumber == transferToAccountNr);
+
+                    if (targetAccount != null)
+                    {
+                        // Assuming your transfer logic here...
+                        Account sourceAccount = loggedInCustomer.Accounts.Find(a => a.SortOrder == transferFromOrder);
+                        if (sourceAccount != null && sourceAccount.Balance >= transferAmount)
+                        {
+                            decimal money = Converter.ConvertMoney(sourceAccount, targetAccount, transferAmount);
+                            sourceAccount.Balance -= transferAmount;
+                            targetAccount.Balance += money;
+
+                            Transaction transaction = new Transaction
+                            {
+                                TransactionType = "Transfer money",
+                                Amount = transferAmount,
+                                Timestamp = DateTime.Now
+                            };
+                            loggedInCustomer.TransactionHistory.Add(transaction);
+
+                            Console.WriteLine("Transaction successful.");
+                            return true; // Found and completed transfer
+                        }
+                    }
+                }
+            }
+
+            return false; // Target account not found
+
+        }
     }
 
 }

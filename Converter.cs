@@ -97,8 +97,56 @@ namespace DotNetDynamosV2
                     break;
             }
             return 0;
-            Console.ReadKey();
+            Console.ReadKey(); //Den här koden kommer man inte åt /N
         }
+        //public static decimal ConvertDepositMoney(Account selectedAccount, decimal amount)  // Customer will do this action. So the exchange rate should be set
+        //{
+        //    Console.Clear();
+        //    string currency1 = selectedAccount.Currency;
+        //    string currency2 = Convert.ToString(amount);
+        //    decimal money;
+        //    switch (currency1)
+        //    {
+        //        case "SEK":
+        //            if (currency2 == "SEK")
+        //                return amount;
+        //            else if (currency2 == "EUR")
+        //                return FromSekToEur(amount);
+        //            else if (currency2 == "YEN")
+        //                return FromSekToYen(amount);
+        //            break;
+        //        case "EUR":
+        //            if (currency2 == "EUR")
+        //                return amount;
+        //            else if (currency2 == "SEK")
+        //                return FromEurToSek(amount);
+        //            else if (currency2 == "YEN")
+        //            {
+        //                money = FromEurToSek(amount);
+        //                money = Math.Round(FromSekToYen(money), 2);
+        //                return money;
+        //            }
+        //            break;
+        //        case "YEN":
+        //            if (currency2 == "YEN")
+        //                return amount;
+        //            else if (currency2 == "SEK")
+        //                return Math.Round(FromYenToSek(amount), 2);
+        //            else if (currency2 == "EUR")
+        //            {
+        //                money = FromYenToSek(amount);
+        //                money = Math.Round(FromSekToEur(money), 2);
+        //                return money;
+        //            }
+        //            break;
+        //        default:
+        //            Console.WriteLine("Sorry, we do not have that choice. You will be directed to the menu.");
+        //            return 0;
+        //            break;
+        //    }
+        //    return 0;
+        //    Console.ReadKey();
+        //}
 
         //public static void ConvertMoney(User user)  // Customer will do this action. So the exchange rate should be set
         //{
