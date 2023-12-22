@@ -15,7 +15,7 @@ namespace DotNetDynamosV2
         /// </summary>
         /// <returns></returns>
         /// 
-        private static Dictionary<string, int> loginAttemptsCount = new Dictionary<string, int>();
+        public static Dictionary<string, int> loginAttemptsCount = new Dictionary<string, int>();
 
         public Customer Login()
         {
@@ -76,7 +76,7 @@ namespace DotNetDynamosV2
         /// <param name="enteredPassword"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        private bool ValidateCustomerPassword(string enteredName, string enteredPassword)
+        public static bool ValidateCustomerPassword(string enteredName, string enteredPassword)
 
         {
             if (DataManager.customerList.ContainsKey(enteredName))

@@ -13,9 +13,8 @@ namespace DotNetDynamosV2
         public string Currency { get; set; }
         public decimal Balance { get; set; }
         public int SortOrder { get; set; }
-        public Account(int accountnumber, string accountname, string currency, decimal balance, int sortOrder)
-
         public decimal LoanAmount { get; set; }
+        public Account(int accountnumber, string accountname, string currency, decimal balance, int sortOrder)
 
         {
             AccountNumber = accountnumber;
