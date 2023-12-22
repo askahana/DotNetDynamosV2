@@ -20,15 +20,25 @@ namespace DotNetDynamosV2
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
         /// </summary>
         /// <param name="loggedInUser"></param>
-        public static void TransferMoneyBetweenAccount(Customer loggedInCustomer) 
+        public static void TransferMoneyBetweenAccount(Customer loggedInCustomer) //lägg till felmeddelande om inte accnr hittas i val
         {
+            int transferFromOrder;
+            int transferToOrder;
+            decimal transferAmount;
+
             while (true)
             {
                 Console.Clear();
                 ShowAllAcc(loggedInCustomer);
 
-                Console.WriteLine("Enter the number of the account you want to transfer from:");
-                if (!int.TryParse(Console.ReadLine(), out int transferFromOrder))
+                Console.WriteLine("Enter the number of the account you want to transfer from or press Enter to return:");
+                var key = Console.ReadKey(intercept: true);
+
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    break; // Exit the loop if Enter is pressed to return to the menu
+                }
+                else if (!int.TryParse(key.KeyChar.ToString(), out transferFromOrder))
                 {
                     Console.WriteLine("Invalid input. Please enter a valid account number.");
                     continue;
@@ -41,16 +51,25 @@ namespace DotNetDynamosV2
                     Console.WriteLine("Source account not found.");
                     continue;
                 }
+                Console.WriteLine($"\n{transferFromOrder}.Transfering from {sourceAccount.AccountName}.");
+                Console.WriteLine("Enter the amount to transfer or press Enter to return:");
 
-                Console.WriteLine("Enter the amount to transfer:");
-                if (!decimal.TryParse(Console.ReadLine(), out decimal transferAmount) || transferAmount <= 0 || transferAmount > sourceAccount.Balance)
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    break; // Exit the loop if Enter is pressed to return to the menu
+                }
+                else if (!decimal.TryParse(Console.ReadLine(), out transferAmount) || transferAmount <= 0 || transferAmount > sourceAccount.Balance)
                 {
                     Console.WriteLine("Invalid transfer amount.");
                     continue;
                 }
-
-                Console.WriteLine("Enter the account number you want to transfer to:");
-                if (!int.TryParse(Console.ReadLine(), out int transferToOrder))
+                Console.WriteLine($"\nTransfering {transferAmount} {sourceAccount.Currency} from {sourceAccount.AccountName}.\n");
+                Console.WriteLine("Enter the account number you want to transfer to or press Enter to return:");
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    break; // Exit the loop if Enter is pressed to return to the menu
+                }
+                else if (!int.TryParse(Console.ReadLine(), out transferToOrder))
                 {
                     Console.WriteLine("Invalid input. Please enter a valid account number.");
                     continue;
@@ -60,7 +79,7 @@ namespace DotNetDynamosV2
 
                 if (targetAccount == null)
                 {
-                    Console.WriteLine("Target account not found.");
+                    Console.WriteLine("Target account not found."); //if sourceacc == targetacc > felmeddelande
                     continue;
                 }
 
@@ -83,7 +102,7 @@ namespace DotNetDynamosV2
                     };
                     loggedInCustomer.TransactionHistory.Add(transaction);
 
-                    Console.WriteLine("Transaction successful."); //Mer info=
+                    Console.WriteLine($"Transaction successful. \n{transferAmount} {sourceAccount.Currency} was transfered from {sourceAccount.AccountName} to {targetAccount.AccountName}"); 
                 }
                 else
                 {
