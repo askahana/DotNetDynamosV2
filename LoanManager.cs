@@ -15,10 +15,14 @@ namespace DotNetDynamosV2
             Console.Write("Loan Amount: ");
             decimal loanAmount = Validator.GetValidDecimal();
 
-           
-            if (loanAmount > 5 * CalculateTotalBalance(customer))
+            decimal originalBalance = CalculateOriginalBalance(customer);
+            decimal totalLoanAmount = CalculateTotalLoanAmount(customer);
+
+            decimal remainingBalance = originalBalance * 5 - totalLoanAmount; // Beräkna återstående saldo för att inte överstiga 5 gånger det ursprungliga saldot exklusive lån
+
+            if (loanAmount > remainingBalance)
             {
-                Console.WriteLine("Loan request denied. The personal loan amount exceeds the limit (5 times the current balance).");
+                Console.WriteLine("Loan request denied. The personal loan amount exceeds the limit (5 times the original balance excluding already borrowed money).");
                 return;
             }
 
@@ -26,18 +30,21 @@ namespace DotNetDynamosV2
 
             Console.WriteLine($"The loan will have an interest rate of: {interestRate:P}");
 
-            
             DisplayUserAccounts(customer);
             int selectedAccountIndex = Validator.GetValidInt("Enter the account number to add the loan amount: ", 1, customer.Accounts.Count) - 1;
             Account selectedAccount = customer.Accounts[selectedAccountIndex];
 
-            
             selectedAccount.Balance += loanAmount;
+            selectedAccount.LoanAmount += loanAmount;
 
-            Console.WriteLine($"Personal loan request approved. The loan amount has been added to account {selectedAccount.AccountNumber}. You will need to repay: {loanAmount:C}");
+            Console.WriteLine($"Personal loan request approved. The loan amount of {loanAmount:C} has been added to account {selectedAccount.AccountNumber}.");
+
+            decimal repaymentAmount = CalculateRepaymentAmount(loanAmount, interestRate);
+            Console.WriteLine($"You will need to repay: {repaymentAmount:C}");
+
             Console.WriteLine("Press enter to return to the menu");
+            Console.ReadKey();
             Console.Clear();
-
         }
 
         private static void DisplayUserAccounts(Customer customer)
@@ -48,10 +55,20 @@ namespace DotNetDynamosV2
             }
         }
 
-        private static decimal CalculateTotalBalance(Customer customer)
+        private static decimal CalculateOriginalBalance(Customer customer)
         {
-           
-            return customer.Accounts.Sum(account => account.Balance);
+            return customer.Accounts.Sum(account => account.Balance - account.LoanAmount);
+        }
+
+        private static decimal CalculateTotalLoanAmount(Customer customer)
+        {
+            return customer.Accounts.Sum(account => account.LoanAmount);
+        }
+
+        private static decimal CalculateRepaymentAmount(decimal loanAmount, decimal interestRate)
+        {
+            decimal repaymentAmount = loanAmount * (1 + interestRate);
+            return repaymentAmount;
         }
     }
 

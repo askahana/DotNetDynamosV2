@@ -19,7 +19,7 @@ namespace DotNetDynamosV2
                 {
                     AsciiHeadliner.PrintHeadliner();
                     Console.WriteLine("Welcome to DotNetDynamos BANK");
-                    Console.WriteLine("1. Log in a as Admin.\n2. Log in as Customer.");
+                    Console.WriteLine("1. Log in as Admin.\n2. Log in as Customer.");
                     int selectRole = Convert.ToInt32(Console.ReadLine());
                     Console.Clear();
                     switch (selectRole)
