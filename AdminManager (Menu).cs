@@ -41,7 +41,7 @@ namespace DotNetDynamosV2
                         //    break;
                         case 2:
                             Console.Clear();
-                            ShowAllCustomer.ShowAllInfo(loggedInAdmin);
+                            ShowAllUserInfo.ShowAllInfo(loggedInAdmin);
                             break;
                         case 3:
                             Console.Clear();
@@ -76,7 +76,7 @@ namespace DotNetDynamosV2
         /// <summary>
         /// Ändrat så att det går tillbaka till Start.
         /// </summary>
-        private static void LogOut()
+        private static void LogOut() //Funkar denna? /N
         {
             Console.WriteLine("Logged out.");
             Starting_screen.StartProgram();

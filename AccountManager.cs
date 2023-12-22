@@ -49,18 +49,20 @@ namespace DotNetDynamosV2
 
                 int newAccountNumber = GenerateNewAccountNumber(customer);
 
+                int sortOrder = loggedInCustomer.Accounts.Count + 1;
+
                 Account newAccount;
 
                 if (accountTypeChoice == 1)
                 {
-                    newAccount = new SavingsAccount(newAccountNumber, accountName, currency, initialBalance, interestRate);
+                    newAccount = new SavingsAccount(newAccountNumber, accountName, currency, initialBalance, interestRate, sortOrder);
                     Console.WriteLine($"Interest Rate: {interestRate:P}");
                     decimal earnedInterest = CalculateEarnedInterest(initialBalance, interestRate);
                     Console.WriteLine($"You will earn {earnedInterest:C} in interest.");
                 }
                 else
                 {
-                    newAccount = new Account(newAccountNumber, accountName, currency, initialBalance);
+                    newAccount = new Account(newAccountNumber, accountName, currency, initialBalance, sortOrder);
                 }
 
                 customer.Accounts.Add(newAccount);

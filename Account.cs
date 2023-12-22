@@ -12,17 +12,22 @@ namespace DotNetDynamosV2
         public string AccountName { get; set; }
         public string Currency { get; set; }
         public decimal Balance { get; set; }
+        public int SortOrder { get; set; }
+        public Account(int accountnumber, string accountname, string currency, decimal balance, int sortOrder)
+
         public decimal LoanAmount { get; set; }
-        public Account(int accountnumber, string accountname, string currency, decimal balance)
+
         {
             AccountNumber = accountnumber;
             AccountName = accountname;
             Currency = currency;
             Balance = balance;
+            SortOrder = sortOrder;
         }
-        public Account() : this(1, "", "SEK", 0)
+        public Account() : this(1, "", "No currency selected", 0, 0)
         {
 
         }
+
     }
 }

@@ -99,7 +99,86 @@ namespace DotNetDynamosV2
             return 0;
             Console.ReadKey();
         }
-       
+
+        //public static void ConvertMoney(User user)  // Customer will do this action. So the exchange rate should be set
+        //{
+        //    if(user is Customer customer) 
+        //    { 
+        //        Account selectedAccount= ShowSpecificAccount(customer);
+        //    string currency = selectedAccount.Currency;
+        //    switch (GetCurrencyChoice())
+        //    {
+        //        case 1: // SEK
+        //            Console.WriteLine("1. SEK");
+        //            if (currency == "SEK")
+        //                Console.WriteLine("You have balance in SEK already.");
+        //            else if (currency == "EUR")
+        //                Console.WriteLine("It would be " + FromEurToSek(selectedAccount.Balance) + " in SEK.");
+        //            else if (currency == "YEN")
+        //                Console.WriteLine("It would be " + Math.Round(FromYenToSek(selectedAccount.Balance), 2) + " in SEK");
+        //            break;
+        //        case 2: // EUR
+        //            Console.WriteLine("2. EUR");
+        //            if (currency == "EUR")
+        //                Console.WriteLine("You have balance in EUR already.");
+        //            else if (currency == "SEK")
+        //                Console.WriteLine("It would be " + FromSekToEur(selectedAccount.Balance) + " in Euro");
+        //            else if (currency == "YEN")
+        //            {
+        //                decimal money = FromYenToSek(selectedAccount.Balance);
+        //                Console.WriteLine(money + "SEK");
+        //                Console.WriteLine("It would be " + Math.Round(FromSekToEur(money), 2) + "in Euro");
+        //            }
+        //            break;
+        //        case 3: // YEN
+        //            Console.WriteLine("3. YEN");
+        //            if (currency == "YEN")
+        //                Console.WriteLine("You have balance in YEN already.");
+        //            else if (currency == "SEK")
+        //                Console.WriteLine("It would be " + FromSekToYen(selectedAccount.Balance) + " in yen");
+        //            else if (currency == "EUR")
+        //            {
+        //                decimal money = FromEurToSek(selectedAccount.Balance);
+        //                Console.WriteLine("It would be " + Math.Round(FromSekToYen(money), 2) + " in yen");
+        //            }
+        //            Console.WriteLine();
+        //            break;
+        //        default:
+        //            Console.WriteLine("Sorry, we do not have that choice. You will be directed to the menu.");
+        //            return;
+        //            break;
+        //    }
+        //    }
+
+        //}
+        private static Account ShowSpecificAccount(Customer loggedInCustomer)
+        {
+            Console.WriteLine("Choose an account to view the balance:");
+            DisplayUserAccounts(loggedInCustomer);
+            int selectedAccountIndex = Validator.GetValidInt("Enter the account number: ", 1, loggedInCustomer.Accounts.Count) - 1;
+            Account selectedAccount = loggedInCustomer.Accounts[selectedAccountIndex];
+            Console.Clear();
+            Console.WriteLine($"Balance for Account {selectedAccount.AccountNumber} ({selectedAccount.AccountName}): {selectedAccount.Balance}({selectedAccount.Currency})");
+            return selectedAccount;
+        }
+        private static void DisplayUserAccounts(Customer loggedInCustomer)
+        {
+            for (int i = 0; i < loggedInCustomer.Accounts.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. Account {loggedInCustomer.Accounts[i].AccountNumber}: {loggedInCustomer.Accounts[i].AccountName} - {loggedInCustomer.Accounts[i].Currency}");
+            }
+        }
+        private static int GetCurrencyChoice()
+        {
+            Console.WriteLine("Choose currency: ");
+            string currency1 = "1. SEK";
+            string currency2 = "2. EUR";
+            string currency3 = "3. YEN";
+            Console.WriteLine(currency1 + "\n" + currency2 + "\n" + currency3);
+            int currencyChoice = Validator.GetValidInt();
+            return currencyChoice;
+        }
+
     }
 
 }

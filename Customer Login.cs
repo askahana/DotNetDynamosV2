@@ -66,7 +66,18 @@ namespace DotNetDynamosV2
             return loggedInCustomer;
         }
 
+
+        /// <summary>
+        /// Method to validate customer password.
+        /// Ändrat att sökfunktionen utgår ifrån den nya dictionaryn customerList /N
+        /// 2023-12-15
+        /// </summary>
+        /// <param name="enteredName"></param>
+        /// <param name="enteredPassword"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         private bool ValidateCustomerPassword(string enteredName, string enteredPassword)
+
         {
             if (DataManager.customerList.ContainsKey(enteredName))
             {

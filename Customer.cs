@@ -37,6 +37,11 @@ namespace DotNetDynamosV2
             Accounts = accounts;
             TransactionHistory = transactions;
         }
-        
+
+        public static void SortingOrder()
+        {
+            
+
+        }
     }
 }
