@@ -31,8 +31,13 @@ namespace DotNetDynamosV2
                 Console.Write("Account Name: ");
                 string accountName = Console.ReadLine();
 
-                Console.Write("Currency: ");
-                string currency = Console.ReadLine();
+                Console.WriteLine("Choose the currency:");
+                Console.WriteLine("1. SEK (Swedish Krona)");
+                Console.WriteLine("2. Euro");
+                Console.WriteLine("3. Yen");
+                int currencyChoice = Validator.GetValidInt("Enter your choice: ", 1, 3);
+
+                string currency = GetCurrencyFromChoice(currencyChoice);
 
                 Console.Write("Initial Balance: ");
                 decimal initialBalance = Validator.GetValidDecimal();
@@ -83,6 +88,21 @@ namespace DotNetDynamosV2
         {
             int maxAccountNumber = customer.Accounts.Count > 0 ? customer.Accounts.Max(acc => acc.AccountNumber) : 0;
             return maxAccountNumber + 1;
+        }
+
+        private static string GetCurrencyFromChoice(int currencyChoice)
+        {
+            switch (currencyChoice)
+            {
+                case 1:
+                    return "SEK";
+                case 2:
+                    return "Euro";
+                case 3:
+                    return "Yen";
+                default:
+                    return "Unknown";
+            }
         }
     }
 }
