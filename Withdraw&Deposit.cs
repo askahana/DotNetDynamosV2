@@ -158,6 +158,8 @@ namespace DotNetDynamosV2
                 }
 
                 string depositCurrency = Converter.GetValidChoice(); // User choose currency.
+                if (depositCurrency == null)
+                    continue;
                 Console.WriteLine("Enter the amount to deposit:");
                 if (!decimal.TryParse(Console.ReadLine(), out decimal depositAmount) || depositAmount <= 0)
                 {

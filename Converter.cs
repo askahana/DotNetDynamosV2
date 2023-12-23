@@ -123,7 +123,7 @@ namespace DotNetDynamosV2
             while (go)
             {
                 Console.WriteLine("Choose currency to deposit:");
-                Console.WriteLine("1. SEK\n2. EUR\n3. YEN\n4. Back to Menu.");
+                Console.WriteLine("1. SEK\n2. EUR\n3. YEN\n4. Cancel.");
                 int choice = Validator.GetValidInt();
                 switch (choice)
                 {
@@ -134,8 +134,9 @@ namespace DotNetDynamosV2
                     case 3:
                         return "YEN";
                     case 4:
-                        go = false;
-                        break;
+                        return null;
+                    defualt:
+                        Console.WriteLine("Please enter a number between 1-4.");
                 }
             }
             return null;
@@ -180,7 +181,7 @@ namespace DotNetDynamosV2
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine("...");
+                    Console.WriteLine("You...");
                     break;
             }
             return 0;
