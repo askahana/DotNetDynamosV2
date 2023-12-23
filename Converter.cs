@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -73,7 +74,7 @@ namespace DotNetDynamosV2
         {
             Console.Clear();
             string currency1 = selectedAccount.Currency;
-            string currency2 = targetAccount.Currency; 
+            string currency2 = targetAccount.Currency;
             decimal money;
             switch (currency1)
             {
@@ -111,11 +112,78 @@ namespace DotNetDynamosV2
                     break;
                 default:
                     Console.WriteLine("Sorry, we do not have that choice. You will be directed to the menu.");
-                    return 0;
                     break;
             }
             return 0;
             Console.ReadKey(); //Den här koden kommer man inte åt /N
+        }
+        public static string GetValidChoice()
+        {
+            bool go = true;
+            while (go)
+            {
+                Console.WriteLine("Choose currency to deposit:");
+                Console.WriteLine("1. SEK\n2. EUR\n3. YEN\n4. Back to Menu.");
+                int choice = Validator.GetValidInt();
+                switch (choice)
+                {
+                    case 1:
+                        return "SEK";
+                    case 2:
+                        return "EUR";
+                    case 3:
+                        return "YEN";
+                    case 4:
+                        go = false;
+                        break;
+                }
+            }
+            return null;
+        }
+        public static decimal ConvertDepositMoney(string currrency2, Account selectedAccount, decimal amount)
+        {
+            decimal money;
+            string currency1 = selectedAccount.Currency;
+            switch (currrency2)
+            {
+                case "SEK":  // SEK to another currency
+                    if (currency1 == "SEK")
+                        return amount;
+                    else if (currency1 == "EUR")
+                        return Math.Round(FromSekToEur(amount), 2);
+                    else if (currency1 == "YEN")
+                        return FromSekToYen(amount);
+                    break;
+                case "EUR": // Euro to another currecny
+                    if (currency1 == "SEK")
+                        return Math.Round(FromEurToSek(amount), 2);
+                    else if (currency1 == "EUR")
+                        return amount;
+                    else if (currency1 == "YEN")
+                    {
+                        money = FromEurToSek(amount);
+                        money = Math.Round(FromSekToYen(money), 2);
+                        return money;
+                    }
+                    break;
+                case "YEN": // Yen to another currency
+                    if (currency1 == "SEK")
+                        return Math.Round(FromYenToSek(amount), 2);
+                    else if (currency1 == "EUR")
+                        return amount;
+                    else if (currency1 == "YEN")
+                    {
+                        money = FromYenToSek(amount);
+                        money = Math.Round(FromSekToEur(money), 2);
+                        return money;
+                    }
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("...");
+                    break;
+            }
+            return 0;
         }
         //public static decimal ConvertDepositMoney(Account selectedAccount, decimal amount)  // Customer will do this action. So the exchange rate should be set
         //{
