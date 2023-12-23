@@ -25,9 +25,8 @@ namespace DotNetDynamosV2
         /// <param name="loggedInUser"></param>
         public static void Withdraw(Customer loggedInCustomer)
         {
-            loggedInCustomer.PasswordAttempts = 1;
             int maxPasswordAttempts = 3;
-            while (loggedInCustomer.PasswordAttempts < maxPasswordAttempts)
+            while (true)
             {
                 Console.Clear();
                 ShowAllAcc(loggedInCustomer);
@@ -62,9 +61,11 @@ namespace DotNetDynamosV2
                     continue;
                 }
 
-                    Console.WriteLine("Enter Password to confirm withdrawal:");
-                    string enteredPassword = Validator.GetHiddenInput();
-                    if (CustomerLogin.ValidateCustomerPassword(loggedInCustomer.UserName, enteredPassword))
+                Console.WriteLine("Enter Password to confirm withdrawal:");
+                string enteredPassword = Validator.GetHiddenInput();
+                while (true)
+                {
+                    if (ValidatePassForWithdraw(loggedInCustomer.UserName, enteredPassword))
                     {
                         sourceAccount.Balance -= withdrawAmount;
 
@@ -77,11 +78,20 @@ namespace DotNetDynamosV2
                         loggedInCustomer.TransactionHistory.Add(transaction);
 
                         Console.WriteLine("Transaction successful.");
+                        break;
+                        
                     }
                     else
                     {
+                        IncrementPasswordAttempts(loggedInCustomer);
                         Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - loggedInCustomer.PasswordAttempts} attempts remaining."); //Inte klart
+                        break;
+
                     }
+
+                }
+
+
 
                 Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
                 if (Console.ReadKey().Key != ConsoleKey.Enter)
@@ -95,7 +105,7 @@ namespace DotNetDynamosV2
 
 
         }
-       
+
         /// <summary>
         /// Nathalee:
         /// Metod för att sätta in pengar på egna konton. 
@@ -173,21 +183,37 @@ namespace DotNetDynamosV2
             Console.Clear();
             CustomerManager.Menu(loggedInCustomer);
 
-                
-            
+
+
         }
-        private void IncrementPasswordAttempts(Customer loggedInCustomer)
+        private static bool ValidatePassForWithdraw(string enteredName, string enteredPassword)
         {
-            if (loggedInCustomer.PasswordAttempts <= 2)
+
+            Customer storedUser = DataManager.customerList[enteredName];
+            if (enteredPassword == storedUser.PassWord)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
+        private static void IncrementPasswordAttempts(Customer loggedInCustomer)
+        {
+            if (loggedInCustomer.PasswordAttempts != 3)
             {
                 loggedInCustomer.PasswordAttempts++;
             }
-            else if (loggedInCustomer.PasswordAttempts >= 3)
+            else if (loggedInCustomer.PasswordAttempts == 3)
             {
                 LockOutUser(loggedInCustomer);
+                CustomerManager.LogOut(loggedInCustomer);
             }
         }
-        private void LockOutUser(Customer loggedInCustomer)
+        private static void LockOutUser(Customer loggedInCustomer)
         {
             CustomerLogin.loginAttemptsCount[loggedInCustomer.UserName] = 3;
             Console.WriteLine($"User {loggedInCustomer.UserName} is locked out. Please contact support.");

@@ -64,6 +64,7 @@ namespace DotNetDynamosV2
             }
 
             CustomerManager.Menu(loggedInCustomer);
+            loggedInCustomer.PasswordAttempts = 0;
             return loggedInCustomer; //Överflödigt? 
             
         }

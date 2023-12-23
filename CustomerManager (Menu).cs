@@ -157,7 +157,7 @@ namespace DotNetDynamosV2
 
             }
         }
-        private static void LogOut(Customer loggedInCustomer)
+        public static void LogOut(Customer loggedInCustomer)
         {
             Console.Clear();
             Console.WriteLine("Logged out.");
