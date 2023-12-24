@@ -144,29 +144,31 @@ namespace DotNetDynamosV2
             {
                 Console.Clear();
                 ShowAllAcc(loggedInCustomer);
-
                 Console.WriteLine("Enter the number of the account you want to deposit to:");
                 if (!int.TryParse(Console.ReadLine(), out int depositToOrder))
                 {
                     Console.WriteLine("Invalid input. Please enter a valid account number.");
                     continue;
                 }
-
                 Account depositTo = loggedInCustomer.Accounts.Find(a => a.SortOrder == depositToOrder);
-
                 if (depositTo == null)
                 {
                     Console.WriteLine("Destination account not found.");
                     continue;
                 }
 
+                string depositCurrency = Converter.GetValidChoice(); // User choose currency.
+                if (depositCurrency == null)
+                    continue;
                 Console.WriteLine("Enter the amount to deposit:");
                 if (!decimal.TryParse(Console.ReadLine(), out decimal depositAmount) || depositAmount <= 0)
                 {
                     Console.WriteLine("Invalid deposit amount.");
                     continue;
                 }
-
+                decimal convertedAmount = Converter.ConvertDepositMoney(depositCurrency, depositTo, depositAmount); // Added this line.
+                Console.WriteLine($"{depositAmount} {depositCurrency} will become {convertedAmount} {depositTo.Currency}, proceed?\n\n Press Enter to return to account choice.");
+                
                 Console.WriteLine($"Confirm transaction (1 to confirm, 0 to cancel):");
                 if (!int.TryParse(Console.ReadLine(), out int confirm) || (confirm != 0 && confirm != 1))
                 {
@@ -174,10 +176,9 @@ namespace DotNetDynamosV2
                     Console.Clear();
                     return;
                 }
-
                 if (confirm == 1)
                 {
-                    depositTo.Balance += depositAmount;
+                    depositTo.Balance += convertedAmount;
 
                     Transaction transaction = new Transaction
                     {
@@ -187,7 +188,7 @@ namespace DotNetDynamosV2
                     };
                     loggedInCustomer.TransactionHistory.Add(transaction);
 
-                    Console.WriteLine($"Deposit of {depositAmount} ({depositTo.Currency}) to account {depositTo.AccountNumber}  successful.");
+                    Console.WriteLine($"Deposit of {depositAmount} ({depositCurrency}) to account {depositTo.AccountNumber}  successful.");
                 }
                 else
                 {
