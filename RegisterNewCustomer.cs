@@ -73,7 +73,7 @@ namespace DotNetDynamosV2
             DataManager.customerList.Add(newCustomer.UserName, newCustomer);
 
             Console.Clear();
-            Console.WriteLine($"Successfully created Admin {newCustomer.UserName}\nPress any key to return to the menu.");
+            Console.WriteLine($"Successfully created Customer {newCustomer.UserName}\nPress any key to return to the menu.");
             Console.ReadKey();
             Console.Clear();
             AdminManager.Menu(loggedInAdmin);
