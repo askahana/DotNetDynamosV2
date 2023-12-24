@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +45,7 @@ namespace DotNetDynamosV2
                         Console.Clear();
                         Console.WriteLine("Welcome, " + enteredName + "!");
                         loggedInCustomer = DataManager.customerList[enteredName];
+                        loggedInCustomer.PasswordAttempts = 0;
                         CustomerManager.Menu(loggedInCustomer);
                     }
                     else
@@ -64,8 +64,7 @@ namespace DotNetDynamosV2
                 }
             }
 
-            CustomerManager.Menu(loggedInCustomer);
-            loggedInCustomer.PasswordAttempts = 0;
+            
             return loggedInCustomer; //Överflödigt? 
             
         }
@@ -113,7 +112,6 @@ namespace DotNetDynamosV2
 
         private static bool IsUserLockedOut(string username)
         {
-            
             return loginAttemptsCount.ContainsKey(username) && loginAttemptsCount[username] >= 3;
         }
 
