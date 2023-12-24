@@ -23,6 +23,7 @@ namespace DotNetDynamosV2
         /// Ny metod i annan klass för att lagra informationen som skett i denna klass för att kunna komma åt historik.
         /// </summary>
         /// <param name="loggedInUser"></param>
+
         public static void Withdraw(Customer loggedInCustomer)
         {
             int maxPasswordAttempts = 3;
@@ -32,70 +33,138 @@ namespace DotNetDynamosV2
                 Console.Clear();
                 ShowAllAcc(loggedInCustomer);
 
-
-            Console.Clear();
-            ShowAllAcc(loggedInCustomer);
-
-            Account sourceAccount = null;
-            while (sourceAccount == null)
-            {
-                Console.WriteLine("Enter the number of the account you want to withdraw from:");
-                if (!int.TryParse(Console.ReadLine(), out int withdrawFromOrder))
+                Account sourceAccount = null;
+                while (sourceAccount == null)
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid account number.");
-                    continue;
+                    Console.WriteLine("Enter the number of the account you want to withdraw from:");
+                    if (!int.TryParse(Console.ReadLine(), out int withdrawFromOrder))
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid account number.");
+                        continue;
+                    }
+
+                    sourceAccount = loggedInCustomer.Accounts.Find(a => a.SortOrder == withdrawFromOrder);
+
+                    if (sourceAccount == null)
+                    {
+                        Console.WriteLine("Please enter a valid account number.");
+                    }
                 }
 
-                sourceAccount = loggedInCustomer.Accounts.Find(a => a.SortOrder == withdrawFromOrder);
-
-                if (sourceAccount == null)
+                Console.WriteLine("Enter the amount to withdraw:");
+                if (!decimal.TryParse(Console.ReadLine(), out decimal withdrawAmount) || withdrawAmount <= 0 || withdrawAmount > sourceAccount.Balance)
                 {
-                    Console.WriteLine("Please enter a valid account number.");
-                }
-            }
-
-            Console.WriteLine("Enter the amount to withdraw:");
-            if (!decimal.TryParse(Console.ReadLine(), out decimal withdrawAmount) || withdrawAmount <= 0 || withdrawAmount > sourceAccount.Balance)
-            {
-                Console.WriteLine("Invalid withdraw amount.");
-                return;
-            }
-
-            bool validChoice = false;
-
-            while (!validChoice)
-            {
-                Console.WriteLine($"Confirm transaction (1 to confirm, 0 to cancel):");
-                if (!int.TryParse(Console.ReadLine(), out int confirm) || (confirm != 0 && confirm != 1))
-                {
-                    Console.WriteLine("Invalid confirmation input. Transaction cancelled.");
-                    Console.Clear();
+                    Console.WriteLine("Invalid withdraw amount.");
                     return;
                 }
 
+                int attempts = 0;
+                bool validPassword = false;
 
-
-                Console.WriteLine("Are you sure you want to withdraw? Press 1 to confirm or any other key to cancel.");
-                if (Console.ReadLine() != "1")
+                while (attempts < maxPasswordAttempts)
                 {
-                    Console.WriteLine("Transaction cancelled.");
-                    continue;
+                    Console.WriteLine("Enter Password to confirm withdrawal:");
+                    string enteredPassword = Validator.GetHiddenInput();
+
+                    if (ValidatePassForWithdraw(loggedInCustomer.UserName, enteredPassword))
+                    {
+                        validPassword = true;
+                        break;
+                    }
+                    else
+                    {
+                        attempts++;
+                        Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - attempts} attempts remaining.");
+                    }
                 }
 
-                Console.WriteLine("Enter Password to confirm withdrawal:");
-                string enteredPassword = Validator.GetHiddenInput();
-                while (true)
+                if (validPassword)
                 {
-                    if (ValidatePassForWithdraw(loggedInCustomer.UserName, enteredPassword))
+                    sourceAccount.Balance -= withdrawAmount;
 
+                    Transaction transaction = new Transaction
                     {
-                        Console.WriteLine($"Attempt {attempt}: Enter Password to confirm withdrawal:");
-                        string enteredPassword = Validator.GetHiddenInput();
+                        TransactionType = "Withdraw money",
+                        Amount = withdrawAmount,
+                        Timestamp = DateTime.Now
+                    };
+                    loggedInCustomer.TransactionHistory.Add(transaction);
+                    loggedInCustomer.PasswordAttempts = 0;
 
-                        if (CustomerLogin.ValidateCustomerPassword(loggedInCustomer.UserName, enteredPassword))
+                    Console.WriteLine($"Withdrawal of {withdrawAmount} ({sourceAccount.Currency}) from account {sourceAccount.AccountNumber} successful.");
+                }
+                else
+                {
+                    LockOutUser(loggedInCustomer);
+                    CustomerManager.LogOut(loggedInCustomer);
+                    return;
+                }
+
+                Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
+                if (Console.ReadKey().Key != ConsoleKey.Enter)
+                {
+                    break; // Exit the loop if any key other than Enter is pressed
+                }
+            }
+
+            Console.WriteLine("Press Enter to return to the menu.");
+            Console.ReadLine();
+            Console.Clear();
+        }
+        public static void Withdraw(Customer loggedInCustomer)
+        {
+            int maxPasswordAttempts = 3;
+
+            while (true)
+            {
+                Console.Clear();
+                ShowAllAcc(loggedInCustomer);
+
+                Account sourceAccount = null;
+                while (sourceAccount == null)
+                {
+                    Console.WriteLine("Enter the number of the account you want to withdraw from:");
+                    if (!int.TryParse(Console.ReadLine(), out int withdrawFromOrder))
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid account number.");
+                        continue;
+                    }
+
+                    sourceAccount = loggedInCustomer.Accounts.Find(a => a.SortOrder == withdrawFromOrder);
+
+                    if (sourceAccount == null)
+                    {
+                        Console.WriteLine("Please enter a valid account number.");
+                    }
+                }
+
+                Console.WriteLine("Enter the amount to withdraw:");
+                if (!decimal.TryParse(Console.ReadLine(), out decimal withdrawAmount) || withdrawAmount <= 0 || withdrawAmount > sourceAccount.Balance)
+                {
+                    Console.WriteLine("Invalid withdraw amount.");
+                    return;
+                }
+
+                bool validChoice = false;
+
+                while (!validChoice)
+                {
+                    Console.WriteLine($"Confirm transaction (1 to confirm, 0 to cancel):");
+                    if (!int.TryParse(Console.ReadLine(), out int confirm) || (confirm != 0 && confirm != 1))
+                    {
+                        Console.WriteLine("Invalid confirmation input. Transaction cancelled.");
+                        Console.Clear();
+                        return;
+                    }
+
+
+                    Console.WriteLine("Enter Password to confirm withdrawal:");
+                    string enteredPassword = Validator.GetHiddenInput();
+                    while (loggedInCustomer.PasswordAttempts > maxPasswordAttempts)
+                    {
+                        if (ValidatePassForWithdraw(loggedInCustomer.UserName, enteredPassword))
                         {
-                            loggedInCustomer.PasswordAttempts++;
-
+                            
                             sourceAccount.Balance -= withdrawAmount;
 
                             Transaction transaction = new Transaction
@@ -105,37 +174,29 @@ namespace DotNetDynamosV2
                                 Timestamp = DateTime.Now
                             };
                             loggedInCustomer.TransactionHistory.Add(transaction);
+                            loggedInCustomer.PasswordAttempts = 0;
 
 
-                        Console.WriteLine("Transaction successful.");
-                        break;
-                        
                             Console.WriteLine($"Withdrawal of {withdrawAmount} ({sourceAccount.Currency}) from account {sourceAccount.AccountNumber} successful.");
-                            
                             break;
                         }
-                        else
+                        else if (!ValidatePassForWithdraw(loggedInCustomer.UserName, enteredPassword) && loggedInCustomer.PasswordAttempts != 3)
                         {
-                            Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - attempt} attempts remaining.");
-                            attempt++;
+                            loggedInCustomer.PasswordAttempts++;
+
+                            Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - loggedInCustomer.PasswordAttempts} attempts remaining."); //Inte klart
+                            continue;
                         }
-
-                    }
-
-                    if (!passwordValidated)
-                    {
-
-                        IncrementPasswordAttempts(loggedInCustomer);
-                        Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - loggedInCustomer.PasswordAttempts} attempts remaining."); //Inte klart
-                        break;
+                        else if (!ValidatePassForWithdraw(loggedInCustomer.UserName, enteredPassword) && loggedInCustomer.PasswordAttempts == 3)
+                        {
+                            LockOutUser(loggedInCustomer);
+                            CustomerManager.LogOut(loggedInCustomer);
+                        }
 
                     }
 
                     validChoice = true;
                 }
-
-
-
 
                 Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
                 if (Console.ReadKey().Key != ConsoleKey.Enter)
@@ -149,6 +210,7 @@ namespace DotNetDynamosV2
             Console.ReadLine();
             Console.Clear();
         }
+
 
         /// <summary>
         /// Nathalee:
@@ -194,7 +256,7 @@ namespace DotNetDynamosV2
                 }
                 decimal convertedAmount = Converter.ConvertDepositMoney(depositCurrency, depositTo, depositAmount); // Added this line.
                 Console.WriteLine($"{depositAmount} {depositCurrency} will become {convertedAmount} {depositTo.Currency}, proceed?\n\n Press Enter to return to account choice.");
-                
+
                 Console.WriteLine($"Confirm transaction (1 to confirm, 0 to cancel):");
                 if (!int.TryParse(Console.ReadLine(), out int confirm) || (confirm != 0 && confirm != 1))
                 {
@@ -233,17 +295,6 @@ namespace DotNetDynamosV2
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-        }
         private static bool ValidatePassForWithdraw(string enteredName, string enteredPassword)
         {
 
@@ -261,94 +312,94 @@ namespace DotNetDynamosV2
         }
         private static void IncrementPasswordAttempts(Customer loggedInCustomer)
         {
-            if (loggedInCustomer.PasswordAttempts != 3)
-            {
-                loggedInCustomer.PasswordAttempts++;
-            }
-            else if (loggedInCustomer.PasswordAttempts == 3)
-            {
-                LockOutUser(loggedInCustomer);
-                CustomerManager.LogOut(loggedInCustomer);
-            }
+            //if (loggedInCustomer.PasswordAttempts != 3)
+            //{
+            //    loggedInCustomer.PasswordAttempts++;
+            //}
+            //else if (loggedInCustomer.PasswordAttempts == 3)
+            //{
+            //    LockOutUser(loggedInCustomer);
+            //    CustomerManager.LogOut(loggedInCustomer);
+            //}
         }
         private static void LockOutUser(Customer loggedInCustomer)
         {
-            CustomerLogin.loginAttemptsCount[loggedInCustomer.UserName] = 3;
+            CustomerLogin.loginAttemptsCount.Add(loggedInCustomer.UserName, loggedInCustomer.PasswordAttempts);
             Console.WriteLine($"User {loggedInCustomer.UserName} is locked out. Please contact support.");
         }
 
     }
 
 
-        //    public static void Deposit(Customer loggedInCustomer)
-        //    {
-        //        while (true)
-        //        {
-        //            Console.Clear();
-        //            ShowAllAcc(loggedInCustomer);
+    //    public static void Deposit(Customer loggedInCustomer)
+    //    {
+    //        while (true)
+    //        {
+    //            Console.Clear();
+    //            ShowAllAcc(loggedInCustomer);
 
-        //            Console.WriteLine("Enter the number of the account you want to deposit to:");
-        //            if (!int.TryParse(Console.ReadLine(), out int transferFromOrder))
-        //            {
-        //                Console.WriteLine("Invalid input. Please enter a valid account number.");
-        //                continue;
-        //            }
+    //            Console.WriteLine("Enter the number of the account you want to deposit to:");
+    //            if (!int.TryParse(Console.ReadLine(), out int transferFromOrder))
+    //            {
+    //                Console.WriteLine("Invalid input. Please enter a valid account number.");
+    //                continue;
+    //            }
 
-        //            Account depositTo = loggedInCustomer.Accounts.Find(a => a.SortOrder == transferFromOrder);
+    //            Account depositTo = loggedInCustomer.Accounts.Find(a => a.SortOrder == transferFromOrder);
 
-        //            if (depositTo == null)
-        //            {
-        //                Console.WriteLine("Source account not found.");
-        //                continue;
-        //            }
+    //            if (depositTo == null)
+    //            {
+    //                Console.WriteLine("Source account not found.");
+    //                continue;
+    //            }
 
-        //            Console.WriteLine("Enter the amount to deposit:");
-        //            if (!decimal.TryParse(Console.ReadLine(), out decimal transferAmount) || transferAmount <= 0 || transferAmount > depositTo.Balance)
-        //            {
-        //                Console.WriteLine("Invalid transfer amount.");
-        //                continue;
-        //            }
+    //            Console.WriteLine("Enter the amount to deposit:");
+    //            if (!decimal.TryParse(Console.ReadLine(), out decimal transferAmount) || transferAmount <= 0 || transferAmount > depositTo.Balance)
+    //            {
+    //                Console.WriteLine("Invalid transfer amount.");
+    //                continue;
+    //            }
 
-        //            //decimal money = Converter.ConvertMoney(depositTo, targetAccount, transferAmount); //Behöver ny metod i convert
+    //            //decimal money = Converter.ConvertMoney(depositTo, targetAccount, transferAmount); //Behöver ny metod i convert
 
-        //            //Console.WriteLine($"{transferAmount} {depositTo.Currency} will become {money} {targetAccount.Currency}, proceed?\n\n Press Enter to return to account choice.");
-        //            //Console.WriteLine("[1]. Yes");
-        //            //Console.WriteLine("[2]. No");
+    //            //Console.WriteLine($"{transferAmount} {depositTo.Currency} will become {money} {targetAccount.Currency}, proceed?\n\n Press Enter to return to account choice.");
+    //            //Console.WriteLine("[1]. Yes");
+    //            //Console.WriteLine("[2]. No");
 
-        //            if (int.TryParse(Console.ReadLine(), out int confirm) && confirm == 1)
-        //            {
-        //                depositTo.Balance += transferAmount;
+    //            if (int.TryParse(Console.ReadLine(), out int confirm) && confirm == 1)
+    //            {
+    //                depositTo.Balance += transferAmount;
 
-        //                Transaction transaction = new Transaction
-        //                {
-        //                    TransactionType = "Deposit money",
-        //                    Amount = transferAmount,
-        //                    Timestamp = DateTime.Now
-        //                };
-        //                loggedInCustomer.TransactionHistory.Add(transaction);
+    //                Transaction transaction = new Transaction
+    //                {
+    //                    TransactionType = "Deposit money",
+    //                    Amount = transferAmount,
+    //                    Timestamp = DateTime.Now
+    //                };
+    //                loggedInCustomer.TransactionHistory.Add(transaction);
 
-        //                Console.WriteLine("Transaction successful."); //Mer info=
-        //            }
-        //            else
-        //            {
-        //                Console.WriteLine("Transaction cancelled.");
-        //            }
+    //                Console.WriteLine("Transaction successful."); //Mer info=
+    //            }
+    //            else
+    //            {
+    //                Console.WriteLine("Transaction cancelled.");
+    //            }
 
-        //            Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
-        //            if (Console.ReadKey().Key != ConsoleKey.Enter)
-        //            {
-        //                break; // Exit the loop if any key other than Enter is pressed
-        //            }
-        //        }
+    //            Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
+    //            if (Console.ReadKey().Key != ConsoleKey.Enter)
+    //            {
+    //                break; // Exit the loop if any key other than Enter is pressed
+    //            }
+    //        }
 
-        //        Console.Clear();
-        //        CustomerManager.Menu(loggedInCustomer);
+    //        Console.Clear();
+    //        CustomerManager.Menu(loggedInCustomer);
 
 
 
-        //    }
+    //    }
 
-        //}
+    //}
 
-    }
 }
+

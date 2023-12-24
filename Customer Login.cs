@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -112,6 +113,7 @@ namespace DotNetDynamosV2
 
         private static bool IsUserLockedOut(string username)
         {
+            
             return loginAttemptsCount.ContainsKey(username) && loginAttemptsCount[username] >= 3;
         }
 
