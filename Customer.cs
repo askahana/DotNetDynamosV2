@@ -21,6 +21,7 @@ namespace DotNetDynamosV2
         public string Birthday { get; set; }
         public List<Account> Accounts { get; set; }
         public List<Transaction> TransactionHistory { get; set; }
+        public List<Customer> LockedOutCustomer { get; set; }
 
         public int PasswordAttempts { get; set; }
         public Customer() : this("No username provided.", 0000, "No firstname provided.", "No lastname provided.", "No password provided", "no email provided", "0000-00-00", new List<Account>(), new List<Transaction>(), 0)
