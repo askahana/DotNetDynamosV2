@@ -32,6 +32,7 @@ namespace DotNetDynamosV2
                 LastName = "Johansson",
                 PassWord = "Passwords1!",
                 Birthday = "1978-01-01",
+                PasswordAttempts = 0,
                 Accounts = new List<Account>
                 {
                         new Account(50028977, "MainAccount", "SEK", 1234M, 1),

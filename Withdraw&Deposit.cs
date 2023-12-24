@@ -27,6 +27,12 @@ namespace DotNetDynamosV2
         {
             int maxPasswordAttempts = 3;
 
+            while (true)
+            {
+                Console.Clear();
+                ShowAllAcc(loggedInCustomer);
+
+
             Console.Clear();
             ShowAllAcc(loggedInCustomer);
 
@@ -67,12 +73,21 @@ namespace DotNetDynamosV2
                     return;
                 }
 
-                if (confirm == 1)
-                {
-                    int attempt = 1;
-                    bool passwordValidated = false;
 
-                    while (attempt <= maxPasswordAttempts)
+
+                Console.WriteLine("Are you sure you want to withdraw? Press 1 to confirm or any other key to cancel.");
+                if (Console.ReadLine() != "1")
+                {
+                    Console.WriteLine("Transaction cancelled.");
+                    continue;
+                }
+
+                Console.WriteLine("Enter Password to confirm withdrawal:");
+                string enteredPassword = Validator.GetHiddenInput();
+                while (true)
+                {
+                    if (ValidatePassForWithdraw(loggedInCustomer.UserName, enteredPassword))
+
                     {
                         Console.WriteLine($"Attempt {attempt}: Enter Password to confirm withdrawal:");
                         string enteredPassword = Validator.GetHiddenInput();
@@ -91,8 +106,12 @@ namespace DotNetDynamosV2
                             };
                             loggedInCustomer.TransactionHistory.Add(transaction);
 
+
+                        Console.WriteLine("Transaction successful.");
+                        break;
+                        
                             Console.WriteLine($"Withdrawal of {withdrawAmount} ({sourceAccount.Currency}) from account {sourceAccount.AccountNumber} successful.");
-                            passwordValidated = true;
+                            
                             break;
                         }
                         else
@@ -100,22 +119,29 @@ namespace DotNetDynamosV2
                             Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - attempt} attempts remaining.");
                             attempt++;
                         }
+
                     }
 
                     if (!passwordValidated)
                     {
-                        Console.WriteLine("Maximum password attempts reached. Press Enter to return to the menu.");
-                        Console.ReadLine();
-                        Console.Clear();
-                        return;
+
+                        IncrementPasswordAttempts(loggedInCustomer);
+                        Console.WriteLine($"Incorrect password. You have {maxPasswordAttempts - loggedInCustomer.PasswordAttempts} attempts remaining."); //Inte klart
+                        break;
+
                     }
 
                     validChoice = true;
                 }
-                else
+
+
+
+
+                Console.WriteLine("Press Enter to return to account choice or any other key to exit.");
+                if (Console.ReadKey().Key != ConsoleKey.Enter)
                 {
-                    Console.WriteLine("Transaction cancelled.");
-                    validChoice = true;
+                    break; // Exit the loop if any key other than Enter is pressed
+
                 }
             }
 
@@ -213,6 +239,45 @@ namespace DotNetDynamosV2
 
 
 
+
+
+
+
+        }
+        private static bool ValidatePassForWithdraw(string enteredName, string enteredPassword)
+        {
+
+            Customer storedUser = DataManager.customerList[enteredName];
+            if (enteredPassword == storedUser.PassWord)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
+        private static void IncrementPasswordAttempts(Customer loggedInCustomer)
+        {
+            if (loggedInCustomer.PasswordAttempts != 3)
+            {
+                loggedInCustomer.PasswordAttempts++;
+            }
+            else if (loggedInCustomer.PasswordAttempts == 3)
+            {
+                LockOutUser(loggedInCustomer);
+                CustomerManager.LogOut(loggedInCustomer);
+            }
+        }
+        private static void LockOutUser(Customer loggedInCustomer)
+        {
+            CustomerLogin.loginAttemptsCount[loggedInCustomer.UserName] = 3;
+            Console.WriteLine($"User {loggedInCustomer.UserName} is locked out. Please contact support.");
+        }
+
+    }
 
 
         //    public static void Deposit(Customer loggedInCustomer)
